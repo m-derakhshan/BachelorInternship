@@ -1,5 +1,6 @@
 package com.kharazmic.app.login
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -28,11 +29,16 @@ class LoginActivity : AppCompatActivity() {
         val viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
         binding.viewModel = viewModel
 
+
+
+
         viewModel.status.observe(this, Observer {
             it?.let { status ->
-                if (!status)
-                    Toast.makeText(this, "some thing went Wrong!", Toast.LENGTH_LONG).show()
-                else
+                if (!status) {
+                    val intent = Intent(this, ValidateActivity::class.java)
+                    intent.putExtra("phone", binding.phoneNumber.text)
+                    startActivity(intent)
+                } else
                     Toast.makeText(this, "GO to next page!", Toast.LENGTH_LONG).show()
             }
 

@@ -15,6 +15,7 @@ class LoginViewModel(private val context: Context) : ViewModel() {
 
 
     lateinit var phoneNumber: String
+    lateinit var code: String
     val status = MutableLiveData<Boolean>()
 
 
@@ -22,6 +23,30 @@ class LoginViewModel(private val context: Context) : ViewModel() {
         if (Arrange().validatePhone(phoneNumber)) {
             val data = JSONObject()
             data.put("phone", phoneNumber)
+            val request =
+                JsonObjectRequest(Request.Method.POST, Address().LoginAPI, data, Response.Listener {
+
+                    status.value = it.getBoolean("status")
+
+
+                }, Response.ErrorListener {
+                    status.value = false
+                })
+
+            val queue = Volley.newRequestQueue(context)
+            queue.add(request)
+        } else {
+
+            status.value = false
+
+        }
+    }
+
+    fun sendCode() {
+        if (Arrange().validatePhone(code)) {
+            val data = JSONObject()
+            data.put("phone", phoneNumber)
+            data.put("code", code)
             val request =
                 JsonObjectRequest(Request.Method.POST, Address().LoginAPI, data, Response.Listener {
 

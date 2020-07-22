@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+
+    <style name="vazir_font"  parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:fontFamily">@font/vazir</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+
 </resources>
