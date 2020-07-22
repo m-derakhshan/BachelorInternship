@@ -18,13 +18,15 @@
 
 
         <EditText
+            android:maxLength="11"
+            android:textAppearance="@style/vazir_font"
             android:id="@+id/phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/enter_phone_number"
             android:inputType="phone"
-            android:text="@{viewModel.phoneNumber}" />
+            android:text="@={viewModel.phoneNumber}" />
 
         <Button
             android:text="login"

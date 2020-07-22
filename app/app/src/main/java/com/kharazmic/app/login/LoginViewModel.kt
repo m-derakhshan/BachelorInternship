@@ -1,6 +1,7 @@
 package com.kharazmic.app.login
 
 import android.content.Context
+import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.Request
@@ -14,8 +15,9 @@ import org.json.JSONObject
 class LoginViewModel(private val context: Context) : ViewModel() {
 
 
-    lateinit var phoneNumber: String
-    lateinit var code: String
+    var phoneNumber: String = ""
+    var code: String = ""
+    var counter = MutableLiveData<Float>()
     val status = MutableLiveData<Boolean>()
 
 
@@ -30,13 +32,12 @@ class LoginViewModel(private val context: Context) : ViewModel() {
 
 
                 }, Response.ErrorListener {
-                    status.value = false
+                    status.value = true
                 })
 
             val queue = Volley.newRequestQueue(context)
             queue.add(request)
         } else {
-
             status.value = false
 
         }
@@ -64,6 +65,20 @@ class LoginViewModel(private val context: Context) : ViewModel() {
             status.value = false
 
         }
+    }
+
+
+    fun timer() {
+        val timer = object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                counter.value = (millisUntilFinished / 1000).toFloat()
+            }
+
+            override fun onFinish() {
+                counter.value = 0F
+            }
+        }
+        timer.start()
     }
 
 }

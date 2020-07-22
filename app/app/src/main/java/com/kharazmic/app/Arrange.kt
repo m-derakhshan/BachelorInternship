@@ -4,7 +4,7 @@ class Arrange {
 
 
 
-    fun validatePhone(phone: String?): Boolean = !phone.isNullOrEmpty()
+    fun validatePhone(phone: String?): Boolean = !phone.isNullOrEmpty() && phone.length == 11
 
 
 }

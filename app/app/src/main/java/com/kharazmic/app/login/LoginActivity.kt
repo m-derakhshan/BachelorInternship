@@ -34,12 +34,12 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.status.observe(this, Observer {
             it?.let { status ->
-                if (!status) {
+                if (status) {
                     val intent = Intent(this, ValidateActivity::class.java)
                     intent.putExtra("phone", binding.phoneNumber.text)
                     startActivity(intent)
                 } else
-                    Toast.makeText(this, "GO to next page!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "wrong phone number", Toast.LENGTH_LONG).show()
             }
 
         })

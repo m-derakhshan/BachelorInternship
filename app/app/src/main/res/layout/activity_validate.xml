@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <data>
 
         <variable
@@ -10,29 +11,56 @@
             type="com.kharazmic.app.login.LoginViewModel" />
     </data>
 
+
     <LinearLayout
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
         tools:context=".login.ValidateActivity">
 
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/counterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textAppearance="@style/vazir_font"
+                android:textSize="25sp" />
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/counter"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                app:cpb_progress="60"
+                app:cpb_progress_max="60" />
+        </RelativeLayout>
+
         <com.chaos.view.PinView
-            android:text="@{viewModel.phoneNumber}"
-            app:viewType="rectangle"
-            android:inputType="number"
-            android:layout_gravity="center"
-            android:gravity="center"
+            android:id="@+id/code"
+            style="@style/PinWidget.PinView"
+            app:cursorWidth="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:itemCount="6" />
+            android:cursorVisible="true"
+            android:inputType="number"
+            android:text="@={viewModel.code}"
+            android:textAppearance="@style/vazir_font"
+            app:itemCount="6"
+            app:viewType="rectangle" />
+
 
         <Button
-            android:layout_marginTop="20dp"
-            android:onClick="@{() -> viewModel.sendCode()}"
-            android:text="send"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="@{()->viewModel.sendCode()}"
+            android:text="send" />
 
 
     </LinearLayout>
