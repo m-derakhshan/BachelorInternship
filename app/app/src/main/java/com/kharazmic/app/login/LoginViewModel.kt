@@ -19,6 +19,11 @@ class LoginViewModel(private val context: Context) : ViewModel() {
     var code: String = ""
     var counter = MutableLiveData<Float>()
     val status = MutableLiveData<Boolean>()
+    val timeUp = MutableLiveData<Boolean>()
+
+    init {
+        timeUp.value = false
+    }
 
 
     fun sendSMS() {
@@ -76,6 +81,7 @@ class LoginViewModel(private val context: Context) : ViewModel() {
 
             override fun onFinish() {
                 counter.value = 0F
+                timeUp.value = true
             }
         }
         timer.start()

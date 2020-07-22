@@ -3,6 +3,7 @@ package com.kharazmic.app.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -28,16 +29,16 @@ class LoginActivity : AppCompatActivity() {
         val factory = LoginViewModelFactory(this)
         val viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
         binding.viewModel = viewModel
-
-
-
+        intent.getStringExtra("phone")?.let { viewModel.phoneNumber = it }
 
         viewModel.status.observe(this, Observer {
             it?.let { status ->
                 if (status) {
                     val intent = Intent(this, ValidateActivity::class.java)
-                    intent.putExtra("phone", binding.phoneNumber.text)
+                    intent.putExtra("phone", binding.phoneNumber.text.toString())
                     startActivity(intent)
+                    finish()
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 } else
                     Toast.makeText(this, "wrong phone number", Toast.LENGTH_LONG).show()
             }

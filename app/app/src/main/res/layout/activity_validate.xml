@@ -42,15 +42,17 @@
         </RelativeLayout>
 
         <com.chaos.view.PinView
+
+            app:itemRadius="2dp"
             android:id="@+id/code"
             style="@style/PinWidget.PinView"
-            app:cursorWidth="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:cursorVisible="true"
             android:inputType="number"
             android:text="@={viewModel.code}"
             android:textAppearance="@style/vazir_font"
+            app:cursorWidth="2dp"
             app:itemCount="6"
             app:viewType="rectangle" />
 
@@ -60,7 +62,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:onClick="@{()->viewModel.sendCode()}"
-            android:text="send" />
+            android:text="@string/send_code" />
+
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resend_code"
+            android:textAppearance="@style/vazir_font" />
+
+        <TextView
+            android:id="@+id/wrongNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_phone_number"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/gray" />
 
 
     </LinearLayout>
