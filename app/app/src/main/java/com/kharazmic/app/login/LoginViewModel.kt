@@ -2,6 +2,7 @@ package com.kharazmic.app.login
 
 import android.content.Context
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.Request
@@ -18,7 +19,8 @@ class LoginViewModel(private val context: Context) : ViewModel() {
     var phoneNumber: String = ""
     var code: String = ""
     var counter = MutableLiveData<Float>()
-    val status = MutableLiveData<Boolean>()
+    val loginStatus = MutableLiveData<Boolean>()
+    val validateStatus = MutableLiveData<Boolean>()
     val timeUp = MutableLiveData<Boolean>()
 
     init {
@@ -27,54 +29,55 @@ class LoginViewModel(private val context: Context) : ViewModel() {
 
 
     fun sendSMS() {
+        Log.i("Log", "phone is $phoneNumber")
         if (Arrange().validatePhone(phoneNumber)) {
             val data = JSONObject()
             data.put("phone", phoneNumber)
             val request =
                 JsonObjectRequest(Request.Method.POST, Address().LoginAPI, data, Response.Listener {
 
-                    status.value = it.getBoolean("status")
+                    loginStatus.value = true
+                    loginStatus.value = it.getBoolean("status")
 
 
                 }, Response.ErrorListener {
-                    status.value = true
+                    //------------------------****************** loginStatus.value = true **********//
+                    loginStatus.value = true
                 })
 
             val queue = Volley.newRequestQueue(context)
             queue.add(request)
         } else {
-            status.value = false
+            loginStatus.value = false
 
         }
     }
 
     fun sendCode() {
+
         if (Arrange().validatePhone(code)) {
             val data = JSONObject()
             data.put("phone", phoneNumber)
             data.put("code", code)
             val request =
                 JsonObjectRequest(Request.Method.POST, Address().LoginAPI, data, Response.Listener {
-
-                    status.value = it.getBoolean("status")
-
-
+                    validateStatus.value = it.getBoolean("status")
                 }, Response.ErrorListener {
-                    status.value = false
+                    validateStatus.value = false
                 })
 
             val queue = Volley.newRequestQueue(context)
             queue.add(request)
         } else {
 
-            status.value = false
+            validateStatus.value = false
 
         }
     }
 
 
     fun timer() {
-        val timer = object : CountDownTimer(60000, 1000) {
+        val timer = object : CountDownTimer(6000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 counter.value = (millisUntilFinished / 1000).toFloat()
             }

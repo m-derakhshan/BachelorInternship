@@ -12,75 +12,227 @@
     </data>
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        tools:context=".login.ValidateActivity">
+        android:overScrollMode="never"
+        android:scrollbarThumbVertical="@null">
 
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layoutDirection="rtl"
+            android:orientation="vertical"
+            tools:context=".login.ValidateActivity">
 
-            <TextView
-                android:id="@+id/counterText"
+
+            <ImageView
+                android:id="@+id/top"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/login_top_banner"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/logo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RelativeLayout
+                android:id="@+id/holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:padding="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/login_card_view"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/progress_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                            android:id="@+id/counter"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_margin="10dp"
+                            app:cpb_background_progressbar_color="@color/light_pink"
+                            app:cpb_progress="6"
+                            app:cpb_progress_max="6"
+                            app:cpb_progressbar_color="@color/dark_pink"
+                            app:cpb_progressbar_width="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/counterText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_purple"
+                            android:textSize="25sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/progress_holder"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:id="@+id/resend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/resend_code"
+                        android:textAppearance="@style/vazir_font"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:visibility="invisible" />
+
+                    <com.chaos.view.PinView
+                        android:layout_marginTop="30dp"
+                        app:layout_constraintTop_toBottomOf="@+id/progress_holder"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:id="@+id/code"
+                        style="@style/PinWidget.PinView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text="@={viewModel.code}"
+                        android:textAppearance="@style/vazir_font"
+                        app:itemCount="6"
+                        app:itemWidth="42dp"
+                        app:lineColor="@color/colorAccent"
+                        app:viewType="line" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/login_btn"
+                android:elevation="10dp"
+                android:onClick="@{() -> viewModel.sendCode()}"
+                android:paddingStart="30dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="10dp"
+                android:text="@string/send_code"
                 android:textAppearance="@style/vazir_font"
-                android:textSize="25sp" />
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/counter"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="10dp"
-                app:cpb_progress="60"
-                app:cpb_progress_max="60" />
-        </RelativeLayout>
-
-        <com.chaos.view.PinView
-
-            app:itemRadius="2dp"
-            android:id="@+id/code"
-            style="@style/PinWidget.PinView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:cursorVisible="true"
-            android:inputType="number"
-            android:text="@={viewModel.code}"
-            android:textAppearance="@style/vazir_font"
-            app:cursorWidth="2dp"
-            app:itemCount="6"
-            app:viewType="rectangle" />
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/holder"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:onClick="@{()->viewModel.sendCode()}"
-            android:text="@string/send_code" />
+            <TextView
+                android:id="@+id/wrongNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/edit_phone_number"
+                android:textAppearance="@style/vazir_font"
+                android:textColor="@color/gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/check" />
 
 
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/resend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/resend_code"
-            android:textAppearance="@style/vazir_font" />
+            <!--
 
-        <TextView
-            android:id="@+id/wrongNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edit_phone_number"
-            android:textAppearance="@style/vazir_font"
-            android:textColor="@color/gray" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/counterText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textAppearance="@style/vazir_font"
+                    android:textSize="25sp" />
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/counter"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    app:cpb_progress="60"
+                    app:cpb_progress_max="60" />
+            </RelativeLayout>
+
+            <com.chaos.view.PinView
+                app:itemRadius="2dp"
+                android:id="@+id/code"
+                style="@style/PinWidget.PinView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:inputType="number"
+                android:text="@={viewModel.code}"
+                android:textAppearance="@style/vazir_font"
+                app:cursorWidth="2dp"
+                app:itemCount="6"
+                app:viewType="rectangle" />
 
 
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:onClick="@{()->viewModel.sendCode()}"
+                android:text="@string/send_code" />
+
+
+
+
+
+
+    -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>

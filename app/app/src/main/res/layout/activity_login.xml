@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.kharazmic.app.login.LoginViewModel" />
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutDirection="rtl"
@@ -17,24 +19,130 @@
         tools:context=".login.LoginActivity">
 
 
-        <EditText
-            android:maxLength="11"
-            android:textAppearance="@style/vazir_font"
-            android:id="@+id/phoneNumber"
+        <ImageView
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/login_top_banner"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="200dp"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="@string/enter_phone_number"
-            android:inputType="phone"
-            android:text="@={viewModel.phoneNumber}" />
+            android:clipToPadding="false"
+            android:padding="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top">
+
+
+            <LinearLayout
+                android:padding="25dp"
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/login_card_view"
+                android:elevation="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:letterSpacing="0.3"
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_phone_icon"
+                    android:gravity="center"
+                    android:hint="@string/enter_phone_number"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:text="@={viewModel.phoneNumber}"
+                    android:textAppearance="@style/vazir_font" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <Button
-            android:text="login"
             android:id="@+id/login"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.sendSMS()}" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:alpha="0.8"
+            android:background="@drawable/login_btn"
+            android:elevation="10dp"
+            android:enabled="false"
+            android:onClick="@{() -> viewModel.sendSMS()}"
+            android:paddingStart="30dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="10dp"
+            android:text="@string/receive_code"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/holder"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
-    </LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+
+            <CheckBox
+                android:id="@+id/accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/rules"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/rules"
+                android:textAppearance="@style/vazir_font"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/accept"
+                app:layout_constraintRight_toLeftOf="@id/accept" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/rules_txt"
+                android:textAppearance="@style/vazir_font"
+                app:layout_constraintBottom_toBottomOf="@id/rules"
+                app:layout_constraintRight_toLeftOf="@+id/rules" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
