@@ -132,13 +132,13 @@
                         app:layout_constraintRight_toRightOf="parent"
                         android:id="@+id/code"
                         style="@style/PinWidget.PinView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
                         android:text="@={viewModel.code}"
                         android:textAppearance="@style/vazir_font"
                         app:itemCount="6"
-                        app:itemWidth="42dp"
+                        app:itemWidth="30dp"
                         app:lineColor="@color/colorAccent"
                         app:viewType="line" />
 

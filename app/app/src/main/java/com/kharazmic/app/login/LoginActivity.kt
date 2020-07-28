@@ -46,15 +46,20 @@ class LoginActivity : AppCompatActivity() {
                     YoYo.with(Techniques.Shake)
                         .duration(1200)
                         .playOn(binding.phoneNumber)
-
-                    Utils(this).showSnackBar(
-                        color = ContextCompat.getColor(this, R.color.black),
-                        msg = getString(R.string.wrong_phone),
-                        snackView = binding.root
-                    )
                 }
             }
 
+        })
+
+        viewModel.internetStatus.observe(this, Observer {
+            isConnect->
+            if (!isConnect){
+                Utils(this).showSnackBar(
+                    color = ContextCompat.getColor(this, R.color.black),
+                    msg = getString(R.string.no_connection),
+                    snackView = binding.root
+                )
+            }
         })
 
         binding.accept.setOnCheckedChangeListener { _, isChecked ->
@@ -72,8 +77,11 @@ class LoginActivity : AppCompatActivity() {
             isLoading?.let {
                 if (isLoading)
                     binding.login.startAnimation()
-                else
+                else {
                     binding.login.revertAnimation()
+                    binding.login.background = ContextCompat.getDrawable(this, R.drawable.login_btn)
+
+                }
             }
         })
     }

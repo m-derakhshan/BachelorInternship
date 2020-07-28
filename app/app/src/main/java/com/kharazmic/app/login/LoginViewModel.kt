@@ -21,10 +21,13 @@ class LoginViewModel(private val context: Context) : ViewModel() {
     var counter = MutableLiveData<Float>()
     val loginStatus = MutableLiveData<Boolean>()
     val validateStatus = MutableLiveData<Boolean>()
+    val internetStatus = MutableLiveData<Boolean>()
+
     val timeUp = MutableLiveData<Boolean>()
     val isLoading = MutableLiveData<Boolean>()
 
     init {
+        internetStatus.value = true
         timeUp.value = false
         isLoading.value = false
     }
@@ -39,11 +42,11 @@ class LoginViewModel(private val context: Context) : ViewModel() {
             val request =
                 JsonObjectRequest(Request.Method.POST, Address().LoginAPI, data, Response.Listener {
                     loginStatus.value = it.getBoolean("status")
-                    isLoading.value = it.getBoolean("status")
+                    isLoading.value = !it.getBoolean("status")
 
                 }, Response.ErrorListener {
                     isLoading.value = false
-                    loginStatus.value = false
+                    internetStatus.value = false
                 })
 
             val queue = Volley.newRequestQueue(context)
@@ -62,13 +65,18 @@ class LoginViewModel(private val context: Context) : ViewModel() {
             data.put("phone", phoneNumber)
             data.put("code", code)
             val request =
-                JsonObjectRequest(Request.Method.POST, Address().ValidatePhoneAPI, data, Response.Listener {
-                    validateStatus.value = it.getBoolean("status")
-                    isLoading.value = it.getBoolean("status")
-                }, Response.ErrorListener {
-                    validateStatus.value = false
-                    isLoading.value = false
-                })
+                JsonObjectRequest(
+                    Request.Method.POST,
+                    Address().ValidatePhoneAPI,
+                    data,
+                    Response.Listener {
+                        validateStatus.value = it.getBoolean("status")
+                        isLoading.value = it.getBoolean("status")
+                    },
+                    Response.ErrorListener {
+                        internetStatus.value = false
+                        isLoading.value = false
+                    })
 
             val queue = Volley.newRequestQueue(context)
             queue.add(request)

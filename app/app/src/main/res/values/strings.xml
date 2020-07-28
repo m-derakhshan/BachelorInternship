@@ -8,5 +8,10 @@
     <string name="rules">قوانین و مقررات</string>
     <string name="wrong_code">کد وارد شده اشتباه می باشد.</string>
     <string name="rules_txt">را خوانده ام و موافق هستم.</string>
-    <string name="wrong_phone">خطایی رخ داده است! مجددا تلاش کنید</string>
+    <string name="no_connection">لطفا از اتصال به اینترنت مطمئن شوید.</string>
+    <string name="home">خانه</string>
+    <string name="tutorial">آموزش</string>
+    <string name="search">سرچ نماد</string>
+    <string name="news">اخبار</string>
+    <string name="profile">پروفایل</string>
 </resources>
