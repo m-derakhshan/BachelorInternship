@@ -11,17 +11,6 @@
 
 
 
-    <item
-        android:id="@+id/tutorial"
-        android:enabled="true"
-        android:icon="@drawable/ic_tutorial_icon"
-        android:title="@string/tutorial" />
-
-
-
-
-
-
 
     <item
         android:id="@+id/search"
@@ -29,6 +18,28 @@
         android:icon="@drawable/ic_search_icon"
         android:title="@string/search" />
 
+
+
+
+
+
+
+
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_icon"
+        android:title="@string/home" />
+
+
+
+
+
+    <item
+        android:id="@+id/tutorial"
+        android:enabled="true"
+        android:icon="@drawable/ic_tutorial_icon"
+        android:title="@string/tutorial" />
 
 
 
@@ -41,10 +52,5 @@
 
 
 
-    <item
-        android:id="@+id/home"
-        android:enabled="true"
-        android:icon="@drawable/ic_home_icon"
-        android:title="@string/home" />
 
 </menu>

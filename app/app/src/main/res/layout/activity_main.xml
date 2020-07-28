@@ -12,16 +12,33 @@
         android:layout_height="match_parent"
         tools:context=".main.MainActivity">
 
+        <ImageView
+            android:id="@+id/top_banner"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@mipmap/login_top_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:overScrollMode="never"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
+            app:layout_constraintTop_toBottomOf="@+id/top_banner" />
+
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_menu"
-            android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
             app:itemTextAppearanceActive="@style/vazir_font"
             app:labelVisibilityMode="selected"
-            app:menu="@menu/menu"
-            android:layout_height="wrap_content" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
