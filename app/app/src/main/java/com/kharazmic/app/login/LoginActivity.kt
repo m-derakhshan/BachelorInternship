@@ -13,14 +13,21 @@ import com.daimajia.androidanimations.library.YoYo
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.ActivityLoginBinding
+import com.kharazmic.app.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-
+    private lateinit var utils: Utils
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        utils = Utils(this)
+        if (utils.isLoggedIn) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
 
         val factory = LoginViewModelFactory(this)
         val viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
@@ -51,10 +58,9 @@ class LoginActivity : AppCompatActivity() {
 
         })
 
-        viewModel.internetStatus.observe(this, Observer {
-            isConnect->
-            if (!isConnect){
-                Utils(this).showSnackBar(
+        viewModel.internetStatus.observe(this, Observer { isConnect ->
+            if (!isConnect) {
+                utils.showSnackBar(
                     color = ContextCompat.getColor(this, R.color.black),
                     msg = getString(R.string.no_connection),
                     snackView = binding.root
