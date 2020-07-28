@@ -5,20 +5,34 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 
 import com.kharazmic.app.R
+import com.kharazmic.app.Utils
+import com.kharazmic.app.databinding.FragmentProfileBinding
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class ProfileFragment : Fragment() {
+
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        return binding.root
     }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+
+        binding.exit.setOnClickListener {
+            Utils(context!!).isLoggedIn = false
+        }
+    }
+
 
 }
