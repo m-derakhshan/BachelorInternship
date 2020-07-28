@@ -1,4 +1,4 @@
-package com.kharazmic.app.main
+package com.kharazmic.app.main.home
 
 import android.view.LayoutInflater
 import android.view.View

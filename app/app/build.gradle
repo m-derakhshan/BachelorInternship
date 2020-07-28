@@ -81,3 +81,9 @@ dependencies {
 dependencies {
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
 }
+
+
+//---------------material dot indicator---------------//
+dependencies {
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+}

@@ -1,18 +1,36 @@
 package com.kharazmic.app.main
 
+import android.annotation.SuppressLint
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import android.widget.Adapter
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.ActivityMainBinding
+import com.kharazmic.app.main.home.HomeFragment
+import com.kharazmic.app.main.home.ItemMenuModel
+import com.kharazmic.app.main.home.RecyclerViewAdapter
+import com.kharazmic.app.main.news.NewsFragment
+import com.kharazmic.app.main.profile.ProfileFragment
+import com.kharazmic.app.main.search.SearchFragment
+import com.kharazmic.app.main.tutorial.TutorialFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var utils: Utils
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -20,37 +38,64 @@ class MainActivity : AppCompatActivity() {
         utils = Utils(this)
         utils.isLoggedIn = true
 
-        val adapter = RecyclerViewAdapter()
-        binding.recyclerView.layoutManager = GridLayoutManager(this, 3)
-        binding.recyclerView.adapter = adapter
-        adapter.add(itemMenu())
-    }
+
+        val adapter = ViewPagerAdapter(this)
+        adapter.add(ProfileFragment())
+        adapter.add(SearchFragment())
+        adapter.add(HomeFragment())
+        adapter.add(TutorialFragment())
+        adapter.add(NewsFragment())
+        binding.viewPager.adapter = adapter
+        binding.viewPager.isUserInputEnabled = false
 
 
+        binding.viewPager.setCurrentItem(2,false)
+
+        val scrollListener = object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.bottomMenu.selectedItemId = when (position) {
+                    0 -> R.id.profile
+                    1 -> R.id.search
+                    2 -> R.id.home
+                    3 -> R.id.tutorial
+                    else -> R.id.news
+                }
+
+            }
+        }
+        binding.viewPager.registerOnPageChangeCallback(scrollListener)
 
 
-    private fun itemMenu(): ArrayList<ItemMenuModel> {
-        val data = ArrayList<ItemMenuModel>()
-        val nameList = listOf(
-            R.string.hagh_taghadom, R.string.oragh_moshtaghe, R.string.oragh_bedehi,
-            R.string.energy, R.string.ati, R.string.ekhtyar,
-            R.string.saham, R.string.arz, R.string.sandogh
-        )
-        val iconList = listOf(
-            R.drawable.ic_taghadom_icon, R.drawable.ic_moshtaghe_icon, R.drawable.ic_debit_icon,
-            R.drawable.ic_energy_icon, R.drawable.ic_ekhtiar_icon, R.drawable.ic_ekhtiar_icon,
-            R.drawable.ic_saham_icon, R.drawable.ic_arz_icon, R.drawable.ic_sandogh_icon
-        )
-
-        for (i in iconList.indices) {
-            data.add(
-                ItemMenuModel(
-                    icon = ContextCompat.getDrawable(this, iconList[i])!!,
-                    text = getString(nameList[i])
-                )
-            )
+        binding.bottomMenu.setOnNavigationItemSelectedListener { menu ->
+            binding.viewPager.currentItem = when (menu.itemId) {
+                R.id.profile -> 0
+                R.id.search -> 1
+                R.id.home -> 2
+                R.id.tutorial -> 3
+                else -> 4
+            }
+            true
         }
 
-        return data
+
     }
+
+
+    class ViewPagerAdapter(activity: MainActivity) : FragmentStateAdapter(activity) {
+
+        private val items = ArrayList<Fragment>()
+
+        fun add(fragment: Fragment) {
+            items.add(fragment)
+            notifyDataSetChanged()
+        }
+
+        override fun getItemCount(): Int = items.size
+
+        override fun createFragment(position: Int): Fragment = items[position]
+
+
+    }
+
 }

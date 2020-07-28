@@ -14,8 +14,8 @@
     <string name="search">سرچ نماد</string>
     <string name="news">اخبار</string>
     <string name="profile">پروفایل</string>
-    
-    
+
+
     <string name="hagh_taghadom">حق تقدم</string>
     <string name="oragh_bedehi">اوراق بدهی</string>
     <string name="oragh_moshtaghe">اوراق مشتقه</string>
@@ -25,5 +25,8 @@
     <string name="saham">سهام</string>
     <string name="arz">ارز</string>
     <string name="sandogh">صندوق</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
