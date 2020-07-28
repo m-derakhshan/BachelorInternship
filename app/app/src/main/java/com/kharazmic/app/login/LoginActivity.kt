@@ -3,12 +3,15 @@ package com.kharazmic.app.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.kharazmic.app.R
+import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -31,20 +34,28 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.loginStatus.observe(this, Observer {
             it?.let { status ->
+                Log.i("Log", "status is $status")
                 if (status) {
                     val intent = Intent(this, ValidateActivity::class.java)
                     intent.putExtra("phone", binding.phoneNumber.text.toString())
                     startActivity(intent)
                     finish()
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                } else
+                } else {
+
                     YoYo.with(Techniques.Shake)
                         .duration(1200)
                         .playOn(binding.phoneNumber)
+
+                    Utils(this).showSnackBar(
+                        color = ContextCompat.getColor(this, R.color.black),
+                        msg = getString(R.string.wrong_phone),
+                        snackView = binding.root
+                    )
+                }
             }
 
         })
-
 
         binding.accept.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -55,6 +66,16 @@ class LoginActivity : AppCompatActivity() {
                 binding.login.isEnabled = false
             }
         }
+
+
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            isLoading?.let {
+                if (isLoading)
+                    binding.login.startAnimation()
+                else
+                    binding.login.revertAnimation()
+            }
+        })
     }
 
 }

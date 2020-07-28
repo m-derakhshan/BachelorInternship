@@ -76,3 +76,8 @@ dependencies {
     implementation 'com.daimajia.easing:library:2.0@aar'
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
 }
+
+//-----------------------circular progress button--------------------//
+dependencies {
+    implementation 'br.com.simplepass:loading-button-android:2.2.0'
+}

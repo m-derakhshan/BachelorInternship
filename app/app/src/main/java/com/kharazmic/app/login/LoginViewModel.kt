@@ -22,48 +22,52 @@ class LoginViewModel(private val context: Context) : ViewModel() {
     val loginStatus = MutableLiveData<Boolean>()
     val validateStatus = MutableLiveData<Boolean>()
     val timeUp = MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData<Boolean>()
 
     init {
         timeUp.value = false
+        isLoading.value = false
     }
 
 
     fun sendSMS() {
-        Log.i("Log", "phone is $phoneNumber")
         if (Arrange().validatePhone(phoneNumber)) {
             val data = JSONObject()
             data.put("phone", phoneNumber)
+
+            isLoading.value = true
             val request =
                 JsonObjectRequest(Request.Method.POST, Address().LoginAPI, data, Response.Listener {
-
-                    loginStatus.value = true
                     loginStatus.value = it.getBoolean("status")
-
+                    isLoading.value = it.getBoolean("status")
 
                 }, Response.ErrorListener {
-                    //------------------------****************** loginStatus.value = true **********//
-                    loginStatus.value = true
+                    isLoading.value = false
+                    loginStatus.value = false
                 })
 
             val queue = Volley.newRequestQueue(context)
             queue.add(request)
         } else {
+            isLoading.value = false
             loginStatus.value = false
 
         }
     }
 
     fun sendCode() {
-
-        if (Arrange().validatePhone(code)) {
+        if (code.isNotEmpty()) {
+            isLoading.value = true
             val data = JSONObject()
             data.put("phone", phoneNumber)
             data.put("code", code)
             val request =
-                JsonObjectRequest(Request.Method.POST, Address().LoginAPI, data, Response.Listener {
+                JsonObjectRequest(Request.Method.POST, Address().ValidatePhoneAPI, data, Response.Listener {
                     validateStatus.value = it.getBoolean("status")
+                    isLoading.value = it.getBoolean("status")
                 }, Response.ErrorListener {
                     validateStatus.value = false
+                    isLoading.value = false
                 })
 
             val queue = Volley.newRequestQueue(context)
@@ -71,13 +75,14 @@ class LoginViewModel(private val context: Context) : ViewModel() {
         } else {
 
             validateStatus.value = false
+            isLoading.value = false
 
         }
     }
 
 
     fun timer() {
-        val timer = object : CountDownTimer(6000, 1000) {
+        val timer = object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 counter.value = (millisUntilFinished / 1000).toFloat()
             }

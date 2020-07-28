@@ -8,4 +8,5 @@
     <string name="rules">قوانین و مقررات</string>
     <string name="wrong_code">کد وارد شده اشتباه می باشد.</string>
     <string name="rules_txt">را خوانده ام و موافق هستم.</string>
+    <string name="wrong_phone">خطایی رخ داده است! مجددا تلاش کنید</string>
 </resources>

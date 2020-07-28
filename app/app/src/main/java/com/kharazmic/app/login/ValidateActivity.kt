@@ -38,12 +38,19 @@ class ValidateActivity : AppCompatActivity() {
 
         viewModel.validateStatus.observe(this, Observer {
             it?.let { status ->
-                if (status)
+                if (status) {
                     startActivity(Intent(this, MainActivity::class.java))
-                else
+                    finish()
+                    overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+                }
+                else {
+                    binding.check.revertAnimation()
                     Utils(this).showSnackBar(
-                        ContextCompat.getColor(this,R.color.black), getString(R.string.wrong_code), binding.root
+                        ContextCompat.getColor(this, R.color.black),
+                        getString(R.string.wrong_code),
+                        binding.root
                     )
+                }
 
             }
         })
@@ -80,6 +87,15 @@ class ValidateActivity : AppCompatActivity() {
         binding.wrongNumber.setOnClickListener {
             onBackPressed()
         }
+
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            isLoading?.let {
+                if (isLoading)
+                    binding.check.startAnimation()
+                else
+                    binding.check.revertAnimation()
+            }
+        })
 
     }
 

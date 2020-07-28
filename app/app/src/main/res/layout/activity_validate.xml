@@ -21,7 +21,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:layoutDirection="rtl"
             android:orientation="vertical"
@@ -88,7 +88,7 @@
                             android:layout_margin="10dp"
                             app:cpb_background_progressbar_color="@color/light_pink"
                             app:cpb_progress="6"
-                            app:cpb_progress_max="6"
+                            app:cpb_progress_max="60"
                             app:cpb_progressbar_color="@color/dark_pink"
                             app:cpb_progressbar_width="4dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -146,26 +146,24 @@
 
             </RelativeLayout>
 
-            <Button
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                app:spinning_bar_color="#FFF"
+                app:spinning_bar_padding="6dp"
+                app:spinning_bar_width="4dp"
                 android:id="@+id/check"
-                android:layout_width="wrap_content"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/login_btn"
                 android:elevation="10dp"
                 android:onClick="@{() -> viewModel.sendCode()}"
-                android:paddingStart="30dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="30dp"
-                android:paddingBottom="10dp"
                 android:text="@string/send_code"
                 android:textAppearance="@style/vazir_font"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/holder"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
-
 
             <TextView
                 android:id="@+id/wrongNumber"
