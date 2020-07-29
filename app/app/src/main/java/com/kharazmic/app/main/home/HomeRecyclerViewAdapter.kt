@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kharazmic.app.R
 import kotlinx.android.synthetic.main.main_item_model.view.*
 
-class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
 
     private var items =  ArrayList<ItemMenuModel>()
 

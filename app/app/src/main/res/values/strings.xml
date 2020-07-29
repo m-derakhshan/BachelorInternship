@@ -26,7 +26,17 @@
     <string name="arz">ارز</string>
     <string name="sandogh">صندوق</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="codal">کدال</string>
+    <string name="financial">اقتصادی</string>
+    <string name="conclusion">تحلیلی</string>
+
+
+    <string name="fundamental">تحلیل بنیادی سهام</string>
+    <string name="technical">تحلیل تکنیکال سهام</string>
+    <string name="money_flow">جریان نقدینگی</string>
+    <string name="block_chain">بلاکچین</string>
+    <string name="gold"> طلا و ارز</string>
+
 
 </resources>

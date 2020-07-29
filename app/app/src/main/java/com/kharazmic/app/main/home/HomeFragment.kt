@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val adapter = RecyclerViewAdapter()
+        val adapter = HomeRecyclerViewAdapter()
         binding.recyclerView.layoutManager = GridLayoutManager(context, 3)
         binding.recyclerView.adapter = adapter
         adapter.add(itemMenu())

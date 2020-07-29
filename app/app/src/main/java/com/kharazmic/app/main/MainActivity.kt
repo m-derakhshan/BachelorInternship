@@ -1,26 +1,18 @@
 package com.kharazmic.app.main
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
-import android.widget.Adapter
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.viewpager.widget.ViewPager
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.ActivityMainBinding
 import com.kharazmic.app.main.home.HomeFragment
-import com.kharazmic.app.main.home.ItemMenuModel
-import com.kharazmic.app.main.home.RecyclerViewAdapter
 import com.kharazmic.app.main.news.NewsFragment
 import com.kharazmic.app.main.profile.ProfileFragment
 import com.kharazmic.app.main.search.SearchFragment
@@ -49,7 +41,8 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.isUserInputEnabled = false
 
 
-        binding.viewPager.setCurrentItem(2,false)
+        binding.viewPager.setCurrentItem(2, false)
+        binding.viewPager.offscreenPageLimit = 5
 
         val scrollListener = object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -82,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    class ViewPagerAdapter(activity: MainActivity) : FragmentStateAdapter(activity) {
+    class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
         private val items = ArrayList<Fragment>()
 
