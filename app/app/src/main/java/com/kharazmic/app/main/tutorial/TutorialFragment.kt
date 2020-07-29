@@ -10,9 +10,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.Address
 
 import com.kharazmic.app.R
-import com.kharazmic.app.databinding.FragmentNewsBinding
 import com.kharazmic.app.databinding.FragmentTutorialBinding
 import com.kharazmic.app.main.MainActivity
+import com.kharazmic.app.main.NewsTutorialClickListener
 import com.kharazmic.app.main.news.CategoryFragment
 
 
@@ -60,6 +60,8 @@ class TutorialFragment : Fragment() {
             binding.viewPager.setCurrentItem(tab.position, true)
         }.attach()
 
+
+        binding.search.setOnClickListener {  }
 
     }
 

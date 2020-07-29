@@ -52,5 +52,9 @@ class NewsFragment : Fragment() {
         }.attach()
 
 
+        binding.search.setOnClickListener {
+
+        }
+
     }
 }

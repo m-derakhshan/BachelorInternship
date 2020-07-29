@@ -1,25 +1,26 @@
 package com.kharazmic.app.main.news
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
-import com.kharazmic.app.Address
 
 import com.kharazmic.app.R
-import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.FragmentCategoryBinding
-import org.json.JSONArray
+import com.kharazmic.app.main.NewsTutorialClickListener
 
 
-class CategoryFragment(private val api: String) : Fragment() {
+class CategoryFragment(private val api: String) : Fragment(), NewsTutorialClickListener {
 
 
     private lateinit var binding: FragmentCategoryBinding
@@ -37,8 +38,11 @@ class CategoryFragment(private val api: String) : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        adapter.onClick = this
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.setHasFixedSize(true)
+
 
         fetchNews()
 
@@ -83,6 +87,10 @@ class CategoryFragment(private val api: String) : Fragment() {
 
         val queue = Volley.newRequestQueue(context)
         queue.add(request)
+    }
+
+    override fun onClick(id: String) {
+        Log.i("Log", "  in ${activity.toString()} clicked on $id")
     }
 
 }
