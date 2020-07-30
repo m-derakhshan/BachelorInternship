@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.Address
@@ -69,6 +71,9 @@ class TutorialFragment : Fragment() {
             binding.title.visibility = View.VISIBLE
             false
         }
+
+        binding.search.findViewById<TextView>(R.id.search_src_text)
+            .setTextColor(ContextCompat.getColor(context!!, R.color.white))
 
     }
 

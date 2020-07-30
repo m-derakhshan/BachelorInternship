@@ -1,20 +1,19 @@
 package com.kharazmic.app.main.news
 
+
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.Address
-
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentNewsBinding
 import com.kharazmic.app.main.MainActivity
-import kotlinx.android.synthetic.main.main_item_model.view.*
 
 
 class NewsFragment : Fragment() {
@@ -60,6 +59,11 @@ class NewsFragment : Fragment() {
             binding.title.visibility = View.VISIBLE
             false
         }
+
+
+        binding.search.findViewById<TextView>(R.id.search_src_text)
+            .setTextColor(ContextCompat.getColor(context!!, R.color.white))
+
 
     }
 }
