@@ -17,7 +17,14 @@ class NewsRecyclerViewAdapter : RecyclerView.Adapter<NewsRecyclerViewAdapter.Vie
     lateinit var onClick: NewsTutorialClickListener
 
     fun add(list: ArrayList<NewsAdapterModel>) {
+        Log.i("Log","here loading usual")
         items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun addMore(list: ArrayList<NewsAdapterModel>) {
+        Log.i("Log","here loading more")
         items.addAll(list)
         notifyDataSetChanged()
     }

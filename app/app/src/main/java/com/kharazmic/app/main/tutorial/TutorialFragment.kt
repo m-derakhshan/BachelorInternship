@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -42,11 +43,17 @@ class TutorialFragment : Fragment() {
         binding.viewPager.offscreenPageLimit = 5
 
 
-        adapter.add(CategoryFragment(Address().TutorialAPI("fundamental")))
-        adapter.add(CategoryFragment(Address().TutorialAPI("technical")))
-        adapter.add(CategoryFragment(Address().TutorialAPI("money")))
-        adapter.add(CategoryFragment(Address().TutorialAPI("block")))
-        adapter.add(CategoryFragment(Address().TutorialAPI("gold")))
+        val fundamentalFragment = CategoryFragment(parent = "tutorial", category = "fundamental")
+        val technicalFragment = CategoryFragment(parent = "tutorial", category = "technical")
+        val moneyFragment = CategoryFragment(parent = "tutorial", category = "money")
+        val blockFragment = CategoryFragment(parent = "tutorial", category = "block")
+        val goldFragment = CategoryFragment(parent = "tutorial", category = "gold")
+
+        adapter.add(fundamentalFragment)
+        adapter.add(technicalFragment)
+        adapter.add(moneyFragment)
+        adapter.add(blockFragment)
+        adapter.add(goldFragment)
 
 
         val newsCategory = listOf(
@@ -56,7 +63,6 @@ class TutorialFragment : Fragment() {
             R.string.block_chain,
             R.string.gold
         )
-
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = getString(newsCategory[position])
             binding.viewPager.setCurrentItem(tab.position, true)
@@ -66,14 +72,33 @@ class TutorialFragment : Fragment() {
         binding.search.setOnSearchClickListener {
             binding.title.visibility = View.GONE
         }
-
         binding.search.setOnCloseListener {
             binding.title.visibility = View.VISIBLE
             false
         }
-
         binding.search.findViewById<TextView>(R.id.search_src_text)
             .setTextColor(ContextCompat.getColor(context!!, R.color.white))
+        binding.search.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                fundamentalFragment.keyword.value = query
+                technicalFragment.keyword.value = query
+                moneyFragment.keyword.value = query
+                blockFragment.keyword.value = query
+                goldFragment.keyword.value = query
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                fundamentalFragment.keyword.value = newText
+                technicalFragment.keyword.value = newText
+                moneyFragment.keyword.value = newText
+                blockFragment.keyword.value = newText
+                goldFragment.keyword.value = newText
+                return false
+            }
+        })
 
     }
 
