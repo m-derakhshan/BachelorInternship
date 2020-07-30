@@ -52,8 +52,13 @@ class NewsFragment : Fragment() {
         }.attach()
 
 
-        binding.search.setOnClickListener {
+        binding.search.setOnSearchClickListener {
+            binding.title.visibility = View.GONE
+        }
 
+        binding.search.setOnCloseListener {
+            binding.title.visibility = View.VISIBLE
+            false
         }
 
     }

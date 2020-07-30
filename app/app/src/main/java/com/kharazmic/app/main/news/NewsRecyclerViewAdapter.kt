@@ -17,6 +17,7 @@ class NewsRecyclerViewAdapter : RecyclerView.Adapter<NewsRecyclerViewAdapter.Vie
     lateinit var onClick: NewsTutorialClickListener
 
     fun add(list: ArrayList<NewsAdapterModel>) {
+        items.clear()
         items.addAll(list)
         notifyDataSetChanged()
     }
@@ -31,6 +32,10 @@ class NewsRecyclerViewAdapter : RecyclerView.Adapter<NewsRecyclerViewAdapter.Vie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding(items[position])
+    }
+
+    override fun getItemId(position: Int): Long {
+        return items[position].id.hashCode().toLong()
     }
 
 

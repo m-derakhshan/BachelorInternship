@@ -14,6 +14,8 @@
     <string name="search">سرچ نماد</string>
     <string name="news">اخبار</string>
     <string name="profile">پروفایل</string>
+    <string name="search_hint">جست و جو</string>
+
 
 
     <string name="hagh_taghadom">حق تقدم</string>

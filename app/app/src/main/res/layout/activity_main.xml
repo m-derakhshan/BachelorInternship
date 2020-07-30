@@ -11,9 +11,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutDirection="rtl"
         tools:context=".main.MainActivity">
 
         <androidx.viewpager2.widget.ViewPager2
+            android:layoutDirection="ltr"
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -25,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:layoutDirection="ltr"
             app:itemTextAppearanceActive="@style/vazir_font"
             app:labelVisibilityMode="selected"
             app:layout_constraintBottom_toBottomOf="parent"

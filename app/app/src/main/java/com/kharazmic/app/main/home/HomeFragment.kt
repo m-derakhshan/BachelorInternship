@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         )
         val iconList = listOf(
             R.drawable.ic_taghadom_icon, R.drawable.ic_moshtaghe_icon, R.drawable.ic_debit_icon,
-            R.drawable.ic_energy_icon, R.drawable.ic_ekhtiar_icon, R.drawable.ic_ekhtiar_icon,
+            R.drawable.ic_energy_icon, R.drawable.ic_ati_icon, R.drawable.ic_ekhtiar_icon,
             R.drawable.ic_saham_icon, R.drawable.ic_arz_icon, R.drawable.ic_sandogh_icon
         )
 

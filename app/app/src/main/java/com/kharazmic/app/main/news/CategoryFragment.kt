@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.adapters.AbsListViewBindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -18,6 +19,10 @@ import com.android.volley.toolbox.Volley
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentCategoryBinding
 import com.kharazmic.app.main.NewsTutorialClickListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class CategoryFragment(private val api: String) : Fragment(), NewsTutorialClickListener {
@@ -25,6 +30,7 @@ class CategoryFragment(private val api: String) : Fragment(), NewsTutorialClickL
 
     private lateinit var binding: FragmentCategoryBinding
     private val adapter = NewsRecyclerViewAdapter()
+    private val scope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +47,14 @@ class CategoryFragment(private val api: String) : Fragment(), NewsTutorialClickL
         adapter.onClick = this
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.setHasFixedSize(true)
 
 
-        fetchNews()
+
+        scope.launch {
+            withContext(Dispatchers.Default) {
+                fetchNews()
+            }
+        }
 
         binding.refresh.setOnRefreshListener {
             fetchNews()
@@ -55,6 +65,8 @@ class CategoryFragment(private val api: String) : Fragment(), NewsTutorialClickL
 
 
     private fun fetchNews() {
+
+        binding.refresh.isEnabled = true
         binding.loading.visibility = View.VISIBLE
         val request = JsonArrayRequest(
             Request.Method.GET,
@@ -79,10 +91,11 @@ class CategoryFragment(private val api: String) : Fragment(), NewsTutorialClickL
                     }
                     adapter.add(data)
                     binding.loading.visibility = View.GONE
+                    binding.refresh.isEnabled = false
                 }
             },
             Response.ErrorListener {
-
+                binding.refresh.isEnabled = true
             })
 
         val queue = Volley.newRequestQueue(context)
