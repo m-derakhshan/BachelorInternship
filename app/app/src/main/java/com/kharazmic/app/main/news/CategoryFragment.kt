@@ -99,8 +99,6 @@ class CategoryFragment(private val parent: String, private val category: String)
 
     private fun fetchNews() {
         scope.launch {
-
-            Log.i("Log", "parent:$parent,page:$page,category:$category,keyword:${keyword.value}")
             val api = if (parent == "news")
                 Address().NewsAPI(keyword = keyword.value ?: "", category = category, page = page)
             else
