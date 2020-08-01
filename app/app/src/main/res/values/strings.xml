@@ -39,6 +39,12 @@
     <string name="money_flow">جریان نقدینگی</string>
     <string name="block_chain">بلاکچین</string>
     <string name="gold"> طلا و ارز</string>
+    <string name="following">دنبال کنندگان</string>
+    <string name="followers">دنبال شوندگان</string>
+    <string name="signals">سیگنال ها</string>
+    <string name="last_signals">آخرین سیگنال ها</string>
+    <string name="all">همه></string>
+    <string name="expireDate">تاریخ اشتراک: تا %d</string>
 
 
 </resources>

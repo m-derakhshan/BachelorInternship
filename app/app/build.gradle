@@ -88,3 +88,8 @@ dependencies {
 dependencies {
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 }
+
+//----------------circular image view ------------------//
+dependencies {
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+}

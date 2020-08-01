@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.kharazmic.app.Address
 import com.kharazmic.app.Arrange
+import com.kharazmic.app.Utils
 import org.json.JSONObject
 
 class LoginViewModel(private val context: Context) : ViewModel() {
@@ -70,6 +71,7 @@ class LoginViewModel(private val context: Context) : ViewModel() {
                     Address().ValidatePhoneAPI,
                     data,
                     Response.Listener {
+                        Utils(context).token = it.getString("token")
                         validateStatus.value = it.getBoolean("status")
                         isLoading.value = it.getBoolean("status")
                     },

@@ -11,5 +11,6 @@
     <color name="dark_purple">#7c74b6</color>
     <color name="dark_pink">#d25a95</color>
     <color name="light_pink">#FAAAD2</color>
+    <color name="white_pink">#e7dfea</color>
     <color name="black">#272727</color>
 </resources>

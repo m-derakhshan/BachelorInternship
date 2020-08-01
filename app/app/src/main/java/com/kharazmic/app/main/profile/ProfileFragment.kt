@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
@@ -28,6 +29,12 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val factory = ProfileViewModelFactory(context!!)
+        val viewModel = ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
+
+        viewModel.getUserInfo()
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         binding.exit.setOnClickListener {
             Utils(context!!).isLoggedIn = false
