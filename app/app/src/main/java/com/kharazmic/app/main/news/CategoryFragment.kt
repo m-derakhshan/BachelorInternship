@@ -155,7 +155,7 @@ class CategoryFragment(private val parent: String, private val category: String)
 
 
     override fun onClick(id: String) {
-        Log.i("Log", "  in ${activity.toString()} clicked on $id")
+
     }
 
 }

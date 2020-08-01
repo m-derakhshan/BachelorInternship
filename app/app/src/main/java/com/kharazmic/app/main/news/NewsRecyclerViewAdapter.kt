@@ -1,6 +1,6 @@
 package com.kharazmic.app.main.news
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,14 +17,12 @@ class NewsRecyclerViewAdapter : RecyclerView.Adapter<NewsRecyclerViewAdapter.Vie
     lateinit var onClick: NewsTutorialClickListener
 
     fun add(list: ArrayList<NewsAdapterModel>) {
-        Log.i("Log","here loading usual")
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
     }
 
     fun addMore(list: ArrayList<NewsAdapterModel>) {
-        Log.i("Log","here loading more")
         items.addAll(list)
         notifyDataSetChanged()
     }
