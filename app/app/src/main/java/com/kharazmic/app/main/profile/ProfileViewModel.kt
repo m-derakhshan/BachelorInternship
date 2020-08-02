@@ -22,6 +22,14 @@ class ProfileViewModel(val context: Context) : ViewModel() {
     val following = MutableLiveData<String>()
     val signals = MutableLiveData<String>()
     val image = MutableLiveData<String>()
+    val maxDays = MutableLiveData<Float>()
+    val remainingDays = MutableLiveData<Float>()
+
+
+    init {
+
+        subscription.value = ""
+    }
 
 
     fun getUserInfo() {
@@ -33,7 +41,10 @@ class ProfileViewModel(val context: Context) : ViewModel() {
 
                             name.value = it.getString("name")
                             image.value = it.getString("image")
-                            subscription.value =Arrange().persianConverter(it.getString("subscription"))
+                            maxDays.value = it.getInt("maxDays").toFloat()
+                            remainingDays.value = it.getInt("remainingDays").toFloat()
+                            subscription.value =
+                                Arrange().persianConverter(it.getString("subscription"))
                             followers.value = Arrange().persianConverter(it.getString("followers"))
                             following.value = Arrange().persianConverter(it.getString("following"))
                             signals.value = Arrange().persianConverter(it.getString("signals"))

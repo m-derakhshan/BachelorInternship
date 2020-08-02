@@ -17,7 +17,6 @@
     <string name="search_hint">جست و جو</string>
 
 
-
     <string name="hagh_taghadom">حق تقدم</string>
     <string name="oragh_bedehi">اوراق بدهی</string>
     <string name="oragh_moshtaghe">اوراق مشتقه</string>
@@ -44,7 +43,13 @@
     <string name="signals">سیگنال ها</string>
     <string name="last_signals">آخرین سیگنال ها</string>
     <string name="all">همه></string>
-    <string name="expireDate">تاریخ اشتراک: تا %d</string>
+    <string name="expireDate">اتمام اشتراک: %s</string>
+
+    <string name="buy_signals">سیگنال های خریداری شده</string>
+    <string name="sell_signals">سیگنال های صادر شده</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

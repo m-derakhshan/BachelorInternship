@@ -93,3 +93,8 @@ dependencies {
 dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
+
+//-----------------------Expandable layout---------------//
+dependencies {
+    implementation 'com.github.florent37:expansionpanel:1.2.2'
+}

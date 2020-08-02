@@ -71,7 +71,7 @@ class LoginViewModel(private val context: Context) : ViewModel() {
                     Address().ValidatePhoneAPI,
                     data,
                     Response.Listener {
-                        Utils(context).token = it.getString("token")
+                        //Utils(context).token = it.getString("token")
                         validateStatus.value = it.getBoolean("status")
                         isLoading.value = it.getBoolean("status")
                     },
