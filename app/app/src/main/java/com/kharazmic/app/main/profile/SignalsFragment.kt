@@ -50,7 +50,7 @@ class SignalsFragment(private val category: String) : Fragment() {
     }
 
 
-    private fun fetchData() {
+    fun fetchData() {
         scope.launch {
             withContext(Dispatchers.Default) {
 
@@ -62,11 +62,11 @@ class SignalsFragment(private val category: String) : Fragment() {
                     Address().SignalsAPI(category = category, page = page),
                     null,
                     Response.Listener {
-                        Log.i("Log"," response is  $it")
                         for (i in 0 until it.length()) {
                             val obj = it.getJSONObject(i)
                             data.add(
                                 SignalsModel(
+                                    id = "",
                                     title = obj.getString("title"),
                                     group = obj.getString("title"),
                                     date = obj.getString("title"),
@@ -74,8 +74,9 @@ class SignalsFragment(private val category: String) : Fragment() {
                                     author = obj.getString("title"),
                                     loss = obj.getString("title"),
                                     profit = obj.getString("title"),
-                                    realtimeProfit =obj.getString("title"))
+                                    realtimeProfit = obj.getString("title")
                                 )
+                            )
                         }
                         adapter.addData(data)
 
@@ -83,7 +84,7 @@ class SignalsFragment(private val category: String) : Fragment() {
                     },
                     Response.ErrorListener {
 
-                        Log.i("Log","error in signals $it")
+                        Log.i("Log", "error in signals $it")
                     })
 
                 val queue = Volley.newRequestQueue(context)

@@ -50,8 +50,10 @@ class ProfileFragment : Fragment() {
         val adapter = MainActivity.ViewPagerAdapter(activity!!)
         binding.viewPager.adapter = adapter
         binding.viewPager.offscreenPageLimit = 2
-        adapter.add(SignalsFragment("buy"))
-        adapter.add(SignalsFragment("sell"))
+        val buyFragment = SignalsFragment("buy")
+        val sellFragment = SignalsFragment("sell")
+        adapter.add(buyFragment)
+        adapter.add(sellFragment)
 
 
         val titles = listOf(R.string.buy_signals, R.string.sell_signals)
@@ -85,6 +87,8 @@ class ProfileFragment : Fragment() {
 
         binding.refresh.setOnRefreshListener {
             viewModel.getUserInfo()
+            buyFragment.fetchData()
+            sellFragment.fetchData()
             binding.refresh.isRefreshing = false
         }
 

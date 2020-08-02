@@ -2,6 +2,7 @@ package com.kharazmic.app.main.profile
 
 
 data class SignalsModel(
+    val id :String,
     val group: String,
     val author: String,
     val realtimeProfit: String,
