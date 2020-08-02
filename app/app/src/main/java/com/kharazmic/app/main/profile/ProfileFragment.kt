@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.Address
 
@@ -65,6 +67,26 @@ class ProfileFragment : Fragment() {
                 binding.remainingSubscription.progressMax = viewModel.maxDays.value ?: 0F
             }
         })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            it?.let { isLoading ->
+                if (!isLoading) {
+                    YoYo.with(Techniques.FadeOut)
+                        .duration(1000)
+                        .onEnd {
+                            binding.loading.visibility = View.GONE
+                        }
+                        .playOn(binding.loading)
+
+                } else
+                    binding.loading.visibility = View.VISIBLE
+            }
+        })
+
+        binding.refresh.setOnRefreshListener {
+            viewModel.getUserInfo()
+            binding.refresh.isRefreshing = false
+        }
 
 
     }

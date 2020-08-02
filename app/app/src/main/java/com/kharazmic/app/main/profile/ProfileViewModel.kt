@@ -25,15 +25,17 @@ class ProfileViewModel(val context: Context) : ViewModel() {
     val maxDays = MutableLiveData<Float>()
     val remainingDays = MutableLiveData<Float>()
 
+    val isLoading = MutableLiveData<Boolean>()
 
     init {
-
+        isLoading.value = true
         subscription.value = ""
     }
 
 
     fun getUserInfo() {
         scope.launch {
+            isLoading.value = true
             withContext(Dispatchers.Default) {
                 val request =
                     JsonObjectRequest(Request.Method.POST, Address().UserInfoAPI, null,
@@ -48,6 +50,7 @@ class ProfileViewModel(val context: Context) : ViewModel() {
                             followers.value = Arrange().persianConverter(it.getString("followers"))
                             following.value = Arrange().persianConverter(it.getString("following"))
                             signals.value = Arrange().persianConverter(it.getString("signals"))
+                            isLoading.value = false
                         }, Response.ErrorListener {
                             Log.i("Log", "error $it")
                         })

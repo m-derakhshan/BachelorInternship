@@ -35,6 +35,9 @@ class SignalRecyclerViewAdapter : RecyclerView.Adapter<SignalRecyclerViewAdapter
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun binding(model: SignalsModel) {
+            itemView.rootView.setOnClickListener {
+
+            }
             itemView.title.text = model.title
         }
 

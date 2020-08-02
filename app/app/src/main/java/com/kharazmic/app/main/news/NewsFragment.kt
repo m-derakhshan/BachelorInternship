@@ -37,6 +37,7 @@ class NewsFragment : Fragment() {
 
         val adapter = MainActivity.ViewPagerAdapter(activity!!)
         binding.viewPager.adapter = adapter
+        binding.viewPager.offscreenPageLimit = 3
 
 
         val codalFragment = CategoryFragment(parent = "news", category = "codal")
