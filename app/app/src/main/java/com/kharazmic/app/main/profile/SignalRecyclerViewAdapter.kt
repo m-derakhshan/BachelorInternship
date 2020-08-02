@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.profile_signals_model.view.*
 class SignalRecyclerViewAdapter : RecyclerView.Adapter<SignalRecyclerViewAdapter.ViewHolder>() {
 
     private val items = ArrayList<SignalsModel>()
-    private val expansionsCollection = ExpansionLayoutCollection().apply {openOnlyOne(true) }
 
 
     fun addData(data: ArrayList<SignalsModel>) {
@@ -29,10 +28,8 @@ class SignalRecyclerViewAdapter : RecyclerView.Adapter<SignalRecyclerViewAdapter
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        expansionsCollection.add(holder.itemView.expansionLayout)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.binding(items[position])
-    }
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
