@@ -57,6 +57,7 @@
     <string name="about_us">درباره ی ما</string>
     <string name="contact_us">تماس با ما</string>
     <string name="invitation">دعوت از دوستان</string>
+    <string name="exit">خروج از نرم افزار</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

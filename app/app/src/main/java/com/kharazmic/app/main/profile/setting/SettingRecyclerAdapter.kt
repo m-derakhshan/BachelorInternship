@@ -33,7 +33,9 @@ class SettingRecyclerAdapter : RecyclerView.Adapter<SettingRecyclerAdapter.ViewH
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun binding(model: SettingModel) {
+            itemView.rootView.setOnClickListener {
 
+            }
             itemView.title.text = model.title
             itemView.icon.setImageDrawable(model.icon)
         }
