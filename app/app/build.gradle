@@ -98,3 +98,8 @@ dependencies {
 dependencies {
     implementation 'com.github.florent37:expansionpanel:1.2.2'
 }
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
+}

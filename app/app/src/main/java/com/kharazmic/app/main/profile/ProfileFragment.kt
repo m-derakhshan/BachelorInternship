@@ -1,27 +1,29 @@
 package com.kharazmic.app.main.profile
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kharazmic.app.Address
-
 import com.kharazmic.app.R
-import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.FragmentProfileBinding
 import com.kharazmic.app.main.MainActivity
+import com.kharazmic.app.main.profile.setting.SettingActivity
 
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +45,6 @@ class ProfileFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.exit.setOnClickListener {
-            Utils(context!!).isLoggedIn = false
-        }
 
         val adapter = MainActivity.ViewPagerAdapter(activity!!)
         binding.viewPager.adapter = adapter
@@ -56,11 +55,13 @@ class ProfileFragment : Fragment() {
         adapter.add(sellFragment)
 
 
-        val titles = listOf(R.string.buy_signals, R.string.sell_signals)
+        val icons = listOf(R.drawable.ic_buy_signal_icon, R.drawable.ic_sell_signal_icon)
         TabLayoutMediator(binding.title, binding.viewPager) { tab, position ->
-            tab.text = getString(titles[position])
+            tab.setIcon(icons[position])
             binding.viewPager.setCurrentItem(tab.position, true)
         }.attach()
+
+
 
 
         viewModel.remainingDays.observe(viewLifecycleOwner, Observer {
@@ -93,7 +94,11 @@ class ProfileFragment : Fragment() {
         }
 
 
+        binding.menu.setOnClickListener {
+            startActivity(Intent(activity, SettingActivity::class.java))
+            activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+
     }
-
-
 }

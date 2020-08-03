@@ -27,27 +27,24 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         val adapter = HomeRecyclerViewAdapter()
         binding.recyclerView.layoutManager = GridLayoutManager(context, 3)
         binding.recyclerView.adapter = adapter
         adapter.add(itemMenu())
-
-
     }
 
 
     private fun itemMenu(): ArrayList<ItemMenuModel> {
         val data = ArrayList<ItemMenuModel>()
         val nameList = listOf(
-            R.string.hagh_taghadom, R.string.oragh_moshtaghe, R.string.oragh_bedehi,
+            R.string.sandogh, R.string.arz, R.string.saham,
             R.string.energy, R.string.ati, R.string.ekhtyar,
-            R.string.saham, R.string.arz, R.string.sandogh
+            R.string.hagh_taghadom, R.string.oragh_moshtaghe, R.string.oragh_bedehi
         )
         val iconList = listOf(
-            R.drawable.ic_taghadom_icon, R.drawable.ic_moshtaghe_icon, R.drawable.ic_debit_icon,
+            R.drawable.ic_sandogh_icon, R.drawable.ic_arz_icon, R.drawable.ic_saham_icon,
             R.drawable.ic_energy_icon, R.drawable.ic_ati_icon, R.drawable.ic_ekhtiar_icon,
-            R.drawable.ic_saham_icon, R.drawable.ic_arz_icon, R.drawable.ic_sandogh_icon
+            R.drawable.ic_taghadom_icon, R.drawable.ic_moshtaghe_icon, R.drawable.ic_debit_icon
         )
 
         for (i in iconList.indices) {
