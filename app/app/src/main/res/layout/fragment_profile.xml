@@ -19,7 +19,6 @@
 
 
         <RelativeLayout
-
             android:id="@+id/avatarHolder"
             android:layout_width="140dp"
             android:layout_height="140dp"
@@ -198,6 +197,20 @@
         </LinearLayout>
 
 
+        <ImageView
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:id="@+id/menu"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circular_ripple_white_back"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:src="@drawable/ic_profile_menu"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <LinearLayout
             android:id="@+id/loading"
             android:layout_width="match_parent"
@@ -213,6 +226,8 @@
         </LinearLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
             android:id="@+id/refresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -225,16 +240,6 @@
                 android:layout_height="200dp" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-        <ImageView
-            android:id="@+id/menu"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:elevation="10dp"
-            android:src="@drawable/ic_profile_menu"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

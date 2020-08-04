@@ -2,6 +2,7 @@ package com.kharazmic.app.main.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -72,17 +73,22 @@ class ProfileFragment : Fragment() {
         })
 
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+
             it?.let { isLoading ->
                 if (!isLoading) {
                     YoYo.with(Techniques.FadeOut)
-                        .duration(1000)
+                        .duration(500)
                         .onEnd {
                             binding.loading.visibility = View.GONE
                         }
                         .playOn(binding.loading)
 
-                } else
+                } else {
                     binding.loading.visibility = View.VISIBLE
+                    YoYo.with(Techniques.FadeIn)
+                        .duration(500)
+                        .playOn(binding.loading)
+                }
             }
         })
 

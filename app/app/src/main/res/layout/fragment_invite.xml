@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutDirection="rtl"
-        tools:context=".main.profile.setting.fragments.ContactFragment">
+        tools:context=".main.profile.setting.fragments.InviteFragment">
+
 
         <LinearLayout
             android:id="@+id/toolbar"
@@ -37,7 +38,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="0.9"
                 android:gravity="end"
-                android:text="@string/contact_us"
+                android:text="@string/invitation"
                 android:textAppearance="@style/vazir_font"
                 android:textColor="@color/white"
                 android:textSize="20sp" />

@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.setting_item_model.view.*
 class SettingRecyclerAdapter : RecyclerView.Adapter<SettingRecyclerAdapter.ViewHolder>() {
 
     private val items = ArrayList<SettingModel>()
+    lateinit var clickListener: SettingClickListener
 
 
     fun add(list: ArrayList<SettingModel>) {
@@ -30,12 +31,10 @@ class SettingRecyclerAdapter : RecyclerView.Adapter<SettingRecyclerAdapter.ViewH
         holder.binding(items[position])
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun binding(model: SettingModel) {
-            itemView.rootView.setOnClickListener {
-
-            }
+            itemView.rootView.setOnClickListener { clickListener.onClick(model.id) }
             itemView.title.text = model.title
             itemView.icon.setImageDrawable(model.icon)
         }
