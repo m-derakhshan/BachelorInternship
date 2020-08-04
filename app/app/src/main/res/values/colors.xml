@@ -4,11 +4,16 @@
     <color name="colorPrimaryDark">#a1469a</color>
     <color name="semiPrimaryDarkColor">#8E3E88</color>
     <color name="colorAccent">#9C27B0</color>
-    <color name="green">#00FF0A</color>
+
+
+    <color name="green">#007605</color>
+
+
     <color name="gray">#7B7B7B</color>
     <color name="light_gray">#CACACA</color>
-    <color name="white">#FFF</color>
     <color name="white_gray">#FAFAFA</color>
+    <color name="white">#FFF</color>
+
     <color name="dark_purple">#7c74b6</color>
     <color name="dark_pink">#d25a95</color>
     <color name="light_pink">#FAAAD2</color>

@@ -10,6 +10,7 @@ class Address {
 
     val UserInfoAPI = "https://run.mocky.io/v3/082ecf40-a6f3-44ef-a9f3-1568d2f299a8"
 
+    val TicketAPI = "https://run.mocky.io/v3/082ecf40-a6f3-44ef-a9f3-1568d2f299a8"
 
     fun NewsAPI(keyword: String, category: String, page: Int): String =
         "https://run.mocky.io/v3/ac5af763-26b2-4ae7-9b01-ab4635abce96?" +
@@ -22,7 +23,6 @@ class Address {
     fun SignalsAPI(category: String, page: Int): String =
         "https://run.mocky.io/v3/2872525b-14d7-4336-b791-176e11caef1b?" +
                 "category=$category&" + "page=$page"
-
 
 
 }
