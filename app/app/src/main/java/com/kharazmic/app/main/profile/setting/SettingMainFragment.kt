@@ -1,5 +1,7 @@
 package com.kharazmic.app.main.profile.setting
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -78,7 +80,13 @@ class SettingMainFragment : Fragment(), SettingClickListener {
             3 -> this.findNavController()
                 .navigate(R.id.action_settingMainFragment_to_contactFragment)
             4 -> this.findNavController().navigate(R.id.action_settingMainFragment_to_aboutFragment)
-            else -> activity?.onBackPressed()
+            else -> {
+                val exit = Intent()
+                exit.putExtra("exit", true)
+                activity?.setResult(Activity.RESULT_OK, exit)
+                activity?.onBackPressed()
+            }
+
         }
     }
 

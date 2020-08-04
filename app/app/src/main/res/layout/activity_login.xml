@@ -124,6 +124,8 @@
                 android:text="@string/rules"
                 android:textAppearance="@style/vazir_font"
                 android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                app:layout_constraintTop_toTopOf="@+id/accept"
                 app:layout_constraintBottom_toBottomOf="@id/accept"
                 app:layout_constraintRight_toLeftOf="@id/accept" />
 
@@ -133,6 +135,7 @@
                 android:layout_marginStart="5dp"
                 android:text="@string/rules_txt"
                 android:textAppearance="@style/vazir_font"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/rules"
                 app:layout_constraintRight_toLeftOf="@+id/rules" />
 
