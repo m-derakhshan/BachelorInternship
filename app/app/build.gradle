@@ -107,18 +107,7 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
 }
 
+//----------------lottie animation----------//
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:+'
-}
-
-dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:+'
-}
-
-dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:+'
-}
-
-dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:+'
+    implementation 'com.airbnb.android:lottie:3.4.1'
 }

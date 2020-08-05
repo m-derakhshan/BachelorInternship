@@ -8,7 +8,7 @@ class Address {
     val ValidatePhoneAPI = "https://run.mocky.io/v3/d0b11c14-3479-43ea-9340-4a26c6c1a6f0"
 
 
-    val UserInfoAPI = "https://run.mocky.io/v3/082ecf40-a6f3-44ef-a9f3-1568d2f299a8"
+    val UserInfoAPI = "https://run.mocky.io/v3/8763b1c1-2bec-4b35-badc-7d9adc753df7"
 
     val TicketAPI = "https://run.mocky.io/v3/082ecf40-a6f3-44ef-a9f3-1568d2f299a8"
 

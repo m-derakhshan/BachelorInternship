@@ -106,7 +106,9 @@ class ProfileFragment : Fragment() {
 
 
         binding.menu.setOnClickListener {
-            startActivityForResult(Intent(activity, SettingActivity::class.java), settingCode)
+            val intent = Intent(activity, SettingActivity::class.java)
+            intent.putExtra("userInfo", viewModel.userInformation)
+            startActivityForResult(intent, settingCode)
             activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 

@@ -11,8 +11,6 @@
     <string name="no_connection">لطفا از اتصال به اینترنت مطمئن شوید.</string>
 
 
-
-
     <string name="home">خانه</string>
     <string name="tutorial">آموزش</string>
     <string name="search">سرچ نماد</string>
@@ -73,6 +71,23 @@
     <string name="submit">ثبت درخواست</string>
     <string name="success">درخواست شما با موفقیت ثبت شد.</string>
     <string name="error">در ثبت درخواست شما خطایی به وجود آمد.</string>
+    <string name="name_family">نام و نام خانوادگی</string>
+
+
+    <string name="edit">اعمال تغییرات</string>
+    <string name="experience">میزان سال تجربه</string>
+    <string name="level_education">میزان تحصیلات</string>
+    <string name="level_invest">پیش بینی میزان سرمایه گذاری</string>
+    <string name="worth_level_1">بیشتر از ۵ میلیارد تومان</string>
+    <string name="worth_level_2">بین ۱ و ۵ میلیارد تومان</string>
+    <string name="worth_level_3">بین ۵۰۰ میلیون تا ۱ میلیارد تومان</string>
+    <string name="worth_level_4">بین ۱۰۰ تا ۵۰۰ میلیون تومان</string>
+    <string name="worth_level_5">بین ۵۰ تا ۱۰۰ میلیون تومان</string>
+    <string name="worth_level_6">کم تر از ۵۰ میلیون تومان</string>
+    <string name="phd">دکتری</string>
+    <string name="master">کارشناسی ارشد</string>
+    <string name="bachelor">کارشناسی</string>
+    <string name="less_education">مقاطع پایین تر</string>
 
 
 </resources>

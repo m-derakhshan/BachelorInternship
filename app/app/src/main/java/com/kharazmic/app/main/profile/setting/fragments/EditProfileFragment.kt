@@ -1,11 +1,13 @@
 package com.kharazmic.app.main.profile.setting.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
 import com.kharazmic.app.R
@@ -28,6 +30,13 @@ class EditProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val factory = EditProfileViewModelFactory(activity?.intent?.getParcelableExtra("userInfo"))
+        val viewModel = ViewModelProvider(this, factory).get(EditProfileViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+
 
 
         binding.back.setOnClickListener {
