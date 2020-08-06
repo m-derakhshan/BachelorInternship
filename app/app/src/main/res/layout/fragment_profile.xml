@@ -198,47 +198,17 @@
 
 
         <ImageView
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
             android:id="@+id/menu"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:background="@drawable/circular_ripple_white_back"
-            android:paddingEnd="10dp"
             android:paddingStart="10dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="15dp"
             android:src="@drawable/ic_profile_menu"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-        <LinearLayout
-            android:id="@+id/loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:elevation="10dp"
-            android:gravity="center">
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true" />
-        </LinearLayout>
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="60dp"
-            android:id="@+id/refresh"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:elevation="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/avatarHolder"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <View
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     </androidx.constraintlayout.motion.widget.MotionLayout>

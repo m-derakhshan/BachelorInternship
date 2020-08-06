@@ -19,6 +19,7 @@ import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
+import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentProfileBinding
 import com.kharazmic.app.main.MainActivity
 import com.kharazmic.app.main.profile.setting.SettingActivity
@@ -41,8 +42,8 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        val factory = ProfileViewModelFactory(context!!)
+        val database = MyDatabase.getInstance(context!!)
+        val factory = ProfileViewModelFactory(context!!, database)
         val viewModel = ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
 
 
@@ -67,48 +68,18 @@ class ProfileFragment : Fragment() {
         }.attach()
 
 
-
-
-        viewModel.remainingDays.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                binding.remainingSubscription.progress = it
-                binding.remainingSubscription.progressMax = viewModel.maxDays.value ?: 0F
+        database.userDAO.getInfo().observe(viewLifecycleOwner, Observer {
+            it?.let { info ->
+                viewModel.bindInfo(info)
+                binding.remainingSubscription.progress = info.remainingDays
+                binding.remainingSubscription.progressMax = info.maxDays
             }
+
+
         })
-
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-
-            it?.let { isLoading ->
-                if (!isLoading) {
-                    YoYo.with(Techniques.FadeOut)
-                        .duration(500)
-                        .onEnd {
-                            binding.loading.visibility = View.GONE
-                        }
-                        .playOn(binding.loading)
-
-                } else {
-                    binding.loading.visibility = View.VISIBLE
-                    YoYo.with(Techniques.FadeIn)
-                        .duration(500)
-                        .playOn(binding.loading)
-                }
-            }
-        })
-
-        binding.refresh.setOnRefreshListener {
-            viewModel.getUserInfo()
-            buyFragment.fetchData()
-            sellFragment.fetchData()
-            binding.refresh.isRefreshing = false
-        }
-
-
 
         binding.menu.setOnClickListener {
-            val intent = Intent(activity, SettingActivity::class.java)
-            intent.putExtra("userInfo", viewModel.userInformation)
-            startActivityForResult(intent, settingCode)
+            startActivityForResult(Intent(activity, SettingActivity::class.java), settingCode)
             activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 

@@ -6,11 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
 import com.kharazmic.app.R
+import com.kharazmic.app.Utils
+import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentEditProfileBinding
 
 
@@ -31,13 +35,46 @@ class EditProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val factory = EditProfileViewModelFactory(activity?.intent?.getParcelableExtra("userInfo"))
+        val database = MyDatabase.getInstance(context!!)
+        val factory = EditProfileViewModelFactory(database, context!!)
         val viewModel = ViewModelProvider(this, factory).get(EditProfileViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
 
+        database.userDAO.getInfo().observe(viewLifecycleOwner, Observer {
+            it?.let { userInfo ->
+                viewModel.bindInfo(userInfo)
+            }
+        })
 
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            it?.let { isLoading ->
+                if (isLoading)
+                    binding.submit.startAnimation()
+                else {
+                    binding.submit.revertAnimation()
+                    binding.submit.background =
+                        ContextCompat.getDrawable(context!!, R.drawable.login_btn)
+                }
+
+            }
+        })
+        viewModel.updateStatus.observe(viewLifecycleOwner, Observer {
+            it?.let { status ->
+                Utils(context!!).showSnackBar(
+                    color = ContextCompat.getColor(context!!, R.color.black),
+                    snackView = binding.root,
+                    msg = when (status) {
+                        0 -> getString(R.string.success)
+                        1 -> getString(R.string.no_connection)
+                        else -> getString(R.string.error)
+                    }
+                )
+
+
+            }
+        })
 
         binding.back.setOnClickListener {
             this.findNavController().popBackStack()

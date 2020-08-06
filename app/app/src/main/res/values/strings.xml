@@ -69,8 +69,8 @@
     <string name="subject">موضوع درخواست:</string>
     <string name="description">شرح درخواست:</string>
     <string name="submit">ثبت درخواست</string>
-    <string name="success">درخواست شما با موفقیت ثبت شد.</string>
-    <string name="error">در ثبت درخواست شما خطایی به وجود آمد.</string>
+    <string name="success">درخواست شما با موفقیت انجام شد.</string>
+    <string name="error">در انجام درخواست شما خطایی به وجود آمد.</string>
     <string name="name_family">نام و نام خانوادگی</string>
 
 
