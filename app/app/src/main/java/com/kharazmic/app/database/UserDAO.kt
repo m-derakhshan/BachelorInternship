@@ -12,6 +12,8 @@ interface UserDAO {
     fun add(info: UserInfoModel)
 
 
+
+
     @Query("SELECT * FROM userInfo")
     fun getInfo(): LiveData<UserInfoModel>
 }

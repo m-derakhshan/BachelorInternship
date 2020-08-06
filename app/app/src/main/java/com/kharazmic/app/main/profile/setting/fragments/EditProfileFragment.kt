@@ -1,14 +1,12 @@
 package com.kharazmic.app.main.profile.setting.fragments
 
-import android.app.Application
+
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.provider.MediaStore.Images.Media.getBitmap
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,13 +21,14 @@ import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentEditProfileBinding
 import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.default
 import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality
 import id.zelory.compressor.constraint.resolution
 import kotlinx.coroutines.*
 import lv.chi.photopicker.PhotoPickerFragment
-import java.io.ByteArrayOutputStream
 import java.io.File
+import java.nio.file.FileVisitor
 
 
 class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
@@ -96,7 +95,6 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
         binding.back.setOnClickListener {
             this.findNavController().popBackStack()
         }
-
         binding.chooseImage.setOnClickListener {
 
             PhotoPickerFragment.newInstance(
@@ -108,41 +106,36 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
 
 
         }
+
     }
 
 
     override fun onImagesPicked(photos: ArrayList<Uri>) {
-
         scope.launch {
-
             binding.profile.setImageURI(photos.first())
-
-
             async(Dispatchers.Default, CoroutineStart.DEFAULT, block = {
-                val imageFile = File(photos.first().path!!)
-                val compress = Compressor.compress(context = context!!, imageFile = imageFile) {
-                    resolution(480, 640)
-                    format(Bitmap.CompressFormat.JPEG)
-                    quality(70)
-                }
+
+                val compressedImageFile =
+                    Compressor.compress(context!!, File(photos.first().path!!)) {
+                        resolution(640, 640)
+                        quality(50)
+                        format(Bitmap.CompressFormat.JPEG)
+                    }
+
                 val bitmap = if (Build.VERSION.SDK_INT < 28) {
-                    MediaStore.Images.Media.getBitmap(
-                        Application().contentResolver,
-                        Uri.fromFile(compress)
+                    getBitmap(
+                        activity?.contentResolver, Uri.fromFile(compressedImageFile)
                     )
                 } else {
                     val source =
                         ImageDecoder.createSource(
                             activity!!.contentResolver,
-                            Uri.fromFile(compress)
+                            Uri.fromFile(compressedImageFile)
                         )
                     ImageDecoder.decodeBitmap(source)
                 }
-
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, viewModel.newImage)
             }).await()
-
-
         }
 
     }

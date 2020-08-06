@@ -51,7 +51,6 @@ class SignalsFragment(private val category: String) : Fragment() {
 
         database.getInfo(category).observe(viewLifecycleOwner, Observer {
             it?.let { data ->
-                Log.i("Log","data is $it")
                 adapter.addData(data = data)
             }
         })
@@ -63,46 +62,46 @@ class SignalsFragment(private val category: String) : Fragment() {
 
     private fun fetchData() {
 
-                val request = JsonArrayRequest(
-                    Request.Method.GET,
-                    Address().SignalsAPI(category = category, page = page),
-                    null,
-                    Response.Listener {
-                        scope.launch {
-                            async(
-                                context = Dispatchers.Default,
-                                start = CoroutineStart.DEFAULT,
-                                block = {
+        val request = JsonArrayRequest(
+            Request.Method.GET,
+            Address().SignalsAPI(category = category, page = page),
+            null,
+            Response.Listener {
+                scope.launch {
+                    async(
+                        context = Dispatchers.Default,
+                        start = CoroutineStart.DEFAULT,
+                        block = {
 
-                                    for (i in 0 until it.length()) {
-                                        val obj = it.getJSONObject(i)
-                                        database.add(
-                                            SignalsModel(
-                                                category = category,
-                                                id =obj.getString("id") ,
-                                                title = obj.getString("title"),
-                                                group = obj.getString("title"),
-                                                date = obj.getString("title"),
-                                                description = obj.getString("title"),
-                                                author = obj.getString("title"),
-                                                loss = obj.getString("title"),
-                                                profit = obj.getString("title"),
-                                                realtimeProfit = obj.getString("title")
-                                            )
+                            for (i in 0 until it.length()) {
+                                val obj = it.getJSONObject(i)
+                                database.add(
+                                    SignalsModel(
+                                        category = category,
+                                        id = obj.getString("id"),
+                                        title = obj.getString("title"),
+                                        group = obj.getString("title"),
+                                        date = obj.getString("title"),
+                                        description = obj.getString("title"),
+                                        author = obj.getString("title"),
+                                        loss = obj.getString("title"),
+                                        profit = obj.getString("title"),
+                                        realtimeProfit = obj.getString("title")
+                                    )
 
-                                        )
-                                    }
-                                }).await()
-                        }
+                                )
+                            }
+                        }).await()
+                }
 
-                    },
-                    Response.ErrorListener {
+            },
+            Response.ErrorListener {
 
-                        Log.i("Log", "error in signals $it")
-                    })
+                Log.i("Log", "error in signals $it")
+            })
 
-                val queue = Volley.newRequestQueue(context)
-                queue.add(request)
+        val queue = Volley.newRequestQueue(context)
+        queue.add(request)
 
     }
 

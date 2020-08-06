@@ -48,15 +48,16 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
             1 -> R.id.phd
             2 -> R.id.master
             3 -> R.id.bachelor
-            else -> R.id.less_education
+            4 -> R.id.less_education
+            else -> -1
         }
         worth.value = when (userInfo.worth) {
             1 -> R.id.level1
             2 -> R.id.level2
             3 -> R.id.level3
             4 -> R.id.level4
-            5 -> R.id.level5
-            else -> R.id.level6
+            6 -> R.id.level5
+            else -> -1
         }
     }
 
@@ -68,10 +69,7 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
         info.put("education", education.value)
         info.put("experience", experience.value)
         info.put("worth", worth.value)
-        info.put(
-            "image",
-            newImage ?: Base64.encodeToString(newImage?.toByteArray(), Base64.DEFAULT)
-        )
+        info.put("image", Base64.encodeToString(newImage.toByteArray(), Base64.DEFAULT))
 
 
         val request = JsonObjectRequest(
@@ -103,11 +101,18 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
                 isLoading.value = false
             },
             Response.ErrorListener {
+                Log.i("Log", "error in edit profile $it")
                 updateStatus.value =
                     if (it is NetworkError || it is TimeoutError || it is NoConnectionError) 1
                     else 2
                 isLoading.value = false
             })
+
+        request.retryPolicy = DefaultRetryPolicy(
+            30000,
+            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        )
 
         val queue = Volley.newRequestQueue(context)
         queue.add(request)

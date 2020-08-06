@@ -33,6 +33,7 @@ class ProfileViewModel(val context: Context, private val database: MyDatabase) :
                 Response.Listener {
                     scope.launch {
                         async(Dispatchers.IO, CoroutineStart.DEFAULT, block = {
+
                             val userInformation =
                                 UserInfoModel(
                                     name = it.optString("name"),
