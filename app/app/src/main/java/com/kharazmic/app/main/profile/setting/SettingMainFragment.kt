@@ -12,12 +12,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kharazmic.app.R
+import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentSettingMainBinding
+import kotlinx.coroutines.*
 
 
 class SettingMainFragment : Fragment(), SettingClickListener {
 
+    private lateinit var database: MyDatabase
     private lateinit var binding: FragmentSettingMainBinding
+    private val scope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +36,7 @@ class SettingMainFragment : Fragment(), SettingClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
+        database = MyDatabase.getInstance(context!!)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         val adapter = SettingRecyclerAdapter()
         adapter.clickListener = this
@@ -81,10 +85,16 @@ class SettingMainFragment : Fragment(), SettingClickListener {
                 .navigate(R.id.action_settingMainFragment_to_contactFragment)
             4 -> this.findNavController().navigate(R.id.action_settingMainFragment_to_aboutFragment)
             else -> {
-                val exit = Intent()
-                exit.putExtra("exit", true)
-                activity?.setResult(Activity.RESULT_OK, exit)
-                activity?.onBackPressed()
+                scope.launch {
+                    async(context = Dispatchers.Default, start = CoroutineStart.DEFAULT, block = {
+                        database.userDAO.deleteAll()
+                        database.signalDAO.deleteAll()
+                    }).await()
+                    val exit = Intent()
+                    exit.putExtra("exit", true)
+                    activity?.setResult(Activity.RESULT_OK, exit)
+                    activity?.onBackPressed()
+                }
             }
 
         }

@@ -2,6 +2,7 @@ package com.kharazmic.app.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -18,8 +19,12 @@ import com.kharazmic.app.main.tutorial.TutorialFragment
 
 class MainActivity : AppCompatActivity() {
 
+
     private lateinit var utils: Utils
     private lateinit var binding: ActivityMainBinding
+
+    private val stack = ArrayList<Int>()
+    private var addToStack = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,14 +63,22 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.registerOnPageChangeCallback(scrollListener)
 
 
+        var flag = true
         binding.bottomMenu.setOnNavigationItemSelectedListener { menu ->
-            binding.viewPager.currentItem = when (menu.itemId) {
-                R.id.profile -> 0
-                R.id.search -> 1
-                R.id.home -> 2
-                R.id.tutorial -> 3
-                else -> 4
-            }
+            binding.viewPager.setCurrentItem(
+                when (menu.itemId) {
+                    R.id.profile -> 0
+                    R.id.search -> 1
+                    R.id.home -> 2
+                    R.id.tutorial -> 3
+                    else -> 4
+                }, false
+            )
+            if (flag && addToStack)
+                stack.add(binding.viewPager.currentItem)
+            addToStack = true
+            flag = !flag
+
             true
         }
 
@@ -86,6 +99,17 @@ class MainActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment = items[position]
 
+
+    }
+
+
+    override fun onBackPressed() {
+        if (stack.size - 1 > 0) {
+            addToStack = false
+            binding.viewPager.setCurrentItem(stack[stack.lastIndex - 1], false)
+            stack.removeAt(stack.lastIndex - 1)
+        } else
+            super.onBackPressed()
 
     }
 

@@ -101,7 +101,6 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
                 isLoading.value = false
             },
             Response.ErrorListener {
-                Log.i("Log", "error in edit profile $it")
                 updateStatus.value =
                     if (it is NetworkError || it is TimeoutError || it is NoConnectionError) 1
                     else 2

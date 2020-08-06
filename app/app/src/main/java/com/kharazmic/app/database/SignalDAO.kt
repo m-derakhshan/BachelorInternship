@@ -16,6 +16,10 @@ interface SignalDAO {
     fun add(signalsModel: SignalsModel)
 
 
+    @Query("DELETE FROM Signals")
+    fun deleteAll()
+
+
     @Query("SELECT * FROM Signals WHERE category = :category")
     fun getInfo(category: String): LiveData<List<SignalsModel>>
 

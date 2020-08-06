@@ -114,23 +114,27 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
         scope.launch {
             binding.profile.setImageURI(photos.first())
             async(Dispatchers.Default, CoroutineStart.DEFAULT, block = {
+                val uri = try {
+                    val compressedImageFile =
+                        Compressor.compress(context!!, File(photos.first().path!!)) {
+                            resolution(640, 640)
+                            quality(50)
+                            format(Bitmap.CompressFormat.JPEG)
+                        }
+                    Uri.fromFile(compressedImageFile)
 
-                val compressedImageFile =
-                    Compressor.compress(context!!, File(photos.first().path!!)) {
-                        resolution(640, 640)
-                        quality(50)
-                        format(Bitmap.CompressFormat.JPEG)
-                    }
+                } catch (e: Exception) {
+                    photos.first()
+                }
 
                 val bitmap = if (Build.VERSION.SDK_INT < 28) {
                     getBitmap(
-                        activity?.contentResolver, Uri.fromFile(compressedImageFile)
+                        activity?.contentResolver, uri
                     )
                 } else {
                     val source =
                         ImageDecoder.createSource(
-                            activity!!.contentResolver,
-                            Uri.fromFile(compressedImageFile)
+                            activity!!.contentResolver, uri
                         )
                     ImageDecoder.decodeBitmap(source)
                 }

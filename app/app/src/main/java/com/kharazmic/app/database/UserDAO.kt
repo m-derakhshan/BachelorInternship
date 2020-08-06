@@ -12,6 +12,8 @@ interface UserDAO {
     fun add(info: UserInfoModel)
 
 
+    @Query("DELETE FROM userInfo")
+    fun deleteAll()
 
 
     @Query("SELECT * FROM userInfo")
