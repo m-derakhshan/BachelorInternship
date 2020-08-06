@@ -23,7 +23,7 @@ class Address {
                 "category=$category&" + "keyword=$keyword&" + "page=$page"
 
     fun SignalsAPI(category: String, page: Int): String =
-        "https://run.mocky.io/v3/2872525b-14d7-4336-b791-176e11caef1b?" +
+        "https://run.mocky.io/v3/8effa519-2f69-46c7-8d40-aeef664219e9?" +
                 "category=$category&" + "page=$page"
 
 

@@ -111,3 +111,9 @@ dependencies {
 dependencies {
     implementation 'com.airbnb.android:lottie:3.4.1'
 }
+
+//-----------------image picker and compressor and zoom-----------------//
+dependencies {
+    implementation 'id.zelory:compressor:3.0.0'
+    implementation "com.github.ChiliLabs:ChiliPhotoPicker:0.3.1"
+}

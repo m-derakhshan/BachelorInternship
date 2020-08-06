@@ -14,7 +14,7 @@ class SignalRecyclerViewAdapter : RecyclerView.Adapter<SignalRecyclerViewAdapter
     private val items = ArrayList<SignalsModel>()
 
 
-    fun addData(data: ArrayList<SignalsModel>) {
+    fun addData(data: List<SignalsModel>) {
         items.clear()
         items.addAll(data)
         notifyDataSetChanged()

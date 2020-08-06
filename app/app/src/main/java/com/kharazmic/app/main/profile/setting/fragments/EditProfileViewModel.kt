@@ -1,6 +1,8 @@
 package com.kharazmic.app.main.profile.setting.fragments
 
 import android.content.Context
+import android.util.Base64
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.*
@@ -14,6 +16,7 @@ import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.database.UserInfoModel
 import kotlinx.coroutines.*
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 
 
 class EditProfileViewModel(private val database: MyDatabase, private val context: Context) :
@@ -29,6 +32,7 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
     val worth = MutableLiveData<Int>()
     val isLoading = MutableLiveData<Boolean>()
     val updateStatus = MutableLiveData<Int>()
+    val newImage = ByteArrayOutputStream()
 
 
     init {
@@ -64,6 +68,10 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
         info.put("education", education.value)
         info.put("experience", experience.value)
         info.put("worth", worth.value)
+        info.put(
+            "image",
+            newImage ?: Base64.encodeToString(newImage?.toByteArray(), Base64.DEFAULT)
+        )
 
 
         val request = JsonObjectRequest(
@@ -90,17 +98,14 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
                                 worth = it.optInt("worth")
                             )
                         database.userDAO.add(userInformation)
-                        updateStatus.value = 0
                     })
+                updateStatus.value = 0
                 isLoading.value = false
-
             },
             Response.ErrorListener {
                 updateStatus.value =
-                    if (it is NetworkError || it is TimeoutError || it is NoConnectionError)
-                        1
-                    else
-                        2
+                    if (it is NetworkError || it is TimeoutError || it is NoConnectionError) 1
+                    else 2
                 isLoading.value = false
             })
 
