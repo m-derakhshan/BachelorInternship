@@ -14,8 +14,6 @@ class Address {
 
 
 
-
-
     val TicketAPI = "https://run.mocky.io/v3/082ecf40-a6f3-44ef-a9f3-1568d2f299a8"
 
 

@@ -23,8 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var utils: Utils
     private lateinit var binding: ActivityMainBinding
 
-    private val stack = ArrayList<Int>()
-    private var addToStack = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomMenu.selectedItemId = R.id.home
         utils = Utils(this)
         utils.isLoggedIn = true
+
 
 
         val adapter = ViewPagerAdapter(this)
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.registerOnPageChangeCallback(scrollListener)
 
 
-        var flag = true
+
         binding.bottomMenu.setOnNavigationItemSelectedListener { menu ->
             binding.viewPager.setCurrentItem(
                 when (menu.itemId) {
@@ -74,11 +73,6 @@ class MainActivity : AppCompatActivity() {
                     else -> 4
                 }, false
             )
-            if (flag && addToStack)
-                stack.add(binding.viewPager.currentItem)
-            addToStack = true
-            flag = !flag
-
             true
         }
 
@@ -104,10 +98,8 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        if (stack.size - 1 > 0) {
-            addToStack = false
-            binding.viewPager.setCurrentItem(stack[stack.lastIndex - 1], false)
-            stack.removeAt(stack.lastIndex - 1)
+        if (binding.viewPager.currentItem != 2) {
+            binding.viewPager.setCurrentItem(2, false)
         } else
             super.onBackPressed()
 

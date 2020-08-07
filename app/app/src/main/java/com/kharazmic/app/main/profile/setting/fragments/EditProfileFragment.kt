@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
@@ -29,6 +30,7 @@ import kotlinx.coroutines.*
 import lv.chi.photopicker.PhotoPickerFragment
 import java.io.File
 import java.nio.file.FileVisitor
+import kotlin.math.exp
 
 
 class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
@@ -106,6 +108,11 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
 
 
         }
+
+        val expandPanel = ExpansionLayoutCollection()
+        expandPanel.add(binding.educationLayout)
+        expandPanel.add(binding.worthLayout)
+        expandPanel.openOnlyOne(true)
 
     }
 

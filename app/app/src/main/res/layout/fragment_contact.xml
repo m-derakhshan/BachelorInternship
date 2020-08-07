@@ -49,7 +49,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="20dp">
 
                 <TextView
                     android:id="@+id/subject_txt"
@@ -71,7 +73,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/rectangular_card_view"
-                    android:backgroundTint="@color/light_gray"
+                    android:backgroundTint="@color/white"
+                    android:elevation="5dp"
                     android:inputType="text"
                     android:maxLines="1"
                     android:padding="15dp"
@@ -100,7 +103,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/rectangular_card_view"
-                    android:backgroundTint="@color/light_gray"
+                    android:backgroundTint="@color/white"
+                    android:elevation="5dp"
                     android:gravity="top|start"
                     android:inputType="textMultiLine"
                     android:padding="15dp"
