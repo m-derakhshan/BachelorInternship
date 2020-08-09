@@ -60,18 +60,21 @@ class LoginViewModel(private val context: Context) : ViewModel() {
     }
 
     fun sendCode() {
+        Log.i("Log", "code is $code")
         if (code.isNotEmpty()) {
             isLoading.value = true
             val data = JSONObject()
             data.put("phone", phoneNumber)
             data.put("code", code)
+
+            Log.i("Log", "Log data are $phoneNumber and $code")
             val request =
                 JsonObjectRequest(
                     Request.Method.POST,
                     Address().ValidatePhoneAPI,
                     data,
                     Response.Listener {
-                        Utils(context).token = it.getString("token")
+                        Utils(context).token = it.getString("api_token")
                         validateStatus.value = it.getBoolean("status")
                         isLoading.value = it.getBoolean("status")
                     },

@@ -41,7 +41,6 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.loginStatus.observe(this, Observer {
             it?.let { status ->
-                Log.i("Log", "status is $status")
                 if (status) {
                     val intent = Intent(this, ValidateActivity::class.java)
                     intent.putExtra("phone", binding.phoneNumber.text.toString())
@@ -49,10 +48,16 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 } else {
-
+                    binding.login.revertAnimation()
+                    binding.login.background = ContextCompat.getDrawable(this, R.drawable.login_btn)
                     YoYo.with(Techniques.Shake)
                         .duration(1200)
                         .playOn(binding.phoneNumber)
+                    utils.showSnackBar(
+                        color = ContextCompat.getColor(this, R.color.black),
+                        snackView = binding.root,
+                        msg = getString(R.string.error)
+                    )
                 }
             }
 

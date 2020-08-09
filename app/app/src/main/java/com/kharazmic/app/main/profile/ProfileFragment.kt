@@ -3,19 +3,13 @@ package com.kharazmic.app.main.profile
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.ActivityNavigatorExtras
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
@@ -23,6 +17,7 @@ import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentProfileBinding
 import com.kharazmic.app.main.MainActivity
 import com.kharazmic.app.main.profile.setting.SettingActivity
+import com.kharazmic.app.main.profile.signals.SignalsFragment
 
 
 class ProfileFragment : Fragment() {
@@ -55,8 +50,10 @@ class ProfileFragment : Fragment() {
         val adapter = MainActivity.ViewPagerAdapter(activity!!)
         binding.viewPager.adapter = adapter
         binding.viewPager.offscreenPageLimit = 2
-        val buyFragment = SignalsFragment("buy")
-        val sellFragment = SignalsFragment("sell")
+        val buyFragment =
+            SignalsFragment("buy")
+        val sellFragment =
+            SignalsFragment("sell")
         adapter.add(buyFragment)
         adapter.add(sellFragment)
 

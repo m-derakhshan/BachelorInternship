@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.kharazmic.app.main.profile.SignalsModel
+import com.kharazmic.app.main.profile.signals.SignalsModel
 
 
 @Dao
@@ -21,7 +21,11 @@ interface SignalDAO {
 
 
     @Query("SELECT * FROM Signals WHERE category = :category")
-    fun getInfo(category: String): LiveData<List<SignalsModel>>
+    fun getCategoryInfo(category: String): LiveData<List<SignalsModel>>
+
+
+    @Query("SELECT * FROM Signals WHERE category = :category AND id = :id")
+    fun getStockInfo(category: String, id: String): LiveData<SignalsModel>
 
 
 }

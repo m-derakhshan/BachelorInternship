@@ -14,9 +14,11 @@ import androidx.navigation.fragment.findNavController
 
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentAboutBinding
+import kotlinx.coroutines.*
 
 
 class AboutFragment : Fragment() {
+
 
     private lateinit var binding: FragmentAboutBinding
     override fun onCreateView(
@@ -40,6 +42,7 @@ class AboutFragment : Fragment() {
             }
         }
         binding.webView.webViewClient = client
+
 
         binding.back.setOnClickListener {
             this.findNavController().navigateUp()

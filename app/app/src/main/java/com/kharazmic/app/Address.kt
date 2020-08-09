@@ -2,10 +2,14 @@ package com.kharazmic.app
 
 class Address {
 
+    val base = "http://95.216.62.137/api/v1"
+
+
+//    val LoginAPI = "$base/register/register"
+//    val ValidatePhoneAPI = "$base/register/registerConfirm"
 
     val LoginAPI = "https://run.mocky.io/v3/05bb668b-4b7f-4a2a-8cce-4ef289072c52"
-    val ValidatePhoneAPI = "https://run.mocky.io/v3/d0b11c14-3479-43ea-9340-4a26c6c1a6f0"
-
+    val ValidatePhoneAPI = "https://run.mocky.io/v3/7c2cd717-96b8-439c-b6e3-8315980d1e9d"
 
 
 
@@ -28,7 +32,7 @@ class Address {
                 "category=$category&" + "keyword=$keyword&" + "page=$page"
 
     fun SignalsAPI(category: String, page: Int): String =
-        "https://run.mocky.io/v3/8effa519-2f69-46c7-8d40-aeef664219e9?" +
+        "https://run.mocky.io/v3/06344bb7-b66e-45b2-bae3-e8fad9eb7c91?" +
                 "category=$category&" + "page=$page"
 
 

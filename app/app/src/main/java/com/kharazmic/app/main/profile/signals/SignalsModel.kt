@@ -1,4 +1,4 @@
-package com.kharazmic.app.main.profile
+package com.kharazmic.app.main.profile.signals
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -12,7 +12,6 @@ data class SignalsModel(
     @ColumnInfo
     val id: String,
 
-
     @ColumnInfo
     val category: String,
 
@@ -20,10 +19,11 @@ data class SignalsModel(
     val group: String,
 
     @ColumnInfo
-    val author: String,
+    val analyzer: String,
 
     @ColumnInfo
-    val realtimeProfit: String,
+    val analyzerId: String,
+
 
     @ColumnInfo
     val title: String,
@@ -32,11 +32,16 @@ data class SignalsModel(
     val description: String,
 
     @ColumnInfo
-    val date: String,
+    val publishDate: String,
+
+    @ColumnInfo
+    val waitingDate: String,
 
     @ColumnInfo
     val profit: String,
 
     @ColumnInfo
     val loss: String
+
+
 )

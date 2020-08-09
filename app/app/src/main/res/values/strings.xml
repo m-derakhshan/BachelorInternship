@@ -90,4 +90,15 @@
     <string name="less_education">مقاطع پایین تر</string>
 
 
+    <string name="stock_group">گروه نماد:</string>
+    <string name="damage_limit">حد ضرر:</string>
+    <string name="profit_limit">حد سود:</string>
+    <string name="publish_date">تاریخ انتشار:</string>
+    <string name="waiting_time">مدت انتظار:</string>
+    <string name="analyzer">تحلیل گر:</string>
+    <string name="signal_detail">جزئیات سیگنال</string>
+    <string name="stock_information">اطلاعات نماد</string>
+    <string name="analyzer_description">توضیحات تحلیلگر</string>
+
+
 </resources>

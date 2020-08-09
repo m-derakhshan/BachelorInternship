@@ -1,5 +1,6 @@
-package com.kharazmic.app.main.profile
+package com.kharazmic.app.main.profile.signals
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -21,7 +22,7 @@ import com.kharazmic.app.databinding.FragmentSignalsBinding
 import kotlinx.coroutines.*
 
 
-class SignalsFragment(private val category: String) : Fragment() {
+class SignalsFragment(private val category: String) : Fragment(), SignalsOnClickListener {
 
     private lateinit var database: SignalDAO
     private val page = 0
@@ -49,7 +50,9 @@ class SignalsFragment(private val category: String) : Fragment() {
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.adapter = adapter
 
-        database.getInfo(category).observe(viewLifecycleOwner, Observer {
+        adapter.onClick = this
+
+        database.getCategoryInfo(category).observe(viewLifecycleOwner, Observer {
             it?.let { data ->
                 adapter.addData(data = data)
             }
@@ -80,13 +83,14 @@ class SignalsFragment(private val category: String) : Fragment() {
                                         category = category,
                                         id = obj.getString("id"),
                                         title = obj.getString("title"),
-                                        group = obj.getString("title"),
-                                        date = obj.getString("title"),
-                                        description = obj.getString("title"),
-                                        author = obj.getString("title"),
-                                        loss = obj.getString("title"),
-                                        profit = obj.getString("title"),
-                                        realtimeProfit = obj.getString("title")
+                                        group = obj.getString("group"),
+                                        publishDate = obj.getString("publishDate"),
+                                        description = obj.getString("description"),
+                                        analyzer = obj.getString("analyzer"),
+                                        analyzerId = obj.getString("analyzerId"),
+                                        loss = obj.getString("loss"),
+                                        profit = obj.getString("profit"),
+                                        waitingDate = obj.getString("waitingDate")
                                     )
 
                                 )
@@ -103,6 +107,14 @@ class SignalsFragment(private val category: String) : Fragment() {
         val queue = Volley.newRequestQueue(context)
         queue.add(request)
 
+    }
+
+    override fun onClick(id: String, category: String) {
+        val intent = Intent(activity, SignalDetailActivity::class.java)
+        intent.putExtra("id", id)
+        intent.putExtra("category", category)
+        activity?.startActivity(intent)
+        activity?.overridePendingTransition(R.anim.fade_in, R.anim.no_effect)
     }
 
 

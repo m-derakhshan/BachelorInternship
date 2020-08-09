@@ -135,7 +135,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:text="@={viewModel.code}"
                         android:textAppearance="@style/vazir_font"
                         app:itemCount="6"
                         app:itemWidth="30dp"
