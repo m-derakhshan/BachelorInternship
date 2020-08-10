@@ -25,7 +25,6 @@ import kotlinx.coroutines.*
 class SignalsFragment(private val category: String) : Fragment(), SignalsOnClickListener {
 
     private lateinit var database: SignalDAO
-    private val page = 0
     private val adapter = SignalRecyclerViewAdapter()
     private val scope = CoroutineScope(Dispatchers.Main)
     private lateinit var binding: FragmentSignalsBinding
@@ -67,7 +66,7 @@ class SignalsFragment(private val category: String) : Fragment(), SignalsOnClick
 
         val request = JsonArrayRequest(
             Request.Method.GET,
-            Address().SignalsAPI(category = category, page = page),
+            Address().SignalsAPI(category = category),
             null,
             Response.Listener {
                 scope.launch {

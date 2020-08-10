@@ -32,7 +32,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
     testImplementation 'junit:junit:4.12'
@@ -118,7 +118,7 @@ dependencies {
     implementation "com.github.ChiliLabs:ChiliPhotoPicker:0.3.1"
 }
 
+//----------------------chart library----------------------//
 dependencies {
-    implementation 'androidx.appcompat:appcompat:+'
-    implementation 'androidx.constraintlayout:constraintlayout:+'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }
