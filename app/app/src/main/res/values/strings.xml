@@ -99,6 +99,7 @@
     <string name="signal_detail">جزئیات سیگنال</string>
     <string name="stock_information">اطلاعات نماد</string>
     <string name="analyzer_description">توضیحات تحلیلگر</string>
+    <string name="stock_price_toman">قیمت سهم به تومان</string>
 
 
 </resources>
