@@ -33,6 +33,7 @@ class SignalDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignalDetailBinding
     private lateinit var database: MyDatabase
     private lateinit var id: String
+    lateinit var markView: ChartMarkView
 
     private val scope = CoroutineScope(Dispatchers.Default)
 
@@ -50,13 +51,9 @@ class SignalDetailActivity : AppCompatActivity() {
         binding.back.setOnClickListener {
             onBackPressed()
         }
-
-
         binding.refresh.setOnRefreshListener {
             fetchDataFromServer()
         }
-
-
         binding.lineChart.xAxis.apply {
             position = XAxis.XAxisPosition.BOTTOM
             gridColor = ContextCompat.getColor(baseContext, R.color.light_gray)
@@ -67,6 +64,8 @@ class SignalDetailActivity : AppCompatActivity() {
         binding.lineChart.axisLeft.isEnabled = false
         binding.lineChart.setDescription("")
         binding.lineChart.legend.isEnabled = false
+        markView = ChartMarkView(R.layout.chart_mark_view, this)
+        binding.lineChart.markerView = markView
 
 
     }
@@ -80,10 +79,12 @@ class SignalDetailActivity : AppCompatActivity() {
                     Observer { stock ->
                         binding.title.text = stock.title
                         binding.analyzer.text = stock.analyzer
-                        binding.profitLimit.text = stock.profit
-                        binding.date.text = stock.publishDate
-                        binding.waitingTime.text = stock.waitingDate
-                        binding.riskLimit.text = stock.loss
+                        binding.profitLimit.text = Arrange().persianConverter(stock.profit)
+                        binding.date.text = Arrange().persianConverter(stock.publishDate)
+                        binding.waitingTime.text = Arrange().persianConcatenate(
+                            first = stock.waitingDate, end = "روز"
+                        )
+                        binding.riskLimit.text = Arrange().persianConverter(stock.loss)
                         binding.group.text = stock.group
                         binding.description.text = stock.description
                     })
@@ -106,10 +107,11 @@ class SignalDetailActivity : AppCompatActivity() {
 
                         it?.let { data ->
                             val profit = data.getInt("profit")
-                            val text =
-                                "این سهم تا این لحظه ${Arrange().persianConverter(profit.toString())} سود داده است. "
-
-                            binding.realTimeProfit.text = text
+                            binding.realTimeProfit.text = Arrange().persianConcatenate(
+                                first = "این سهم تا این لحظه ",
+                                middle = profit.toString(),
+                                end = " درصد بازدهی داشته است."
+                            )
 
                             val percentage = Arrange().persianConverter(profit.toString()) + "%"
                             binding.percentage.text = percentage
@@ -142,7 +144,9 @@ class SignalDetailActivity : AppCompatActivity() {
                                 binding.lineChart.data = lineData
                                 binding.lineChart.animateXY(2000, 2000)
 
+                                markView.addDate(lineLabels)
                                 binding.refresh.isRefreshing = false
+
                             }
                         }
                     })

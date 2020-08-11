@@ -6,7 +6,7 @@ class Arrange {
     fun validatePhone(phone: String?): Boolean = !phone.isNullOrEmpty() && phone.length == 11
 
     fun persianConverter(number: String?): String {
-        var result: String = ""
+        var result = ""
         if (number.isNullOrEmpty())
             return ""
         for (i in number)
@@ -24,6 +24,13 @@ class Arrange {
                 else -> i
             }
         return result
+    }
+
+
+    fun persianConcatenate(first: String? = "", middle: String? = "", end: String? = ""): String {
+
+        return persianConverter(first) + persianConverter(middle) + persianConverter(end)
+
     }
 
 }
