@@ -2,7 +2,6 @@ package com.kharazmic.app.main.profile.setting.fragments
 
 import android.content.Context
 import android.util.Base64
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.*
@@ -11,9 +10,8 @@ import com.android.volley.toolbox.Volley
 import com.kharazmic.app.Address
 import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
-import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
-import com.kharazmic.app.database.UserInfoModel
+import com.kharazmic.app.database.model.UserInfoModel
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream

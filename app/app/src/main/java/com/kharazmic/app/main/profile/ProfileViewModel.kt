@@ -11,7 +11,7 @@ import com.android.volley.toolbox.Volley
 import com.kharazmic.app.Address
 import com.kharazmic.app.Arrange
 import com.kharazmic.app.database.MyDatabase
-import com.kharazmic.app.database.UserInfoModel
+import com.kharazmic.app.database.model.UserInfoModel
 import kotlinx.coroutines.*
 
 class ProfileViewModel(val context: Context, private val database: MyDatabase) : ViewModel() {

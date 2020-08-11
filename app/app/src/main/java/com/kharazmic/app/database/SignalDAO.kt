@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.kharazmic.app.main.profile.signals.SignalsModel
+import com.kharazmic.app.database.model.SignalsModel
 
 
 @Dao
@@ -14,6 +14,11 @@ interface SignalDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(signalsModel: SignalsModel)
+
+
+
+    @Query("Update signals SET realTimeProfit = :profit where id = :id")
+    fun addProfit(id: String, profit: String)
 
 
     @Query("DELETE FROM Signals")

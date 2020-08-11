@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kharazmic.app.database.MyDatabase
-import com.kharazmic.app.database.UserInfoModel
 
 class EditProfileViewModelFactory(private val database: MyDatabase, private val context: Context) :
     ViewModelProvider.Factory {

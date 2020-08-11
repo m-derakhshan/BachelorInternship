@@ -2,6 +2,7 @@ package com.kharazmic.app.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.kharazmic.app.database.model.UserInfoModel
 
 
 @Dao

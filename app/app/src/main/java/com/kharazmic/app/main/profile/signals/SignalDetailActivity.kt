@@ -19,12 +19,10 @@ import com.github.mikephil.charting.data.*
 import com.kharazmic.app.Address
 import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
+import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.ActivitySignalDetailBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.json.JSONObject
 
 
@@ -77,6 +75,26 @@ class SignalDetailActivity : AppCompatActivity() {
                 this.id = id
                 database.signalDAO.getStockInfo(category = category, id = id).observe(this,
                     Observer { stock ->
+                        val profit = stock.realTimeProfit
+
+                        binding.realTimeProfit.text = Arrange().persianConcatenate(
+                            first = "این سهم تا این لحظه ",
+                            middle = stock.realTimeProfit,
+                            end = " درصد بازدهی داشته است."
+                        )
+
+                        val percentage = Arrange().persianConverter(profit) + "%"
+                        binding.percentage.text = percentage
+
+                        binding.profit.progress = profit.toFloat()
+                        if (profit.toInt() > 0)
+                            binding.profit.progressBarColor =
+                                ContextCompat.getColor(this@SignalDetailActivity, R.color.green)
+                        else
+                            binding.profit.progressBarColor =
+                                ContextCompat.getColor(this@SignalDetailActivity, R.color.red)
+
+
                         binding.title.text = stock.title
                         binding.analyzer.text = stock.analyzer
                         binding.profitLimit.text = Arrange().persianConverter(stock.profit)
@@ -104,25 +122,15 @@ class SignalDetailActivity : AppCompatActivity() {
                 scope.launch {
 
                     withContext(Dispatchers.Main, block = {
-
                         it?.let { data ->
-                            val profit = data.getInt("profit")
-                            binding.realTimeProfit.text = Arrange().persianConcatenate(
-                                first = "این سهم تا این لحظه ",
-                                middle = profit.toString(),
-                                end = " درصد بازدهی داشته است."
-                            )
 
-                            val percentage = Arrange().persianConverter(profit.toString()) + "%"
-                            binding.percentage.text = percentage
+                            async(Dispatchers.Default, CoroutineStart.DEFAULT, block = {
+                                database.signalDAO.addProfit(
+                                    id = id,
+                                    profit = data.getString("profit")
+                                )
 
-                            binding.profit.progress = profit.toFloat()
-                            if (profit > 0)
-                                binding.profit.progressBarColor =
-                                    ContextCompat.getColor(this@SignalDetailActivity, R.color.green)
-                            else
-                                binding.profit.progressBarColor =
-                                    ContextCompat.getColor(this@SignalDetailActivity, R.color.red)
+                            }).await()
 
 
                             val lineEntry = ArrayList<Entry>()
@@ -141,20 +149,24 @@ class SignalDetailActivity : AppCompatActivity() {
                                     setDrawValues(false)
                                 }
                                 val lineData = LineData(lineLabels, lineDataSet)
+
                                 binding.lineChart.data = lineData
                                 binding.lineChart.animateXY(2000, 2000)
 
                                 markView.addDate(lineLabels)
                                 binding.refresh.isRefreshing = false
-
                             }
                         }
                     })
                 }
             },
             Response.ErrorListener {
+                Utils(this).showSnackBar(
+                    color = ContextCompat.getColor(this, R.color.black),
+                    msg = "بروز رسانی اطلاعات با خطا مواجه شد.",
+                    snackView = binding.root
+                )
                 binding.refresh.isRefreshing = false
-                binding.realTimeProfit.text = "خطا در بارگذاری اطلاعات!"
                 Log.i("Log", "Error in SignalDetailActivity $it")
 
             })

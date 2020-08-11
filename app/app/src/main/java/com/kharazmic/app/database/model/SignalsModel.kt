@@ -1,8 +1,7 @@
-package com.kharazmic.app.main.profile.signals
+package com.kharazmic.app.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-
 
 
 @Entity(tableName = "Signals", primaryKeys = ["id", "category"])
@@ -41,7 +40,10 @@ data class SignalsModel(
     val profit: String,
 
     @ColumnInfo
-    val loss: String
+    val loss: String,
+
+    @ColumnInfo
+    val realTimeProfit: String
 
 
 )

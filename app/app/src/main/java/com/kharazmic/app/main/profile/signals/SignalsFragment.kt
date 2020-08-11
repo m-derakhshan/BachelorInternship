@@ -18,6 +18,7 @@ import com.kharazmic.app.Address
 import com.kharazmic.app.R
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.database.SignalDAO
+import com.kharazmic.app.database.model.SignalsModel
 import com.kharazmic.app.databinding.FragmentSignalsBinding
 import kotlinx.coroutines.*
 
@@ -89,9 +90,9 @@ class SignalsFragment(private val category: String) : Fragment(), SignalsOnClick
                                         analyzerId = obj.getString("analyzerId"),
                                         loss = obj.getString("loss"),
                                         profit = obj.getString("profit"),
-                                        waitingDate = obj.getString("waitingDate")
+                                        waitingDate = obj.getString("waitingDate"),
+                                        realTimeProfit = "0"
                                     )
-
                                 )
                             }
                         }).await()

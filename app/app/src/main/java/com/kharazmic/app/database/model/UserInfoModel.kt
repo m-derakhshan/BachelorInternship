@@ -1,4 +1,4 @@
-package com.kharazmic.app.database
+package com.kharazmic.app.database.model
 
 
 import androidx.room.ColumnInfo

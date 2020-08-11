@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kharazmic.app.R
+import com.kharazmic.app.database.model.SignalsModel
 import kotlinx.android.synthetic.main.profile_signals_model.view.*
 
 
