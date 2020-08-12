@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".main.profile.signals.SignalDetailActivity"></activity>
+        <activity android:name=".main.stock.StockActivity"></activity>
+        <activity android:name=".main.profile.signals.SignalDetailActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

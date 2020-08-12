@@ -66,22 +66,14 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
                         android:layout_marginTop="10dp"
                         android:textAppearance="@style/vazir_font"
                         android:textColor="@color/colorAccent"
-                        android:textSize="25sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textSize="20sp"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/banner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/signal_detail_top_banner"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.mikhaellopez.circularprogressbar.CircularProgressBar
                         android:id="@+id/profit"
@@ -91,7 +83,7 @@
                         app:cpb_background_progressbar_color="@color/light_gray"
                         app:cpb_progress_max="100"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/banner" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/percentage"
@@ -116,7 +108,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/profit"
                         app:layout_constraintLeft_toRightOf="@+id/profit"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/profit" />
+                        app:layout_constraintTop_toBottomOf="@+id/title" />
 
                     <LinearLayout
                         android:id="@+id/stock_info_holder"

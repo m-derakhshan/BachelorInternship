@@ -122,3 +122,7 @@ dependencies {
 dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }
+
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:+'
+}

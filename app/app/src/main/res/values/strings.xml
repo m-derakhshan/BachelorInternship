@@ -102,4 +102,10 @@
     <string name="stock_price_toman">قیمت سهم به تومان</string>
 
 
+    <string name="stock">سهام</string>
+    <string name="stock_filter">فیلتر سهام</string>
+    <string name="calculator">ماشین حساب</string>
+    <string name="watcher_message">پیام ناظر</string>
+
+
 </resources>

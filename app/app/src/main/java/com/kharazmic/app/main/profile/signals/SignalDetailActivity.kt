@@ -53,12 +53,15 @@ class SignalDetailActivity : AppCompatActivity() {
             fetchDataFromServer()
         }
         binding.lineChart.xAxis.apply {
+            axisLineWidth = 2F
+            axisLineColor = ContextCompat.getColor(baseContext, R.color.colorAccent)
             position = XAxis.XAxisPosition.BOTTOM
             gridColor = ContextCompat.getColor(baseContext, R.color.light_gray)
         }
         binding.lineChart.axisRight.apply {
-            gridColor = ContextCompat.getColor(baseContext, R.color.light_gray)
-        }
+            axisLineWidth = 2F
+            axisLineColor = ContextCompat.getColor(baseContext, R.color.colorAccent)
+            gridColor = ContextCompat.getColor(baseContext, R.color.light_gray) }
         binding.lineChart.axisLeft.isEnabled = false
         binding.lineChart.setDescription("")
         binding.lineChart.legend.isEnabled = false

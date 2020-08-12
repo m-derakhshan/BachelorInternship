@@ -9,7 +9,8 @@ import kotlinx.android.synthetic.main.main_item_model.view.*
 
 class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
 
-    private var items =  ArrayList<ItemMenuModel>()
+    private var items = ArrayList<ItemMenuModel>()
+    lateinit var onClick: HomeOnClickListener
 
     fun add(list: ArrayList<ItemMenuModel>) {
         items.addAll(list)
@@ -28,15 +29,20 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewAdapter.Vie
         holder.binding(items[position])
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun binding(model: ItemMenuModel) {
             itemView.icon.setImageDrawable(model.icon)
             itemView.text.text = model.text
             itemView.root.setOnClickListener {
-
+                onClick.onClick(id = model.id)
             }
         }
     }
 
+}
+
+
+interface HomeOnClickListener {
+    fun onClick(id: Int)
 }

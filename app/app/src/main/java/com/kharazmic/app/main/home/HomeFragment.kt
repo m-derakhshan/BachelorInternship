@@ -1,6 +1,8 @@
 package com.kharazmic.app.main.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +13,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentHomeBinding
+import com.kharazmic.app.main.stock.StockActivity
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), HomeOnClickListener {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -28,6 +31,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val adapter = HomeRecyclerViewAdapter()
+        adapter.onClick = this
         binding.recyclerView.layoutManager = GridLayoutManager(context, 3)
         binding.recyclerView.adapter = adapter
         adapter.add(itemMenu())
@@ -50,6 +54,7 @@ class HomeFragment : Fragment() {
         for (i in iconList.indices) {
             data.add(
                 ItemMenuModel(
+                    id = i,
                     icon = ContextCompat.getDrawable(context!!, iconList[i])!!,
                     text = getString(nameList[i])
                 )
@@ -57,5 +62,33 @@ class HomeFragment : Fragment() {
         }
 
         return data
+    }
+
+    override fun onClick(id: Int) {
+        activity?.startActivity(
+            Intent(
+                activity, when (id) {
+                    0 -> StockActivity::class.java
+
+                    1 -> StockActivity::class.java
+
+                    2 -> StockActivity::class.java
+
+                    3 -> StockActivity::class.java
+
+                    4 -> StockActivity::class.java
+
+                    5 -> StockActivity::class.java
+
+                    6 -> StockActivity::class.java
+
+                    7 -> StockActivity::class.java
+
+                    else -> StockActivity::class.java
+                }
+            )
+        )
+        activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
     }
 }
