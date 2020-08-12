@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentMainStockBinding
@@ -24,8 +25,13 @@ class MainStockFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        binding.search.setOnClickListener {
+            this.findNavController().navigate(R.id.action_mainStockFragment_to_stockSearchFragment)
+        }
     }
 
 }

@@ -9,5 +9,18 @@
         android:id="@+id/mainStockFragment"
         android:name="com.kharazmic.app.main.stock.fragments.MainStockFragment"
         android:label="fragment_main_stock"
-        tools:layout="@layout/fragment_main_stock" />
+        tools:layout="@layout/fragment_main_stock" >
+        <action
+            android:id="@+id/action_mainStockFragment_to_stockSearchFragment"
+            app:destination="@id/stockSearchFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockSearchFragment"
+        android:name="com.kharazmic.app.main.stock.search.StockSearchFragment"
+        android:label="fragment_stock_search"
+        tools:layout="@layout/fragment_stock_search" />
 </navigation>

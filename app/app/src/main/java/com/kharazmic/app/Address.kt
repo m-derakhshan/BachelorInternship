@@ -12,6 +12,9 @@ class Address {
 //    val ValidatePhoneAPI = "https://run.mocky.io/v3/7c2cd717-96b8-439c-b6e3-8315980d1e9d"
 //
 
+    fun stockSearch(keyword: String, page: String) =
+        "https://run.mocky.io/v3/a16de51a-5b19-4110-afa9-487e1606c22d?keyword=$keyword&page=$page"
+
 
     val UpdateInfoAPI = "https://run.mocky.io/v3/8763b1c1-2bec-4b35-badc-7d9adc753df7"
     val UserInfoAPI = "https://run.mocky.io/v3/8763b1c1-2bec-4b35-badc-7d9adc753df7"
