@@ -1,5 +1,6 @@
 package com.kharazmic.app.main.stock.search
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,10 +8,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kharazmic.app.R
 import com.kharazmic.app.database.MyDatabase
@@ -57,16 +60,12 @@ class StockSearchFragment : Fragment(), StockSearchClickListener {
                 adapter.add(data = it, isHistory = true)
             }
         })
-
-
         viewModel.searchResult.observe(viewLifecycleOwner, Observer { search ->
             search?.let {
                 adapter.add(data = it.toList(), isHistory = false)
             }
 
         })
-
-
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -80,10 +79,13 @@ class StockSearchFragment : Fragment(), StockSearchClickListener {
             }
 
         })
-
-
         binding.searchRecyclerView.adapter = adapter
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(context)
+
+
+        val imm: InputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
 
 
     }
@@ -93,6 +95,12 @@ class StockSearchFragment : Fragment(), StockSearchClickListener {
             async(Dispatchers.Default, CoroutineStart.DEFAULT, block = {
                 database.searchHistoryDao.add(stock)
             }).await()
+            val info = Bundle()
+            info.putString("id", stock.id)
+            info.putString("name", stock.name)
+
+            this@StockSearchFragment.findNavController()
+                .navigate(R.id.action_stockSearchFragment_to_stockFragment, info)
         }
 
 

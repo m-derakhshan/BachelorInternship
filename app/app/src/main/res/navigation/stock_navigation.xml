@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainStockFragment"
-        android:name="com.kharazmic.app.main.stock.fragments.MainStockFragment"
+        android:name="com.kharazmic.app.main.stock.main.MainStockFragment"
         android:label="fragment_main_stock"
         tools:layout="@layout/fragment_main_stock" >
         <action
@@ -17,10 +17,27 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainStockFragment_to_stockFragment"
+            app:destination="@id/stockFragment" />
     </fragment>
     <fragment
         android:id="@+id/stockSearchFragment"
         android:name="com.kharazmic.app.main.stock.search.StockSearchFragment"
         android:label="fragment_stock_search"
-        tools:layout="@layout/fragment_stock_search" />
+        tools:layout="@layout/fragment_stock_search" >
+        <action
+            android:id="@+id/action_stockSearchFragment_to_stockFragment"
+            app:destination="@id/stockFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/mainStockFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockFragment"
+        android:name="com.kharazmic.app.main.stock.stock.StockFragment"
+        android:label="fragment_stock"
+        tools:layout="@layout/fragment_stock" />
 </navigation>

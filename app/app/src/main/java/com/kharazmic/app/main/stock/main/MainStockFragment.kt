@@ -1,4 +1,4 @@
-package com.kharazmic.app.main.stock.fragments
+package com.kharazmic.app.main.stock.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
