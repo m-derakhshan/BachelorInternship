@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_marginTop="1dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:orientation="horizontal">
+
+    <TextView
+        android:textSize="12sp"
+        android:id="@+id/buy_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.16"
+        android:background="@color/dark_purple"
+        android:gravity="center"
+        android:textAppearance="@style/vazir_font"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:textSize="12sp"
+        android:id="@+id/buy_volume"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:background="@color/dark_purple"
+        android:gravity="center"
+        android:textAppearance="@style/vazir_font"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:textSize="12sp"
+        android:id="@+id/buy_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.16"
+        android:background="@color/dark_purple"
+        android:gravity="center"
+        android:textAppearance="@style/vazir_font"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:textSize="12sp"
+        android:id="@+id/sell_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.16"
+        android:background="@color/light_pink"
+        android:gravity="center"
+        android:textAppearance="@style/vazir_font"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:textSize="12sp"
+        android:id="@+id/sell_volume"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:background="@color/light_pink"
+        android:gravity="center"
+        android:textAppearance="@style/vazir_font"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:textSize="12sp"
+        android:id="@+id/sell_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.16"
+        android:background="@color/light_pink"
+        android:gravity="center"
+        android:textAppearance="@style/vazir_font"
+        android:textColor="@color/black" />
+
+</LinearLayout>

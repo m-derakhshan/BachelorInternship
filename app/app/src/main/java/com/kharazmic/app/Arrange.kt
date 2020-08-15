@@ -7,7 +7,7 @@ class Arrange {
 
     fun persianConverter(number: String?): String {
         var result = ""
-        if (number.isNullOrEmpty())
+        if (number.isNullOrEmpty() || number == "null")
             return ""
         for (i in number)
             result += when (i) {

@@ -8,6 +8,7 @@ import androidx.room.Entity
 data class SignalsModel(
 
 
+
     @ColumnInfo
     val id: String,
 

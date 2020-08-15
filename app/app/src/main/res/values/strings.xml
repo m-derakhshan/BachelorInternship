@@ -106,6 +106,16 @@
     <string name="stock_filter">فیلتر سهام</string>
     <string name="calculator">ماشین حساب</string>
     <string name="watcher_message">پیام ناظر</string>
+    <string name="transaction_volume">حجم معاملات:</string>
+    <string name="today">امروز</string>
+    <string name="yesterday">دیروز</string>
+    <string name="ten_days_ago">۱۰ روز</string>
+    <string name="three_month_ago">۳ ماه</string>
+    <string name="one_month_ago">۱ ماه</string>
+    <string name="number">تعداد</string>
+    <string name="volume">حجم</string>
+    <string name="buy">خرید</string>
+    <string name="sell">فروش</string>
 
 
 </resources>

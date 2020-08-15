@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.Volley
 import com.kharazmic.app.Address
 
 import com.kharazmic.app.R
+import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.FragmentCategoryBinding
 import com.kharazmic.app.main.NewsTutorialClickListener
 import kotlinx.coroutines.CoroutineScope
@@ -39,7 +41,7 @@ class CategoryFragment(private val parent: String, private val category: String)
 
 
     var keyword = MutableLiveData<String>()
-    private var page = 0
+    private var page = 1
 
 
     override fun onCreateView(
@@ -112,8 +114,8 @@ class CategoryFragment(private val parent: String, private val category: String)
             binding.loading.visibility = View.VISIBLE
 
             withContext(Dispatchers.Default) {
-                val request = JsonArrayRequest(
-                    Request.Method.GET,
+                val request = object : JsonArrayRequest(
+                    Method.GET,
                     api,
                     null,
                     Response.Listener { response ->
@@ -143,8 +145,17 @@ class CategoryFragment(private val parent: String, private val category: String)
                         }
                     },
                     Response.ErrorListener {
+                        Log.i("Log", "Error in CategoryFragment $it")
                         binding.refresh.isEnabled = true
-                    })
+                    }) {
+                    @Throws(AuthFailureError::class)
+                    override fun getHeaders(): MutableMap<String, String> {
+                        val params = HashMap<String, String>()
+                        params["Authorization"] = "Bearer ${Utils(context = context!!).token}"
+                        params["Accept"] = "Application/json"
+                        return params
+                    }
+                }
 
                 val queue = Volley.newRequestQueue(context)
                 queue.add(request)

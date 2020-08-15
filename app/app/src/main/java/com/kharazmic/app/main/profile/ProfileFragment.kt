@@ -3,9 +3,11 @@ package com.kharazmic.app.main.profile
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,16 +17,18 @@ import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentProfileBinding
+import com.kharazmic.app.login.LoginActivity
 import com.kharazmic.app.main.MainActivity
 import com.kharazmic.app.main.profile.setting.SettingActivity
 import com.kharazmic.app.main.profile.signals.SignalsFragment
+import kotlinx.coroutines.*
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), ProfileViewModel.TokenExpired {
 
     private val settingCode = 123
     private lateinit var binding: FragmentProfileBinding
-
+    private lateinit var database: MyDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +41,11 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val database = MyDatabase.getInstance(context!!)
+        database = MyDatabase.getInstance(context!!)
         val factory = ProfileViewModelFactory(context!!, database)
         val viewModel = ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
 
-
+        viewModel.isTokenExpired = this
         viewModel.getUserInfo()
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -89,9 +93,35 @@ class ProfileFragment : Fragment() {
 
         if (requestCode == settingCode && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra("exit", true)) {
-                Utils(context!!).isLoggedIn = false
-                activity?.finish()
+                CoroutineScope(Dispatchers.Default).launch {
+                    async(Dispatchers.IO, CoroutineStart.DEFAULT, block = {
+                        Utils(context!!).isLoggedIn = false
+                        database.userDAO.deleteAll()
+                        activity?.startActivity(Intent(activity!!, LoginActivity::class.java))
+                        activity?.finish()
+                    }).await()
+                }
             }
+        }
+    }
+
+    override fun expired(isExpired: Boolean) {
+        if (isExpired) {
+            CoroutineScope(Dispatchers.Main).launch {
+                async(Dispatchers.Default, CoroutineStart.DEFAULT, block = {
+                    Utils(context!!).isLoggedIn = false
+                    database.userDAO.deleteAll()
+                    activity?.startActivity(Intent(activity!!, LoginActivity::class.java))
+                    activity?.finish()
+                }).await()
+                Toast.makeText(
+                    context!!,
+                    "خطای اعتبارسنجی، لطفا مجددا وارد شوید.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+
         }
     }
 }
