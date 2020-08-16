@@ -45,7 +45,6 @@
     <string name="signals">سیگنال ها</string>
     <string name="last_signals">آخرین سیگنال ها</string>
     <string name="all">همه></string>
-    <string name="expireDate">اتمام اشتراک: %s</string>
 
     <string name="buy_signals">سیگنال های خریداری شده</string>
     <string name="sell_signals">سیگنال های صادر شده</string>
@@ -116,6 +115,10 @@
     <string name="volume">حجم</string>
     <string name="buy">خرید</string>
     <string name="sell">فروش</string>
+    <string name="fundamental_information">اطلاعات بنیادی</string>
+    <string name="technical_information">اطلاعات تکنیکال</string>
+    <string name="real_personality">حقیقی</string>
+    <string name="legal_personality">حقوقی</string>
 
 
 </resources>

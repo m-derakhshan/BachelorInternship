@@ -15,6 +15,7 @@ class StockViewModel() : ViewModel() {
     val fullName = MutableLiveData<String>()
 
     val chartBuySellInfo = MutableLiveData<ArrayList<StockBuySellChartModel>>()
+    val chartLegalRealInfo = MutableLiveData<ArrayList<StockLegalRealChartModel>>()
 
 
     fun fetchData() {
@@ -26,7 +27,7 @@ class StockViewModel() : ViewModel() {
         fullName.value = "فولاد مبارکه اصفهان"
 
         val info = ArrayList<StockBuySellChartModel>()
-        for (i in 0..5) {
+        for (i in 0..4) {
             info.add(
                 StockBuySellChartModel(
                     sell_amount = "۹۹۹۹",
@@ -40,6 +41,20 @@ class StockViewModel() : ViewModel() {
 
         }
         chartBuySellInfo.value = info
+
+
+        val legalInfo = ArrayList<StockLegalRealChartModel>()
+        val subject = listOf("حجم خرید", "حجم فروش", "تعداد خریدار", "تعداد فروشنده")
+        for (subject in subject) {
+            legalInfo.add(
+                StockLegalRealChartModel(
+                    legal = "۱۲۳۴۵۶۷۸۹۰",
+                    title = subject,
+                    real = "۱۲۳۴۵"
+                )
+            )
+        }
+        chartLegalRealInfo.value = legalInfo
     }
 
 

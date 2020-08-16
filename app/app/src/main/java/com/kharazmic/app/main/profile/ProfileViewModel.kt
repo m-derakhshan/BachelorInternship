@@ -50,7 +50,10 @@ class ProfileViewModel(val context: Context, private val database: MyDatabase) :
                                     maxDays = it.optInt("maxDays").toFloat(),
                                     remainingDays = it.optInt("remainingDays").toFloat(),
                                     signals = Arrange().persianConverter(it.optString("signals")),
-                                    subscription = Arrange().persianConverter(it.optString("subscription")),
+                                    subscription = Arrange().persianConcatenate(
+                                        middle = " اتمام اشتراک",
+                                        first = it.optString("subscription")
+                                    ),
                                     worth = it.optInt("worth")
                                 )
                             database.userDAO.add(userInformation)

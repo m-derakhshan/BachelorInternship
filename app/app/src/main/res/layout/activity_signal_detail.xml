@@ -80,6 +80,7 @@
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_margin="10dp"
+                        app:cpb_background_progressbar_width="5dp"
                         app:cpb_background_progressbar_color="@color/light_gray"
                         app:cpb_progress_max="100"
                         app:layout_constraintLeft_toLeftOf="parent"

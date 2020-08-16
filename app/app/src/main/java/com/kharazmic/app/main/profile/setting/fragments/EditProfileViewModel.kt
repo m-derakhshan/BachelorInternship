@@ -41,7 +41,7 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
     fun bindInfo(userInfo: UserInfoModel) {
         name.value = userInfo.name
         image.value = userInfo.image
-        experience.value = userInfo.experience.let { "$it سال تجربه" }
+        experience.value = userInfo.experience.toString()
         education.value = when (userInfo.education) {
             1 -> R.id.phd
             2 -> R.id.master

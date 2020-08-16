@@ -57,7 +57,7 @@
             android:id="@+id/expire"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/expireDate(viewModel.subscription)}"
+            android:text="@{viewModel.subscription}"
             android:textAppearance="@style/vazir_font"
             android:textColor="@color/gray" />
 

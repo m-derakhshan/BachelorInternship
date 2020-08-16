@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
+import android.widget.ScrollView
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -40,12 +43,23 @@ class StockFragment : Fragment() {
 
 
         val adapter = StockBuySellChartRecyclerViewAdapter()
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.chartRecyclerView.adapter = adapter
+        binding.chartRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        val legalAdapter = StockLegalRealCharRecyclerViewAdapter()
+        binding.legalChartRecyclerView.adapter = legalAdapter
+        binding.legalChartRecyclerView.layoutManager = LinearLayoutManager(context)
+
+
 
         viewModel.fetchData()
         viewModel.chartBuySellInfo.observe(viewLifecycleOwner, Observer {
             adapter.add(it)
+        })
+
+        viewModel.chartLegalRealInfo.observe(viewLifecycleOwner, Observer { data ->
+
+            legalAdapter.add(data)
         })
 
     }
