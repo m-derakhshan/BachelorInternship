@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.AuthFailureError
-import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -14,9 +13,7 @@ import com.kharazmic.app.Arrange
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.database.model.UserInfoModel
-import id.zelory.compressor.overWrite
 import kotlinx.coroutines.*
-import java.nio.charset.Charset
 
 class ProfileViewModel(val context: Context, private val database: MyDatabase) : ViewModel() {
 

@@ -2,25 +2,17 @@ package com.kharazmic.app.main.stock.main
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.volley.AuthFailureError
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.Volley
-import com.kharazmic.app.Address
 import com.kharazmic.app.Arrange
-
 import com.kharazmic.app.R
-import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentMainStockBinding
 
@@ -29,6 +21,7 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
 
 
     private lateinit var binding: FragmentMainStockBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,35 +74,41 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
         })
 
 
+        database.getStock("technical").observe(viewLifecycleOwner, Observer {
+            Log.i("Log", "data fetched")
+            technicalAdapter.add(it)
+            binding.lastUpdateTechnical.text =
+                Arrange().persianConcatenate(
+                    end = it.firstOrNull()?.lastUpdate,
+                    first = "بروزرسانی: "
+                )
+        })
+
+        database.getStock("fundamental").observe(viewLifecycleOwner, Observer {
+            fundamentalAdapter.add(it)
+            binding.lastUpdateFundamental.text =
+                Arrange().persianConcatenate(
+                    end = it.firstOrNull()?.lastUpdate,
+                    first = "بروزرسانی: "
+                )
+        })
+
 
         viewModel.fetchData()
 
 
-        database.getStock("technical").observe(viewLifecycleOwner, Observer { data ->
-            data?.let {
-                technicalAdapter.add(it)
-
-                binding.lastUpdateTechnical.text =
-                    Arrange().persianConcatenate(
-                        end = it.firstOrNull()?.lastUpdate,
-                        first = "بروزرسانی: "
-                    )
-            }
-
-        })
-
-        database.getStock("fundamental").observe(viewLifecycleOwner, Observer { data ->
-            data?.let {
-                fundamentalAdapter.add(it)
-                binding.lastUpdateFundamental.text =
-                    Arrange().persianConcatenate(
-                        end = it.firstOrNull()?.lastUpdate,
-                        first = "بروزرسانی: "
-                    )
-            }
-
-        })
-
+        binding.moreTechnical.setOnClickListener {
+            val info = Bundle()
+            info.putString("category", "بهترین های تکنیکال")
+            this.findNavController()
+                .navigate(R.id.action_mainStockFragment_to_bestStockFragment, info)
+        }
+        binding.moreFundamental.setOnClickListener {
+            val info = Bundle()
+            info.putString("category", "بهترین های بنیادی")
+            this.findNavController()
+                .navigate(R.id.action_mainStockFragment_to_bestStockFragment, info)
+        }
 
     }
 

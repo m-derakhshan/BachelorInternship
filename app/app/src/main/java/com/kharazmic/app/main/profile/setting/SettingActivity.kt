@@ -1,11 +1,9 @@
 package com.kharazmic.app.main.profile.setting
 
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.kharazmic.app.R
-
-
 
 
 class SettingActivity : AppCompatActivity() {

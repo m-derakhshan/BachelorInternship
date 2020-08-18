@@ -7,12 +7,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore.Images.Media.getBitmap
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,15 +22,12 @@ import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentEditProfileBinding
 import id.zelory.compressor.Compressor
-import id.zelory.compressor.constraint.default
 import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality
 import id.zelory.compressor.constraint.resolution
 import kotlinx.coroutines.*
 import lv.chi.photopicker.PhotoPickerFragment
 import java.io.File
-import java.nio.file.FileVisitor
-import kotlin.math.exp
 
 
 class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {

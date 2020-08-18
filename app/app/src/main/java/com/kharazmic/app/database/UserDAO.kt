@@ -1,7 +1,10 @@
 package com.kharazmic.app.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.kharazmic.app.database.model.UserInfoModel
 
 

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kharazmic.app.database.model.BestSignalDAO
-import java.lang.IllegalArgumentException
 
 class MainStockViewModelFactory(private val context: Context, private val database: BestSignalDAO) :
     ViewModelProvider.Factory {

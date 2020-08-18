@@ -3,7 +3,6 @@ package com.kharazmic.app.main.profile.setting
 import android.content.Context
 import android.net.Uri
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.kharazmic.app.R
 import lv.chi.photopicker.loader.ImageLoader

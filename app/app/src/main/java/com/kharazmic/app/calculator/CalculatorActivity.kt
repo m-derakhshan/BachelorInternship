@@ -1,7 +1,7 @@
 package com.kharazmic.app.calculator
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.ActivityCalculatorBinding

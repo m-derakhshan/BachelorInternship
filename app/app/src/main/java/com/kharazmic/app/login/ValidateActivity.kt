@@ -2,24 +2,21 @@ package com.kharazmic.app.login
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kharazmic.app.Arrange
-import com.kharazmic.app.main.MainActivity
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.ActivityValidateBinding
+import com.kharazmic.app.main.MainActivity
 
 class ValidateActivity : AppCompatActivity() {
 

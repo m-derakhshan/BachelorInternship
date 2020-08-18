@@ -5,25 +5,28 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.AuthFailureError
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.kharazmic.app.Address
-import com.kharazmic.app.Arrange
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.model.BestSignalDAO
 import com.kharazmic.app.database.model.BestStockModel
 import kotlinx.coroutines.*
 
-class MainStockViewModel(val context: Context, val database: BestSignalDAO) : ViewModel() {
+class MainStockViewModel(val context: Context, val database: BestSignalDAO) :
+    ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
     val isLoading = MutableLiveData<Boolean>()
 
+    private var isFetchedOnce = false
+
+
     fun fetchData() {
+        if (isFetchedOnce)
+            return
         isLoading.value = true
         val request = object :
             JsonObjectRequest(
@@ -53,6 +56,7 @@ class MainStockViewModel(val context: Context, val database: BestSignalDAO) : Vi
                         }
                     }
                     isLoading.value = false
+                    isFetchedOnce = true
                 },
                 Response.ErrorListener {
                     isLoading.value = false

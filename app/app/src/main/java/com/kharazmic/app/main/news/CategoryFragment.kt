@@ -2,25 +2,20 @@ package com.kharazmic.app.main.news
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.adapters.AbsListViewBindingAdapter
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
-import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.kharazmic.app.Address
-
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.FragmentCategoryBinding

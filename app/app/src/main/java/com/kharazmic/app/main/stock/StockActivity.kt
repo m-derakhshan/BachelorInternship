@@ -1,7 +1,7 @@
 package com.kharazmic.app.main.stock
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.kharazmic.app.R
 
 class StockActivity : AppCompatActivity() {

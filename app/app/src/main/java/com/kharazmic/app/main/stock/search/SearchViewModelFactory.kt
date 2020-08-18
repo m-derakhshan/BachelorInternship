@@ -4,7 +4,6 @@ package com.kharazmic.app.main.stock.search
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import java.lang.IllegalArgumentException
 
 class SearchViewModelFactory(  private val context: Context) :
     ViewModelProvider.Factory {

@@ -24,6 +24,10 @@ class Address {
 
     val bestStockAPI = "https://run.mocky.io/v3/6964016e-e4c4-4d5b-90de-e3651da077b7"
 
+
+    fun allBestStockAPI(page: String, category: String?): String =
+        "https://run.mocky.io/v3/e69b867d-25c6-4b46-80c0-61d228f4e05f"
+
     fun NewsAPI(keyword: String, category: String, page: Int): String =
         "$base/news/" +
                 "category/$category/" + "keyword/$keyword/" + "page/$page"
