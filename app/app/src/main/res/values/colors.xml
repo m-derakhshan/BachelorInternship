@@ -8,8 +8,11 @@
 
     <color name="green">#0EC37A</color>
     <color name="light_green">#9FF6D3</color>
+
+
+    <color name="dark_blue">#025292</color>
     <color name="blue">#2196F3</color>
-    <color name="light_blue">#9ECFF6</color>
+    <color name="light_blue">#94D0FF</color>
 
     <color name="red">#A50D53</color>
 
@@ -21,8 +24,8 @@
 
     <color name="dark_purple">#7c74b6</color>
     <color name="dark_pink">#d25a95</color>
-    <color name="light_pink">#FAC3DA</color>
-    <color name="light_purple">#BDB5F6</color>
+    <color name="light_pink">#FBCCE0</color>
+    <color name="light_purple">#D0CAFB</color>
     <color name="black">#272727</color>
 
 

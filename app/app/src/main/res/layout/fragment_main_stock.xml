@@ -53,110 +53,258 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/top_menu"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:clipToPadding="false"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="0.3"
-                android:background="@drawable/main_icon_background"
                 android:clipToPadding="false"
-                android:elevation="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
+                android:paddingBottom="10dp">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="65dp"
-                    android:src="@drawable/ic_moshtaghe_icon" />
+                <LinearLayout
+                    android:id="@+id/top_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:clipToPadding="false"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.3"
+                        android:background="@drawable/main_icon_background"
+                        android:clipToPadding="false"
+                        android:elevation="5dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="15dp">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/ic_stock_filter" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/stock_filter"
+                            android:textAppearance="@style/vazir_font"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.3"
+                        android:background="@drawable/main_icon_background"
+                        android:clipToPadding="false"
+                        android:elevation="5dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="15dp">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/ic_stock_calculator" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/calculator"
+                            android:textAppearance="@style/vazir_font"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.3"
+                        android:background="@drawable/main_icon_background"
+                        android:clipToPadding="false"
+                        android:elevation="5dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="15dp">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/ic_stock_message" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/watcher_message"
+                            android:textAppearance="@style/vazir_font"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
 
                 <TextView
+                    android:id="@+id/best_technical_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/stock_filter"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/best_in_technical"
                     android:textAppearance="@style/vazir_font"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="0.3"
-                android:background="@drawable/main_icon_background"
-                android:clipToPadding="false"
-                android:elevation="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="65dp"
-                    android:src="@drawable/ic_ati_icon" />
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/top_menu" />
 
                 <TextView
+                    android:id="@+id/last_update_technical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/calculator"
+                    android:layout_marginEnd="10dp"
                     android:textAppearance="@style/vazir_font"
-                    android:textSize="13sp" />
-            </LinearLayout>
+                    android:textColor="@color/gray"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/best_technical_title" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="0.3"
-                android:background="@drawable/main_icon_background"
-                android:clipToPadding="false"
-                android:elevation="5dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="15dp">
+                <LinearLayout
+                    android:id="@+id/best_technical_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/light_gray"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/best_technical_title" />
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="65dp"
-                    android:src="@drawable/ic_ati_icon" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/bestTechnicalRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:fadingEdgeLength="30dp"
+                    android:overScrollMode="never"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp"
+                    android:requiresFadingEdge="vertical"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toBottomOf="@+id/best_technical_line" />
+
+
+                <ProgressBar
+                    android:id="@+id/technicalLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/bestTechnicalRecyclerView"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/bestTechnicalRecyclerView" />
+
+                <Button
+                    android:id="@+id/more_technical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/rectangular_card_view"
+                    android:backgroundTint="@color/light_gray"
+                    android:text="@string/see_more"
+                    android:textAppearance="@style/vazir_font"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintTop_toBottomOf="@+id/bestTechnicalRecyclerView" />
 
                 <TextView
+                    android:id="@+id/best_fundamental_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/watcher_message"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="50dp"
+                    android:text="@string/best_in_fundamental"
                     android:textAppearance="@style/vazir_font"
-                    android:textSize="13sp" />
-            </LinearLayout>
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/more_technical" />
 
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="بهترین های تکنیکال"
-            android:textAppearance="@style/vazir_font"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/top_menu" />
+                <TextView
+                    android:id="@+id/last_update_fundamental"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:textAppearance="@style/vazir_font"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/best_fundamental_title" />
 
 
+                <LinearLayout
+                    android:id="@+id/best_fundamental_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/light_gray"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/best_fundamental_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/bestFundamentalRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:fadingEdgeLength="30dp"
+                    android:overScrollMode="never"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:requiresFadingEdge="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/best_fundamental_line" />
+
+
+                <ProgressBar
+                    android:id="@+id/fundamentalLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/bestFundamentalRecyclerView"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/bestFundamentalRecyclerView" />
+
+
+
+                <Button
+                    android:id="@+id/more_fundamental"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/rectangular_card_view"
+                    android:backgroundTint="@color/light_gray"
+                    android:text="@string/see_more"
+                    android:textAppearance="@style/vazir_font"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintTop_toBottomOf="@+id/bestFundamentalRecyclerView" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

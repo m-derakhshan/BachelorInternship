@@ -113,6 +113,7 @@ class ProfileFragment : Fragment(), ProfileViewModel.TokenExpired {
                     database.userDAO.deleteAll()
                     activity?.startActivity(Intent(activity!!, LoginActivity::class.java))
                     activity?.finish()
+                    activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }).await()
                 Toast.makeText(
                     context!!,

@@ -6,17 +6,15 @@ class Address {
 
 
     val LoginAPI = "$base/register/register"
-    val ValidatePhoneAPI = "$base/register/registerConfirm"
-//
-//    val LoginAPI = "https://run.mocky.io/v3/05bb668b-4b7f-4a2a-8cce-4ef289072c52"
-//    val ValidatePhoneAPI = "https://run.mocky.io/v3/7c2cd717-96b8-439c-b6e3-8315980d1e9d"
-//
 
-    fun stockSearch(keyword: String, page: String) =
+    val ValidatePhoneAPI = "$base/register/registerConfirm"
+
+    fun stockSearch(keyword: String, page: String): String =
         "https://run.mocky.io/v3/a16de51a-5b19-4110-afa9-487e1606c22d?keyword=$keyword&page=$page"
 
 
     val UpdateInfoAPI = "https://run.mocky.io/v3/8763b1c1-2bec-4b35-badc-7d9adc753df7"
+
     val UserInfoAPI = "$base/profile/info"
 
 
@@ -24,6 +22,7 @@ class Address {
 
     val signalDetailAPI = "https://run.mocky.io/v3/fb70bab7-217b-4e3f-a7b8-8d2955834678"
 
+    val bestStockAPI = "https://run.mocky.io/v3/6964016e-e4c4-4d5b-90de-e3651da077b7"
 
     fun NewsAPI(keyword: String, category: String, page: Int): String =
         "$base/news/" +

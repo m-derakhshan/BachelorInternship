@@ -157,8 +157,9 @@ class CategoryFragment(private val parent: String, private val category: String)
                     }
                 }
 
-                val queue = Volley.newRequestQueue(context)
-                queue.add(request)
+                Volley.newRequestQueue(context).apply {
+                    add(request)
+                }
             }
 
         }

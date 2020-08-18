@@ -4,14 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.kharazmic.app.database.model.SearchHistoryModel
-import com.kharazmic.app.database.model.SignalsModel
-import com.kharazmic.app.database.model.UserInfoModel
+import com.kharazmic.app.database.model.*
 
 
 @Database(
-    entities = [UserInfoModel::class, SignalsModel::class, SearchHistoryModel::class],
-    version = 2,
+    entities = [UserInfoModel::class, SignalsModel::class, SearchHistoryModel::class, BestStockModel::class],
+    version = 6,
     exportSchema = false
 )
 
@@ -20,6 +18,7 @@ abstract class MyDatabase : RoomDatabase() {
     abstract val userDAO: UserDAO
     abstract val signalDAO: SignalDAO
     abstract val searchHistoryDao: SearchHistoryDAO
+    abstract val bestStockDao: BestSignalDAO
 
 
     companion object {
