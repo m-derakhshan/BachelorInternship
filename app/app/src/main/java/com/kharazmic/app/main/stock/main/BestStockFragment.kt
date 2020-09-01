@@ -116,7 +116,6 @@ class BestStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
 
                 }, Response.ErrorListener {
                     Log.i("Log", "error in BestStockFragment $it")
-                    binding.loading.visibility = View.GONE
 
                 }
             ) {

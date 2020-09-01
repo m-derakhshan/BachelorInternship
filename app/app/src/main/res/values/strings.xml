@@ -26,7 +26,8 @@
     <string name="ati">قرارداد آتی</string>
     <string name="ekhtyar">قرارداد اختیار</string>
     <string name="saham">سهام</string>
-    <string name="arz">ارز</string>
+    <string name="currency">ارز</string>
+    <string name="gold">طلا</string>
     <string name="sandogh">صندوق</string>
 
 
@@ -39,7 +40,7 @@
     <string name="technical">تحلیل تکنیکال سهام</string>
     <string name="money_flow">جریان نقدینگی</string>
     <string name="block_chain">بلاکچین</string>
-    <string name="gold"> طلا و ارز</string>
+    <string name="gold_currency"> طلا و ارز</string>
     <string name="following">دنبال کنندگان</string>
     <string name="followers">دنبال شوندگان</string>
     <string name="signals">سیگنال ها</string>
@@ -125,5 +126,11 @@
     <string name="best_in_fundamental">بهترین های بنیادی</string>
     <string name="see_more">مشاهده ی بیشتر</string>
 
+
+    <string name="indicator">شاخص</string>
+    <string name="price">قیمت</string>
+    <string name="date">تاریخ</string>
+    <string name="coin">سکه</string>
+    <string name="global_metal">انس های جهانی</string>
 
 </resources>

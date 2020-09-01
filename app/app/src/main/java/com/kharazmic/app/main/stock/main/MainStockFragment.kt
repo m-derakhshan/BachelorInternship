@@ -5,14 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
+import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentMainStockBinding
 
@@ -31,9 +35,9 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         binding.search.setOnClickListener {
             this.findNavController().navigate(R.id.action_mainStockFragment_to_stockSearchFragment)
         }
@@ -59,23 +63,15 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
 
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             it?.let { isLoading ->
-                if (isLoading) {
-                    binding.technicalLoading.visibility = View.VISIBLE
-                    binding.bestTechnicalRecyclerView.visibility = View.INVISIBLE
-                    binding.fundamentalLoading.visibility = View.VISIBLE
-                    binding.bestFundamentalRecyclerView.visibility = View.INVISIBLE
-                } else {
-                    binding.technicalLoading.visibility = View.GONE
-                    binding.bestTechnicalRecyclerView.visibility = View.VISIBLE
-                    binding.fundamentalLoading.visibility = View.GONE
-                    binding.bestFundamentalRecyclerView.visibility = View.VISIBLE
-                }
+                if (isLoading)
+                    binding.loading.visibility = View.VISIBLE
+                else
+                    binding.loading.visibility = View.GONE
             }
         })
 
 
         database.getStock("technical").observe(viewLifecycleOwner, Observer {
-            Log.i("Log", "data fetched")
             technicalAdapter.add(it)
             binding.lastUpdateTechnical.text =
                 Arrange().persianConcatenate(
@@ -83,7 +79,6 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
                     first = "بروزرسانی: "
                 )
         })
-
         database.getStock("fundamental").observe(viewLifecycleOwner, Observer {
             fundamentalAdapter.add(it)
             binding.lastUpdateFundamental.text =
@@ -95,6 +90,16 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
 
 
         viewModel.fetchData()
+        viewModel.networkError.observe(viewLifecycleOwner, Observer {
+            it?.let { error ->
+                if (error)
+                    Utils(requireContext()).showSnackBar(
+                        color = ContextCompat.getColor(requireContext(), R.color.black),
+                        msg = "خطا در بروزرسانی اطلاعات!",
+                        snackView = binding.root
+                    )
+            }
+        })
 
 
         binding.moreTechnical.setOnClickListener {

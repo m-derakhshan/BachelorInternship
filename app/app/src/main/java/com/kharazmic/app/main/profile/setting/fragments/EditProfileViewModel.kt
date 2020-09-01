@@ -72,7 +72,7 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
 
         val request = JsonObjectRequest(
             Request.Method.POST,
-            Address().UpdateInfoAPI,
+            Address().updateInfoAPI,
             info,
             Response.Listener {
                 scope.launch(

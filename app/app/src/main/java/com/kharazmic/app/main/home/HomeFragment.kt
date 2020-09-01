@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentHomeBinding
+import com.kharazmic.app.main.gold.GoldCurrencyActivity
 import com.kharazmic.app.main.stock.StockActivity
 
 
@@ -35,11 +36,10 @@ class HomeFragment : Fragment(), HomeOnClickListener {
         adapter.add(itemMenu())
     }
 
-
     private fun itemMenu(): ArrayList<ItemMenuModel> {
         val data = ArrayList<ItemMenuModel>()
         val nameList = listOf(
-            R.string.sandogh, R.string.arz, R.string.saham,
+            R.string.sandogh, R.string.gold_currency, R.string.saham,
             R.string.energy, R.string.ati, R.string.ekhtyar,
             R.string.hagh_taghadom, R.string.oragh_moshtaghe, R.string.oragh_bedehi
         )
@@ -68,7 +68,7 @@ class HomeFragment : Fragment(), HomeOnClickListener {
                 activity, when (id) {
                     0 -> StockActivity::class.java
 
-                    1 -> StockActivity::class.java
+                    1 -> GoldCurrencyActivity::class.java
 
                     2 -> StockActivity::class.java
 

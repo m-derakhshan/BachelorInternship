@@ -68,7 +68,7 @@ class SignalsFragment(private val category: String) : Fragment(), SignalsOnClick
 
         val request = JsonArrayRequest(
             Request.Method.GET,
-            Address().SignalsAPI(category = category, page = page),
+            Address().signalsAPI(category = category, page = page),
             null,
             Response.Listener {
                 scope.launch {

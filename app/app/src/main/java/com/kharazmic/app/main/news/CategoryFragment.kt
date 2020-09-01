@@ -79,7 +79,6 @@ class CategoryFragment(private val parent: String, private val category: String)
 
 
         fetchNews()
-
         binding.refresh.setOnRefreshListener {
             fetchNews()
             binding.refresh.isRefreshing = false
@@ -97,9 +96,9 @@ class CategoryFragment(private val parent: String, private val category: String)
     private fun fetchNews() {
         scope.launch {
             val api = if (parent == "news")
-                Address().NewsAPI(keyword = keyword.value ?: "", category = category, page = page)
+                Address().newsAPI(keyword = keyword.value ?: "", category = category, page = page)
             else
-                Address().TutorialAPI(
+                Address().tutorialAPI(
                     keyword = keyword.value ?: "",
                     category = category,
                     page = page

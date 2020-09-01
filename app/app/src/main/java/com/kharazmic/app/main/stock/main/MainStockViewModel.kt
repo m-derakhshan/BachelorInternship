@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.AuthFailureError
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -22,6 +23,7 @@ class MainStockViewModel(val context: Context, val database: BestSignalDAO) :
     val isLoading = MutableLiveData<Boolean>()
 
     private var isFetchedOnce = false
+    val networkError = MutableLiveData<Boolean>()
 
 
     fun fetchData() {
@@ -53,12 +55,13 @@ class MainStockViewModel(val context: Context, val database: BestSignalDAO) :
                                     )
                                 }
                             }).await()
+                            isLoading.value = false
+                            isFetchedOnce = true
                         }
                     }
-                    isLoading.value = false
-                    isFetchedOnce = true
                 },
                 Response.ErrorListener {
+                    networkError.value = true
                     isLoading.value = false
                     Log.i("Log", "error in MainStockViewModel $it")
 
@@ -72,6 +75,7 @@ class MainStockViewModel(val context: Context, val database: BestSignalDAO) :
             }
         }
 
+        request.retryPolicy = DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         Volley.newRequestQueue(context).apply {
             add(request)
         }

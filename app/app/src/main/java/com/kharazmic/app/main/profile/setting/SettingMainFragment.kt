@@ -12,8 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kharazmic.app.R
+import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentSettingMainBinding
+import com.kharazmic.app.login.LoginActivity
 import kotlinx.coroutines.*
 
 
@@ -42,9 +44,9 @@ class SettingMainFragment : Fragment(), SettingClickListener {
         adapter.clickListener = this
         binding.recyclerView.adapter = adapter
 
-        binding.back.setOnClickListener {
-            activity?.onBackPressed()
-        }
+//        binding.back.setOnClickListener {
+//            activity?.onBackPressed()
+//        }
 
 
         val titles = listOf(
@@ -90,15 +92,15 @@ class SettingMainFragment : Fragment(), SettingClickListener {
                         database.userDAO.deleteAll()
                         database.signalDAO.deleteAll()
                     }).await()
-                    val exit = Intent()
-                    exit.putExtra("exit", true)
-                    activity?.setResult(Activity.RESULT_OK, exit)
-                    activity?.onBackPressed()
+                    Utils(requireContext()).isLoggedIn = false
+                    activity?.startActivity(Intent(activity!!, LoginActivity::class.java))
+                    activity?.finish()
+                    activity?.overridePendingTransition(R.anim.fade_in, R.anim.no_effect)
                 }
             }
-
         }
+
     }
-
-
 }
+
+

@@ -63,7 +63,7 @@ class ContactFragment : Fragment() {
             val request =
                 JsonObjectRequest(
                     Request.Method.POST,
-                    Address().TicketAPI,
+                    Address().ticketAPI,
                     info,
                     Response.Listener {
                         Utils(context!!).showSnackBar(

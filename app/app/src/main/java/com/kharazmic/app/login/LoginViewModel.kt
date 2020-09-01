@@ -5,8 +5,8 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.kharazmic.app.Address
@@ -36,22 +36,40 @@ class LoginViewModel(private val context: Context) : ViewModel() {
 
     fun sendSMS() {
         if (Arrange().validatePhone(phoneNumber)) {
-            val data = JSONObject()
-            data.put("phone", phoneNumber)
-
             isLoading.value = true
             val request =
-                JsonObjectRequest(Request.Method.POST, Address().LoginAPI, data, Response.Listener {
-                    loginStatus.value = it.getBoolean("status")
-                    isLoading.value = !it.getBoolean("status")
+                JsonObjectRequest(
+                    Request.Method.GET,
+                    Address().loginAPI(phoneNumber),
+                    null,
+                    {
+                        loginStatus.value = it.getString("result") == "ok"
+                        isLoading.value = it.getString("result") != "ok"
+                    },
+                    {
+                        isLoading.value = false
+                        internetStatus.value = false
+                        try {
+                            Log.i(
+                                "Log",
+                                "Error in LoginViewModel_login ${
+                                String(
+                                    it.networkResponse.data,
+                                    Charsets.UTF_8
+                                )
+                                }"
+                            )
+                        } catch (e: Exception) {
+                            Log.i("Log", "Error in LoginViewModel_Login $it")
+                        }
+                    })
 
-                }, Response.ErrorListener {
-                    isLoading.value = false
-                    internetStatus.value = false
-                })
 
-            val queue = Volley.newRequestQueue(context)
-            queue.add(request)
+            request.retryPolicy =
+                DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
+            Volley.newRequestQueue(context).add(request)
+
         } else {
             isLoading.value = false
             loginStatus.value = false
@@ -60,31 +78,50 @@ class LoginViewModel(private val context: Context) : ViewModel() {
     }
 
     fun sendCode() {
-        Log.i("Log", "code is $code")
         if (code.isNotEmpty()) {
             isLoading.value = true
             val data = JSONObject()
-            data.put("phone", phoneNumber)
-            data.put("code", code)
+            data.put("identifier", phoneNumber)
+            data.put("password", code)
 
-            Log.i("Log", "Log data are $phoneNumber and $code")
             val request =
                 JsonObjectRequest(
                     Request.Method.POST,
-                    Address().ValidatePhoneAPI,
+                    Address().validatePhoneAPI,
                     data,
-                    Response.Listener {
-                        Utils(context).token = it.getString("api_token")
-                        validateStatus.value = it.getBoolean("status")
-                        isLoading.value = it.getBoolean("status")
+                    {
+                        Utils(context).token = it.getString("jwt")
+                        validateStatus.value = true
+                        isLoading.value = true
                     },
-                    Response.ErrorListener {
-                        internetStatus.value = false
+                    {
+
+
+                        validateStatus.value = false
                         isLoading.value = false
+                        try {
+                            internetStatus.value = it.networkResponse.statusCode == 400
+
+                            Log.i(
+                                "Log",
+                                "Error in LoginViewModel_Validate ${
+                                String(
+                                    it.networkResponse.data,
+                                    Charsets.UTF_8
+                                )
+                                }"
+                            )
+                        } catch (e: Exception) {
+                            internetStatus.value = false
+                            Log.i("Log", "Error in LoginViewModel_Validate $it")
+                        }
                     })
 
-            val queue = Volley.newRequestQueue(context)
-            queue.add(request)
+            request.retryPolicy =
+                DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
+            Volley.newRequestQueue(context).add(request)
+
         } else {
 
             validateStatus.value = false

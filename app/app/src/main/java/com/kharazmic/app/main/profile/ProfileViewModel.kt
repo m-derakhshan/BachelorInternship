@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.AuthFailureError
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -31,7 +32,7 @@ class ProfileViewModel(val context: Context, private val database: MyDatabase) :
 
     fun getUserInfo() {
         val request = object :
-            JsonObjectRequest(Method.GET, Address().UserInfoAPI, null,
+            JsonObjectRequest(Method.GET, Address().userInfoAPI, null,
                 Response.Listener {
                     scope.launch {
                         async(Dispatchers.IO, CoroutineStart.DEFAULT, block = {
@@ -77,9 +78,10 @@ class ProfileViewModel(val context: Context, private val database: MyDatabase) :
             }
         }
 
+        request.retryPolicy =
+            DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
-        val queue = Volley.newRequestQueue(context)
-        queue.add(request)
+        Volley.newRequestQueue(context).add(request)
 
 
     }
