@@ -10,7 +10,7 @@ class EditProfileViewModelFactory(private val database: MyDatabase, private val 
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EditProfileViewModel::class.java))
-            return EditProfileViewModel(database = database, context = context) as T
+            return modelClass.getConstructor(MyDatabase::class.java, Context::class.java).newInstance(database, context)
         throw IllegalArgumentException("model class is not true")
     }
 

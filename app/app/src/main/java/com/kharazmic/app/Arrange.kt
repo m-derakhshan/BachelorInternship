@@ -1,7 +1,5 @@
 package com.kharazmic.app
 
-import android.util.Log
-
 class Arrange {
 
 

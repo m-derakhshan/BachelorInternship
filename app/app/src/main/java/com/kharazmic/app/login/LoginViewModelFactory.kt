@@ -8,7 +8,7 @@ class LoginViewModelFactory(private val context: Context) : ViewModelProvider.Fa
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java))
-            return LoginViewModel(context) as T
+            return modelClass.getConstructor(Context::class.java).newInstance(context)
         throw  IllegalArgumentException("model class was not recognized")
     }
 }

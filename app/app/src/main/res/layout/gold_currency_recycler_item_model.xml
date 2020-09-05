@@ -14,9 +14,11 @@
         android:layout_weight="0.3"
         android:gravity="center"
         android:textAppearance="@style/vazir_font"
+        android:textColor="@color/dark_blue"
         android:textSize="14sp" />
 
     <TextView
+        android:textColor="@color/dark_blue"
         android:id="@+id/price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -27,12 +29,13 @@
 
 
     <TextView
+        android:textColor="@color/dark_blue"
         android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:background="@drawable/gold_currency_item_model"
-        android:backgroundTint="@color/white_purple"
+        android:backgroundTint="@color/light_violet"
         android:gravity="center"
         android:padding="5dp"
         android:textAppearance="@style/vazir_font"

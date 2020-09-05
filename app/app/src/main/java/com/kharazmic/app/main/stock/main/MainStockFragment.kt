@@ -1,7 +1,6 @@
 package com.kharazmic.app.main.stock.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
@@ -52,6 +49,11 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
         fundamentalAdapter.click = this
 
 
+        binding.calculator.setOnClickListener {
+            this.findNavController().navigate(R.id.action_mainStockFragment_to_calculatorFragment)
+        }
+
+
         binding.bestTechnicalRecyclerView.apply {
             adapter = technicalAdapter
             layoutManager = LinearLayoutManager(context)
@@ -78,7 +80,9 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
                     end = it.firstOrNull()?.lastUpdate,
                     first = "بروزرسانی: "
                 )
+            viewModel.isLoading.value
         })
+
         database.getStock("fundamental").observe(viewLifecycleOwner, Observer {
             fundamentalAdapter.add(it)
             binding.lastUpdateFundamental.text =
@@ -87,6 +91,8 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
                     first = "بروزرسانی: "
                 )
         })
+
+
 
 
         viewModel.fetchData()

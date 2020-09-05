@@ -1,6 +1,5 @@
 package com.kharazmic.app.main.profile.setting
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater

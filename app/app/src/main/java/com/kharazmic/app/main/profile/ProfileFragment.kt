@@ -1,6 +1,5 @@
 package com.kharazmic.app.main.profile
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,15 +10,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentProfileBinding
 import com.kharazmic.app.login.LoginActivity
-import com.kharazmic.app.main.MainActivity
-import com.kharazmic.app.main.profile.setting.SettingActivity
-import com.kharazmic.app.main.profile.signals.SignalsFragment
 import kotlinx.coroutines.*
 
 

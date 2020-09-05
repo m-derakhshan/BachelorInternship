@@ -10,7 +10,8 @@ class ProfileViewModelFactory(val context: Context, val database: MyDatabase) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ProfileViewModel::class.java))
-            return ProfileViewModel(context = context, database = database) as T
+            return modelClass.getConstructor(Context::class.java, MyDatabase::class.java)
+                .newInstance(context, database)
         throw IllegalArgumentException("model class is unknown!")
     }
 

@@ -1,21 +1,23 @@
-package com.kharazmic.app.main.gold.currency_fragment
+package com.kharazmic.app.main.stock.message
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.kharazmic.app.R
 
 
-class CurrencyFragment : Fragment() {
+class MessageFragment : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_currency, container, false)
+        return inflater.inflate(R.layout.fragment_message, container, false)
     }
+
 
 }

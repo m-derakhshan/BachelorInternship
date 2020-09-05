@@ -133,4 +133,21 @@
     <string name="coin">سکه</string>
     <string name="global_metal">انس های جهانی</string>
 
+
+    <string name="stock_calculator">ماشین حساب سهام</string>
+    <string name="amount_of_stocks">تعداد سهام:</string>
+    <string name="sell_price_per_stock">قیمت فروش هر سهم:</string>
+    <string name="buy_price_per_stock">قیمت خرید هر سهم:</string>
+    <string name="profit_or_damage">سود یا زیان</string>
+    <string name="buy_price">مبلغ خرید:</string>
+    <string name="sell_price">مبلغ فروش:</string>
+    <string name="buy_sell_subtraction">تفاضل خرید و فروش:</string>
+    <string name="efficiency_percentage">درصد سود یا زیان:</string>
+    <string name="calculate_amount_of_stocks">محاسبه ی تعداد سهام:</string>
+    <string name="price_per_stock">قیمت هر سهم:</string>
+    <string name="number_of_stocks_to_be_purchase">تعداد سهام قابل خرید:</string>
+    <string name="total_tax">جمع کارمزد:</string>
+    <string name="buy_tax">کارمزد خرید:</string>
+    <string name="sell_tax">کارمزد فروش:</string>
+
 </resources>

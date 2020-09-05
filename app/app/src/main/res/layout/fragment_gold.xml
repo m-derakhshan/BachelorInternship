@@ -8,252 +8,264 @@
         android:orientation="vertical">
 
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl">
 
-            <androidx.core.widget.NestedScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl">
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp">
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:background="@color/light_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@color/light_gray"
+                        android:gravity="center"
+                        android:text="@string/gold"
+                        android:textAppearance="@style/vazir_font"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/light_gray" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1.5dp"
-                            android:background="@color/light_gray" />
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:background="@color/light_gray"
+                            android:layout_weight="0.33"
                             android:gravity="center"
-                            android:text="@string/gold"
+                            android:text="@string/indicator"
                             android:textAppearance="@style/vazir_font"
-                            android:textSize="18sp" />
+                            android:textColor="@color/dark_blue"
+                            android:textSize="14sp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1.5dp"
-                            android:layout_marginBottom="5dp"
-                            android:background="@color/light_gray" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:orientation="horizontal">
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/price"
+                            android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="14sp" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.33"
-                                android:gravity="center"
-                                android:text="@string/indicator"
-                                android:textAppearance="@style/vazir_font"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.33"
-                                android:gravity="center"
-                                android:text="@string/price"
-                                android:textAppearance="@style/vazir_font"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.33"
-                                android:gravity="center"
-                                android:text="@string/date"
-                                android:textAppearance="@style/vazir_font"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/gold_recycler"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:overScrollMode="never" />
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/date"
+                            android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/gold_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1.5dp"
-                            android:background="@color/light_gray" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:background="@color/light_gray"
-                            android:gravity="center"
-                            android:text="@string/coin"
-                            android:textAppearance="@style/vazir_font"
-                            android:textSize="18sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1.5dp"
-                            android:layout_marginBottom="5dp"
-                            android:background="@color/light_gray" />
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.33"
-                                android:gravity="center"
-                                android:text="@string/indicator"
-                                android:textAppearance="@style/vazir_font"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.33"
-                                android:gravity="center"
-                                android:text="@string/price"
-                                android:textAppearance="@style/vazir_font"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.33"
-                                android:gravity="center"
-                                android:text="@string/date"
-                                android:textAppearance="@style/vazir_font"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/coin_recycler"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:overScrollMode="never" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1.5dp"
-                            android:background="@color/light_gray" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:background="@color/light_gray"
-                            android:gravity="center"
-                            android:text="@string/global_metal"
-                            android:textAppearance="@style/vazir_font"
-                            android:textSize="18sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1.5dp"
-                            android:layout_marginBottom="5dp"
-                            android:background="@color/light_gray" />
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.33"
-                                android:gravity="center"
-                                android:text="@string/indicator"
-                                android:textAppearance="@style/vazir_font"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.33"
-                                android:gravity="center"
-                                android:text="@string/price"
-                                android:textAppearance="@style/vazir_font"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.33"
-                                android:gravity="center"
-                                android:text="@string/date"
-                                android:textAppearance="@style/vazir_font"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/global_recycler"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:overScrollMode="never" />
-
-                    </LinearLayout>
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:overScrollMode="never" />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
 
-            </androidx.core.widget.NestedScrollView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:background="@color/light_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@color/light_gray"
+                        android:gravity="center"
+                        android:text="@string/coin"
+                        android:textAppearance="@style/vazir_font"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/light_gray" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/indicator"
+                            android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/price"
+                            android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/date"
+                            android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/coin_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:background="@color/light_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@color/light_gray"
+                        android:gravity="center"
+                        android:text="@string/global_metal"
+                        android:textAppearance="@style/vazir_font"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/light_gray" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:textColor="@color/dark_blue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/indicator"
+                            android:textAppearance="@style/vazir_font"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:textColor="@color/dark_blue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/price"
+                            android:textAppearance="@style/vazir_font"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:textColor="@color/dark_blue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/date"
+                            android:textAppearance="@style/vazir_font"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/global_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
         <LinearLayout
-            android:background="@color/white"
             android:id="@+id/loading"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <ProgressBar
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"

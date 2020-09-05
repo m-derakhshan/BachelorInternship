@@ -2,6 +2,7 @@ package com.kharazmic.app.main.profile.setting.fragments
 
 import android.content.Context
 import android.util.Base64
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.*
@@ -12,6 +13,8 @@ import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.database.model.UserInfoModel
+import com.kharazmic.app.main.profile.setting.FileDataPart
+import com.kharazmic.app.main.profile.setting.VolleyFileUploadRequest
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
@@ -30,7 +33,6 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
     val worth = MutableLiveData<Int>()
     val isLoading = MutableLiveData<Boolean>()
     val updateStatus = MutableLiveData<Int>()
-    val newImage = ByteArrayOutputStream()
 
 
     init {
@@ -60,60 +62,53 @@ class EditProfileViewModel(private val database: MyDatabase, private val context
     }
 
 
-    fun updateInfo() {
+    fun uploadImage(imageData: ByteArray? = null) {
+
         isLoading.value = true
-        val info = JSONObject()
-        info.put("name", name.value)
-        info.put("education", education.value)
-        info.put("experience", experience.value)
-        info.put("worth", worth.value)
-        info.put("image", Base64.encodeToString(newImage.toByteArray(), Base64.DEFAULT))
+
+        val request = object : VolleyFileUploadRequest(
+            context = context,
+            method = Method.POST,
+            url = "https://ptsv2.com/t/2lh87-1599027066/post",
+            listener = Response.Listener {
+
+                scope.launch {
+                    async(Dispatchers.Default, CoroutineStart.DEFAULT, block = {
 
 
-        val request = JsonObjectRequest(
-            Request.Method.POST,
-            Address().updateInfoAPI,
-            info,
-            Response.Listener {
-                scope.launch(
-                    context = Dispatchers.Default,
-                    start = CoroutineStart.DEFAULT,
-                    block = {
-                        val userInformation =
-                            UserInfoModel(
-                                name = it.optString("name"),
-                                image = it.optString("image"),
-                                education = it.optInt("education"),
-                                experience = it.optInt("experience"),
-                                followers = Arrange().persianConverter(it.optString("followers")),
-                                following = Arrange().persianConverter(it.optString("following")),
-                                maxDays = it.optInt("maxDays").toFloat(),
-                                remainingDays = it.optInt("remainingDays").toFloat(),
-                                signals = Arrange().persianConverter(it.optString("signals")),
-                                subscription = Arrange().persianConverter(it.optString("subscription")),
-                                worth = it.optInt("worth")
-                            )
-                        database.userDAO.add(userInformation)
-                    })
-                updateStatus.value = 0
+                    }).await()
+                }
+
                 isLoading.value = false
+                println("response is: $it")
             },
-            Response.ErrorListener {
-                updateStatus.value =
-                    if (it is NetworkError || it is TimeoutError || it is NoConnectionError) 1
-                    else 2
+            errorListener = Response.ErrorListener {
                 isLoading.value = false
-            })
+                try {
+                    Log.i("Log", "error is ${String(it.networkResponse.data, Charsets.UTF_8)}")
+                } catch (e: Exception) {
+                    Log.i("Log", "error is $it")
+                }
+            }
+        ) {
+            override fun getByteData(): MutableMap<String, FileDataPart> {
+                val params = HashMap<String, FileDataPart>()
+                if (imageData != null)
+                    params["avatar"] = FileDataPart("image", imageData, "jpeg")
+                return params
+            }
 
-        request.retryPolicy = DefaultRetryPolicy(
-            30000,
-            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        )
-
-        val queue = Volley.newRequestQueue(context)
-        queue.add(request)
-
+            override fun getParams(): MutableMap<String, String> {
+                val info = HashMap<String, String>()
+                info["name"] = name.value.toString()
+                info["education"] = education.value.toString()
+                info["experience"] = experience.value.toString()
+                info["worth"] = worth.value.toString()
+                return info
+            }
+        }
+        request.retryPolicy = DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+        Volley.newRequestQueue(context).add(request)
     }
 
 

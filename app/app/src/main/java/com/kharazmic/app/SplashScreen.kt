@@ -2,8 +2,8 @@ package com.kharazmic.app
 
 import android.animation.Animator
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.kharazmic.app.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 

@@ -448,7 +448,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"
                     android:background="@drawable/login_btn"
-                    android:onClick="@{()->viewModel.updateInfo()}"
                     android:text="@string/edit"
                     android:textAppearance="@style/vazir_font"
                     android:textColor="@color/white"

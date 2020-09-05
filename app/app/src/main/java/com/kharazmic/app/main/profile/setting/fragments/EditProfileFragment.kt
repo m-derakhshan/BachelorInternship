@@ -2,11 +2,9 @@ package com.kharazmic.app.main.profile.setting.fragments
 
 
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore.Images.Media.getBitmap
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +14,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Response
+import com.android.volley.toolbox.Volley
 import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentEditProfileBinding
+import com.kharazmic.app.main.profile.setting.FileDataPart
+import com.kharazmic.app.main.profile.setting.VolleyFileUploadRequest
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality
@@ -28,6 +31,7 @@ import id.zelory.compressor.constraint.resolution
 import kotlinx.coroutines.*
 import lv.chi.photopicker.PhotoPickerFragment
 import java.io.File
+import java.io.IOException
 
 
 class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
@@ -36,6 +40,9 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
     private lateinit var viewModel: EditProfileViewModel
     private lateinit var binding: FragmentEditProfileBinding
     private val scope = CoroutineScope(Dispatchers.Main)
+    private var imageData: ByteArray? = null
+    private var worth = "0"
+    private var education = "0"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +63,27 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
         viewModel = ViewModelProvider(this, factory).get(EditProfileViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+
+        binding.worthGroup.setOnCheckedChangeListener { _, checkedId ->
+            worth = when (checkedId) {
+                R.id.level1 -> "1"
+                R.id.level2 -> "2"
+                R.id.level3 -> "3"
+                R.id.level4 -> "4"
+                R.id.level5 -> "5"
+                else -> "6"
+            }
+        }
+
+        binding.educationCategory.setOnCheckedChangeListener { _, checkedId ->
+            education = when (checkedId) {
+                R.id.phd -> "1"
+                R.id.master -> "2"
+                R.id.bachelor -> "3"
+                else -> "4"
+            }
+        }
 
 
         database.userDAO.getInfo().observe(viewLifecycleOwner, Observer {
@@ -111,40 +139,37 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
         expandPanel.add(binding.worthLayout)
         expandPanel.openOnlyOne(true)
 
+
+        binding.submit.setOnClickListener {
+            viewModel.uploadImage(imageData)
+        }
+
     }
 
 
     override fun onImagesPicked(photos: ArrayList<Uri>) {
         scope.launch {
             binding.profile.setImageURI(photos.first())
-            async(Dispatchers.Default, CoroutineStart.DEFAULT, block = {
-                val uri = try {
-                    val compressedImageFile =
-                        Compressor.compress(context!!, File(photos.first().path!!)) {
-                            resolution(640, 640)
-                            quality(50)
-                            format(Bitmap.CompressFormat.JPEG)
-                        }
-                    Uri.fromFile(compressedImageFile)
-
-                } catch (e: Exception) {
-                    photos.first()
-                }
-
-                val bitmap = if (Build.VERSION.SDK_INT < 28) {
-                    getBitmap(
-                        activity?.contentResolver, uri
-                    )
-                } else {
-                    val source =
-                        ImageDecoder.createSource(
-                            activity!!.contentResolver, uri
-                        )
-                    ImageDecoder.decodeBitmap(source)
-                }
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, viewModel.newImage)
+            async(Dispatchers.IO, CoroutineStart.DEFAULT, block = {
+                val compressedImageFile =
+                    Compressor.compress(context!!, File(photos.first().path!!)) {
+                        resolution(1024, 1024)
+                        quality(80)
+                        format(Bitmap.CompressFormat.JPEG)
+                    }
+                createImageData(Uri.fromFile(compressedImageFile))
             }).await()
         }
 
     }
+
+
+    @Throws(IOException::class)
+    private fun createImageData(uri: Uri) {
+        val inputStream = activity?.contentResolver?.openInputStream(uri)
+        inputStream?.buffered()?.let {
+            imageData = it.readBytes()
+        }
+    }
+
 }

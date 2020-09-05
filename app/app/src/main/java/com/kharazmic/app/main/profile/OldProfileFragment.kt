@@ -15,7 +15,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
-import com.kharazmic.app.databinding.FragmentProfileBinding
 import com.kharazmic.app.databinding.FragmentProfileOldBinding
 import com.kharazmic.app.login.LoginActivity
 import com.kharazmic.app.main.MainActivity

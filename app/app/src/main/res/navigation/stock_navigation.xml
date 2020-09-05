@@ -20,17 +20,24 @@
         <action
             android:id="@+id/action_mainStockFragment_to_stockFragment"
             app:destination="@id/stockFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_mainStockFragment_to_bestStockFragment"
             app:destination="@id/bestStockFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainStockFragment_to_calculatorFragment"
+            app:destination="@id/calculatorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/stockSearchFragment"
@@ -40,10 +47,10 @@
         <action
             android:id="@+id/action_stockSearchFragment_to_stockFragment"
             app:destination="@id/stockFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/mainStockFragment" />
     </fragment>
     <fragment
@@ -58,9 +65,13 @@
         <action
             android:id="@+id/action_bestStockFragment_to_stockFragment"
             app:destination="@id/stockFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/calculatorFragment"
+        android:name="com.kharazmic.app.main.stock.CalculatorFragment"
+        android:label="CalculatorFragment" />
 </navigation>
