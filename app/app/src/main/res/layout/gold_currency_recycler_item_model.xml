@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAppearance="@style/vazir_font"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_marginStart="5dp"
             android:gravity="center"
             android:textAppearance="@style/vazir_font"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
 
@@ -60,7 +60,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:textAppearance="@style/vazir_font"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/black"
         android:textSize="14sp" />
 
 </LinearLayout>

@@ -46,7 +46,7 @@ class GoldRecyclerAdapter : RecyclerView.Adapter<GoldRecyclerAdapter.ViewHolder>
                 ContextCompat.getColor(
                     itemView.context,
                     if (model.changePercentage < 0) R.color.red
-                    else R.color.light_green
+                    else R.color.dark_green
                 )
             )
             itemView.title.text = Arrange().persianConverter(model.title)

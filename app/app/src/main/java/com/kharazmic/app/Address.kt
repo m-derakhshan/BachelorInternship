@@ -28,6 +28,7 @@ class Address {
 
     val currency = "https://run.mocky.io/v3/814683d7-b505-424d-8fb0-682bcca8f7bc"
 
+    fun supervisorMessage(page: Int) = "https://run.mocky.io/v3/fc4c7dfb-756a-4ea2-b900-5fe8193b120c?page=$page"
 
     fun newsAPI(keyword: String, category: String, page: Int): String =
         "$base/news/" +

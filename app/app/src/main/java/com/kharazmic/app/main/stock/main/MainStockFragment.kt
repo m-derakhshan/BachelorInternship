@@ -46,6 +46,10 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
         binding.calculator.setOnClickListener {
             this.findNavController().navigate(R.id.action_mainStockFragment_to_calculatorFragment)
         }
+        binding.supervisorMessage.setOnClickListener {
+            this.findNavController().navigate(R.id.action_mainStockFragment_to_messageFragment)
+        }
+
         binding.bestTechnicalRecyclerView.apply {
             adapter = technicalAdapter
             layoutManager = LinearLayoutManager(context)
@@ -55,22 +59,43 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
             layoutManager = LinearLayoutManager(context)
         }
         database.getStock("technical").observe(viewLifecycleOwner, Observer {
-            binding.refresh.isRefreshing = false
-            technicalAdapter.submitList(it.slice(0..2))
-            binding.lastUpdateTechnical.text =
-                Arrange().persianConcatenate(
-                    end = it.firstOrNull()?.lastUpdate,
-                    first = "بروزرسانی: "
-                )
+            try {
+                technicalAdapter.submitList(it.slice(0..2))
+                binding.lastUpdateTechnical.text =
+                    Arrange().persianConcatenate(
+                        end = it.firstOrNull()?.lastUpdate,
+                        first = "بروزرسانی: "
+                    )
+            } catch (e: Exception) {
+                technicalAdapter.submitList(it)
+                binding.lastUpdateTechnical.text =
+                    Arrange().persianConcatenate(
+                        end = it.firstOrNull()?.lastUpdate,
+                        first = "بروزرسانی: "
+                    )
+            }
+
         })
         database.getStock("fundamental").observe(viewLifecycleOwner, Observer {
-            fundamentalAdapter.submitList(it.slice(0..2))
-            binding.lastUpdateFundamental.text =
-                Arrange().persianConcatenate(
-                    end = it.firstOrNull()?.lastUpdate,
-                    first = "بروزرسانی: "
-                )
+            try {
+                fundamentalAdapter.submitList(it.slice(0..2))
+                binding.lastUpdateFundamental.text =
+                    Arrange().persianConcatenate(
+                        end = it.firstOrNull()?.lastUpdate,
+                        first = "بروزرسانی: "
+                    )
+            } catch (e: Exception) {
+                fundamentalAdapter.submitList(it)
+                binding.lastUpdateFundamental.text =
+                    Arrange().persianConcatenate(
+                        end = it.firstOrNull()?.lastUpdate,
+                        first = "بروزرسانی: "
+                    )
+            }
+
         })
+
+
         viewModel.fetchData()
         binding.moreTechnical.setOnClickListener {
             val info = Bundle()
@@ -88,6 +113,7 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
         }
 
         binding.refresh.setOnRefreshListener {
+            binding.refresh.isRefreshing = false
             viewModel.isFetchedOnce = false
             viewModel.fetchData()
         }

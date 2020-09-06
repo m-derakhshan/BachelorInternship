@@ -38,6 +38,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainStockFragment_to_messageFragment"
+            app:destination="@id/messageFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/stockSearchFragment"
@@ -74,4 +81,8 @@
         android:id="@+id/calculatorFragment"
         android:name="com.kharazmic.app.main.stock.CalculatorFragment"
         android:label="CalculatorFragment" />
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.kharazmic.app.main.stock.message.MessageFragment"
+        android:label="MessageFragment" />
 </navigation>
