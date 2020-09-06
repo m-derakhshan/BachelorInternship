@@ -214,33 +214,33 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:textColor="@color/dark_blue"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.33"
                             android:gravity="center"
                             android:text="@string/indicator"
                             android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
                             android:textSize="14sp" />
 
                         <TextView
-                            android:textColor="@color/dark_blue"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.33"
                             android:gravity="center"
                             android:text="@string/price"
                             android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
                             android:textSize="14sp" />
 
                         <TextView
-                            android:textColor="@color/dark_blue"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.33"
                             android:gravity="center"
                             android:text="@string/date"
                             android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -261,18 +261,15 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <LinearLayout
-            android:id="@+id/loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
 
-            <ProgressBar
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true" />
-        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/loading"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:indeterminate="true" />
+
 
     </RelativeLayout>
 

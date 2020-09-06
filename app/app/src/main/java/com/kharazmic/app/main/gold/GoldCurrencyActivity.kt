@@ -13,6 +13,8 @@ import com.kharazmic.app.main.gold.gold_fragment.GoldFragment
 class GoldCurrencyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGoldCurrencyBinding
+    private val goldFragment = GoldFragment()
+    private val currencyFragment = CurrencyFragment()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +27,8 @@ class GoldCurrencyActivity : AppCompatActivity() {
 
 
         val adapter = MainActivity.ViewPagerAdapter(this)
-        adapter.add(GoldFragment())
-        adapter.add(CurrencyFragment())
+        adapter.add(goldFragment)
+        adapter.add(currencyFragment)
         binding.viewPager.adapter = adapter
         binding.viewPager.offscreenPageLimit = 2
         val newsCategory = listOf(R.string.gold, R.string.currency)
@@ -34,6 +36,12 @@ class GoldCurrencyActivity : AppCompatActivity() {
             tab.text = getString(newsCategory[position])
             binding.viewPager.setCurrentItem(tab.position, true)
         }.attach()
+
+        binding.refresh.setOnRefreshListener {
+            binding.refresh.isRefreshing = false
+            goldFragment.fetchData()
+            currencyFragment.fetchData()
+        }
 
 
     }

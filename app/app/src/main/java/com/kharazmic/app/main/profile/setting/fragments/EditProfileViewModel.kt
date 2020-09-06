@@ -1,23 +1,18 @@
 package com.kharazmic.app.main.profile.setting.fragments
 
 import android.content.Context
-import android.util.Base64
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.volley.*
-import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import com.kharazmic.app.Address
-import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.database.model.UserInfoModel
 import com.kharazmic.app.main.profile.setting.FileDataPart
 import com.kharazmic.app.main.profile.setting.VolleyFileUploadRequest
 import kotlinx.coroutines.*
-import org.json.JSONObject
-import java.io.ByteArrayOutputStream
 
 
 class EditProfileViewModel(private val database: MyDatabase, private val context: Context) :

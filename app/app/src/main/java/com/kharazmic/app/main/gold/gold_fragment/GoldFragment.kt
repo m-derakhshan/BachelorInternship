@@ -51,12 +51,14 @@ class GoldFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
+
+
         fetchData()
 
     }
 
 
-    private fun fetchData() {
+     fun fetchData() {
         binding.loading.visibility = View.VISIBLE
         val request = object :
             JsonArrayRequest(Method.GET, Address().gold, null,
@@ -74,7 +76,8 @@ class GoldFragment : Fragment() {
                                         GoldCurrencyModel(
                                             title = obj.getString("title"),
                                             date = obj.getString("date"),
-                                            price = obj.getString("price")
+                                            price = obj.getString("price"),
+                                            changePercentage = obj.getInt("percentage")
                                         )
                                     )
 
@@ -84,7 +87,8 @@ class GoldFragment : Fragment() {
                                         GoldCurrencyModel(
                                             title = obj.getString("title"),
                                             date = obj.getString("date"),
-                                            price = obj.getString("price")
+                                            price = obj.getString("price"),
+                                            changePercentage = obj.getInt("percentage")
                                         )
                                     )
                                 }
@@ -93,7 +97,8 @@ class GoldFragment : Fragment() {
                                         GoldCurrencyModel(
                                             title = obj.getString("title"),
                                             date = obj.getString("date"),
-                                            price = obj.getString("price")
+                                            price = obj.getString("price"),
+                                            changePercentage = obj.getInt("percentage")
                                         )
                                     )
                                 }

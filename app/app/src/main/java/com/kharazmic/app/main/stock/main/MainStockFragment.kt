@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
-import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentMainStockBinding
 
@@ -38,22 +36,16 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
         binding.search.setOnClickListener {
             this.findNavController().navigate(R.id.action_mainStockFragment_to_stockSearchFragment)
         }
-        val database = MyDatabase.getInstance(context!!).bestStockDao
-        val factory = MainStockViewModelFactory(context!!, database)
+        val database = MyDatabase.getInstance(requireContext()).bestStockDao
+        val factory = MainStockViewModelFactory(requireContext(), database)
         val viewModel = ViewModelProvider(this, factory).get(MainStockViewModel::class.java)
-
         val technicalAdapter = BestStockRecyclerViewAdapter()
         val fundamentalAdapter = BestStockRecyclerViewAdapter()
-
         technicalAdapter.click = this
         fundamentalAdapter.click = this
-
-
         binding.calculator.setOnClickListener {
             this.findNavController().navigate(R.id.action_mainStockFragment_to_calculatorFragment)
         }
-
-
         binding.bestTechnicalRecyclerView.apply {
             adapter = technicalAdapter
             layoutManager = LinearLayoutManager(context)
@@ -62,65 +54,43 @@ class MainStockFragment : Fragment(), BestStockRecyclerViewAdapter.BestStockList
             adapter = fundamentalAdapter
             layoutManager = LinearLayoutManager(context)
         }
-
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            it?.let { isLoading ->
-                if (isLoading)
-                    binding.loading.visibility = View.VISIBLE
-                else
-                    binding.loading.visibility = View.GONE
-            }
-        })
-
-
         database.getStock("technical").observe(viewLifecycleOwner, Observer {
-            technicalAdapter.add(it)
+            binding.refresh.isRefreshing = false
+            technicalAdapter.submitList(it.slice(0..2))
             binding.lastUpdateTechnical.text =
                 Arrange().persianConcatenate(
                     end = it.firstOrNull()?.lastUpdate,
                     first = "بروزرسانی: "
                 )
-            viewModel.isLoading.value
         })
-
         database.getStock("fundamental").observe(viewLifecycleOwner, Observer {
-            fundamentalAdapter.add(it)
+            fundamentalAdapter.submitList(it.slice(0..2))
             binding.lastUpdateFundamental.text =
                 Arrange().persianConcatenate(
                     end = it.firstOrNull()?.lastUpdate,
                     first = "بروزرسانی: "
                 )
         })
-
-
-
-
         viewModel.fetchData()
-        viewModel.networkError.observe(viewLifecycleOwner, Observer {
-            it?.let { error ->
-                if (error)
-                    Utils(requireContext()).showSnackBar(
-                        color = ContextCompat.getColor(requireContext(), R.color.black),
-                        msg = "خطا در بروزرسانی اطلاعات!",
-                        snackView = binding.root
-                    )
-            }
-        })
-
-
         binding.moreTechnical.setOnClickListener {
             val info = Bundle()
-            info.putString("category", "بهترین های تکنیکال")
+            info.putString("title", "بهترین های تکنیکال")
+            info.putString("category", "technical")
             this.findNavController()
                 .navigate(R.id.action_mainStockFragment_to_bestStockFragment, info)
         }
         binding.moreFundamental.setOnClickListener {
             val info = Bundle()
-            info.putString("category", "بهترین های بنیادی")
+            info.putString("title", "بهترین های بنیادی")
+            info.putString("category", "fundamental")
             this.findNavController()
                 .navigate(R.id.action_mainStockFragment_to_bestStockFragment, info)
         }
 
+        binding.refresh.setOnRefreshListener {
+            viewModel.isFetchedOnce = false
+            viewModel.fetchData()
+        }
     }
 
     override fun onClick(id: String, name: String) {

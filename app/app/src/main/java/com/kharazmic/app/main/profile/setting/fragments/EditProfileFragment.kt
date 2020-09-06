@@ -4,7 +4,6 @@ package com.kharazmic.app.main.profile.setting.fragments
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.android.volley.DefaultRetryPolicy
-import com.android.volley.Response
-import com.android.volley.toolbox.Volley
 import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.FragmentEditProfileBinding
-import com.kharazmic.app.main.profile.setting.FileDataPart
-import com.kharazmic.app.main.profile.setting.VolleyFileUploadRequest
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality

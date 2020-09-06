@@ -3,19 +3,15 @@ package com.kharazmic.app.main.stock
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.navigateUp
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentCalculatorBinding
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 
 class CalculatorFragment : Fragment() {

@@ -149,5 +149,7 @@
     <string name="total_tax">جمع کارمزد:</string>
     <string name="buy_tax">کارمزد خرید:</string>
     <string name="sell_tax">کارمزد فروش:</string>
+    <string name="nima">نیما</string>
+    <string name="exchange">صرافی ملی</string>
 
 </resources>

@@ -2,7 +2,6 @@ package com.kharazmic.app.main.stock.main
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.volley.AuthFailureError
 import com.android.volley.DefaultRetryPolicy
@@ -15,21 +14,19 @@ import com.kharazmic.app.database.model.BestSignalDAO
 import com.kharazmic.app.database.model.BestStockModel
 import kotlinx.coroutines.*
 
-class MainStockViewModel(val context: Context, val database: BestSignalDAO) :
+class MainStockViewModel(private val context: Context, private val database: BestSignalDAO) :
     ViewModel() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
-    val isLoading = MutableLiveData<Boolean>()
 
-    private var isFetchedOnce = false
-    val networkError = MutableLiveData<Boolean>()
+
+    var isFetchedOnce = false
 
 
     fun fetchData() {
         if (isFetchedOnce)
             return
-        isLoading.value = true
         val request = object :
             JsonObjectRequest(
                 Method.GET,
@@ -55,15 +52,26 @@ class MainStockViewModel(val context: Context, val database: BestSignalDAO) :
                                     )
                                 }
                             }).await()
-                            isLoading.value = false
                             isFetchedOnce = true
+
                         }
                     }
                 },
                 Response.ErrorListener {
-                    networkError.value = true
-                    isLoading.value = false
-                    Log.i("Log", "error in MainStockViewModel $it")
+
+                    try {
+                        Log.i(
+                            "Log",
+                            "error in MainStockViewModel ${String(
+                                it.networkResponse.data,
+                                Charsets.UTF_8
+                            )}"
+                        )
+
+                    } catch (e: Exception) {
+                        Log.i("Log", "error in MainStockViewModel $it")
+                    }
+
 
                 }) {
             @Throws(AuthFailureError::class)
@@ -75,7 +83,7 @@ class MainStockViewModel(val context: Context, val database: BestSignalDAO) :
             }
         }
 
-        request.retryPolicy = DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+        request.retryPolicy = DefaultRetryPolicy(7000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         Volley.newRequestQueue(context).apply {
             add(request)
         }

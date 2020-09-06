@@ -5,7 +5,6 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -43,8 +42,8 @@ class LoginViewModel(private val context: Context) : ViewModel() {
                     Address().loginAPI(phoneNumber),
                     null,
                     {
-                        loginStatus.value = it.getString("result") == "ok"
-                        isLoading.value = it.getString("result") != "ok"
+                        loginStatus.value = it.getBoolean("status")
+                        isLoading.value = !it.getBoolean("status")
                     },
                     {
                         isLoading.value = false
@@ -64,9 +63,6 @@ class LoginViewModel(private val context: Context) : ViewModel() {
                         }
                     })
 
-
-            request.retryPolicy =
-                DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
             Volley.newRequestQueue(context).add(request)
 
@@ -96,7 +92,6 @@ class LoginViewModel(private val context: Context) : ViewModel() {
                     },
                     {
 
-
                         validateStatus.value = false
                         isLoading.value = false
                         try {
@@ -117,8 +112,6 @@ class LoginViewModel(private val context: Context) : ViewModel() {
                         }
                     })
 
-            request.retryPolicy =
-                DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
             Volley.newRequestQueue(context).add(request)
 

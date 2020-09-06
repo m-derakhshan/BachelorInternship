@@ -22,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         utils = Utils(this)
+
         if (utils.isLoggedIn) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()

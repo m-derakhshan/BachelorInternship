@@ -17,19 +17,40 @@
         android:textColor="@color/dark_blue"
         android:textSize="14sp" />
 
-    <TextView
-        android:textColor="@color/dark_blue"
-        android:id="@+id/price"
+
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="0.3"
         android:gravity="center"
-        android:textAppearance="@style/vazir_font"
-        android:textSize="14sp" />
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layoutDirection="ltr"
+            android:id="@+id/percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/dark_blue"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/dark_blue"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
 
 
     <TextView
-        android:textColor="@color/dark_blue"
         android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -39,6 +60,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:textAppearance="@style/vazir_font"
+        android:textColor="@color/dark_blue"
         android:textSize="14sp" />
 
 </LinearLayout>

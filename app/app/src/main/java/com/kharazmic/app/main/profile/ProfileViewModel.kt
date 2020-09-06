@@ -36,7 +36,6 @@ class ProfileViewModel(val context: Context, private val database: MyDatabase) :
                 Response.Listener {
                     scope.launch {
                         async(Dispatchers.IO, CoroutineStart.DEFAULT, block = {
-
                             val userInformation =
                                 UserInfoModel(
                                     name = Arrange().persianConverter(it.optString("name")),
@@ -63,7 +62,13 @@ class ProfileViewModel(val context: Context, private val database: MyDatabase) :
                         if (it.networkResponse.statusCode == 401)
                             isTokenExpired.expired(true)
                         else
-                            Log.i("Log", "error in ProfileViewModel $it")
+                            Log.i(
+                                "Log",
+                                "error in ProfileViewModel ${String(
+                                    it.networkResponse.data,
+                                    Charsets.UTF_8
+                                )}"
+                            )
                     } catch (e: Exception) {
                         Log.i("Log", "error in ProfileViewModel $it")
                     }
