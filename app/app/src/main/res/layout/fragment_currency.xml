@@ -206,6 +206,100 @@
                     android:textAppearance="@style/vazir_font"
                     android:textSize="13sp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:background="@color/light_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@color/light_gray"
+                        android:gravity="center"
+                        android:text="@string/sana"
+                        android:textAppearance="@style/vazir_font"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/light_gray" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/indicator"
+                            android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/price"
+                            android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:gravity="center"
+                            android:text="@string/date"
+                            android:textAppearance="@style/vazir_font"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/sana_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/more_sana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/rectangular_card_view"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/see_more"
+                    android:textAppearance="@style/vazir_font"
+                    android:textSize="13sp" />
+
             </LinearLayout>
 
 

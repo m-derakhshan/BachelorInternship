@@ -38,15 +38,16 @@ class NewsFragment : Fragment() {
         binding.viewPager.offscreenPageLimit = 3
 
 
-        val codalFragment = CategoryFragment(parent = "news", category = "codal")
+        val stockFragment = CategoryFragment(parent = "news", category = "stock")
         val financialFragment = CategoryFragment(parent = "news", category = "financial")
-        val conclusionFragment = CategoryFragment(parent = "news", category = "conclusion")
-        adapter.add(codalFragment)
+        val conclusionFragment = AnalysisCategoryFragment()
+
+        adapter.add(stockFragment)
         adapter.add(financialFragment)
         adapter.add(conclusionFragment)
 
 
-        val newsCategory = listOf(R.string.codal, R.string.financial, R.string.conclusion)
+        val newsCategory = listOf(R.string.stock_market, R.string.financial, R.string.conclusion)
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = getString(newsCategory[position])
             binding.viewPager.setCurrentItem(tab.position, true)
@@ -56,27 +57,28 @@ class NewsFragment : Fragment() {
         binding.search.setOnSearchClickListener {
             binding.title.visibility = View.GONE
         }
+
         binding.search.setOnCloseListener {
             binding.title.visibility = View.VISIBLE
             false
         }
         binding.search.findViewById<TextView>(R.id.search_src_text)
-            .setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
         binding.search.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                codalFragment.keyword.value = query
+                stockFragment.keyword.value = query
                 financialFragment.keyword.value = query
-                conclusionFragment.keyword.value = query
+               // conclusionFragment.keyword.value = query
 
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                codalFragment.keyword.value = newText
+                stockFragment.keyword.value = newText
                 financialFragment.keyword.value = newText
-                conclusionFragment.keyword.value = newText
+                //conclusionFragment.keyword.value = newText
                 return false
             }
 

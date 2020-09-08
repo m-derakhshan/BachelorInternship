@@ -2,7 +2,7 @@ package com.kharazmic.app
 
 class Address {
 
-    private val base = "http://136.243.140.228:1337"
+    val base = "http://136.243.140.228:1337"
 
 
     fun loginAPI(phone: String) = "$base/people/genpassword?mobile=$phone"
@@ -14,9 +14,11 @@ class Address {
         "https://run.mocky.io/v3/a16de51a-5b19-4110-afa9-487e1606c22d?keyword=$keyword&page=$page"
 
 
-    val updateInfoAPI = "https://run.mocky.io/v3/8763b1c1-2bec-4b35-badc-7d9adc753df7"
+    val updateInfoAPI = "$base/people/profile"
 
     val userInfoAPI = "$base/people/profile"
+
+
 
     val ticketAPI = "https://run.mocky.io/v3/082ecf40-a6f3-44ef-a9f3-1568d2f299a8"
 
@@ -41,6 +43,9 @@ class Address {
     fun signalsAPI(category: String, page: String): String =
         "https://run.mocky.io/v3/06344bb7-b66e-45b2-bae3-e8fad9eb7c91/" +
                 "category/$category/page/$page"
+
+
+    val updateAvatar = "$base/upload"
 
 
 }

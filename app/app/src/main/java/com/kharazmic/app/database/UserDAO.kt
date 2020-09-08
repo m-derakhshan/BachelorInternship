@@ -20,6 +20,10 @@ interface UserDAO {
     fun deleteAll()
 
 
+    @Query("UPDATE userInfo SET image = :image")
+    fun updateImage(image: String)
+
+
     @Query("SELECT * FROM userInfo")
     fun getInfo(): LiveData<UserInfoModel>
 }

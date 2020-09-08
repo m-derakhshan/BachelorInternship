@@ -23,8 +23,8 @@ class ProfileViewModel(val context: Context, private val database: MyDatabase) :
     private val scope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val name = MutableLiveData<String>()
     val subscription = MutableLiveData<String>()
-    val followers = MutableLiveData<String>()
-    val following = MutableLiveData<String>()
+    private val followers = MutableLiveData<String>()
+    private val following = MutableLiveData<String>()
     val signals = MutableLiveData<String>()
     val image = MutableLiveData<String>()
     lateinit var isTokenExpired: TokenExpired
@@ -36,10 +36,12 @@ class ProfileViewModel(val context: Context, private val database: MyDatabase) :
                 Response.Listener {
                     scope.launch {
                         async(Dispatchers.IO, CoroutineStart.DEFAULT, block = {
+                            Utils(context).profileID = it.optString("_id")
                             val userInformation =
                                 UserInfoModel(
                                     name = Arrange().persianConverter(it.optString("name")),
-                                    image = it.optString("image"),
+                                    image = Address().base + it.optJSONObject("avatar")
+                                        ?.getString("url"),
                                     education = it.optInt("education"),
                                     experience = it.optInt("experience"),
                                     followers = Arrange().persianConverter(it.optString("followers")),
@@ -53,6 +55,7 @@ class ProfileViewModel(val context: Context, private val database: MyDatabase) :
                                     ),
                                     worth = it.optInt("worth")
                                 )
+
                             database.userDAO.add(userInformation)
                         }).await()
                     }

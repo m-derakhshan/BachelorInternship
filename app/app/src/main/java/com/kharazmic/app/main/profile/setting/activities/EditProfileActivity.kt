@@ -1,23 +1,22 @@
-package com.kharazmic.app.main.profile.setting.fragments
-
+package com.kharazmic.app.main.profile.setting.activities
 
 import android.graphics.Bitmap
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.PathUtils
+import androidx.core.net.toFile
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
-import com.kharazmic.app.databinding.FragmentEditProfileBinding
+import com.kharazmic.app.databinding.ActivityEditProfileBinding
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality
@@ -26,82 +25,58 @@ import kotlinx.coroutines.*
 import lv.chi.photopicker.PhotoPickerFragment
 import java.io.File
 import java.io.IOException
+import java.net.URI
+import java.nio.file.Files
+import java.nio.file.Path
 
-
-class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
+class EditProfileActivity : AppCompatActivity(), PhotoPickerFragment.Callback {
 
 
     private lateinit var viewModel: EditProfileViewModel
-    private lateinit var binding: FragmentEditProfileBinding
+    private lateinit var binding: ActivityEditProfileBinding
     private val scope = CoroutineScope(Dispatchers.Main)
     private var imageData: ByteArray? = null
-    private var worth = "0"
-    private var education = "0"
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_edit_profile, container, false)
-        return binding.root
-    }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile)
 
 
-        val database = MyDatabase.getInstance(context!!)
-        val factory = EditProfileViewModelFactory(database, context!!)
+        val database = MyDatabase.getInstance(this)
+        val factory = EditProfileViewModelFactory(database, this)
         viewModel = ViewModelProvider(this, factory).get(EditProfileViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
 
-        binding.worthGroup.setOnCheckedChangeListener { _, checkedId ->
-            worth = when (checkedId) {
-                R.id.level1 -> "1"
-                R.id.level2 -> "2"
-                R.id.level3 -> "3"
-                R.id.level4 -> "4"
-                R.id.level5 -> "5"
-                else -> "6"
-            }
-        }
-
-        binding.educationCategory.setOnCheckedChangeListener { _, checkedId ->
-            education = when (checkedId) {
-                R.id.phd -> "1"
-                R.id.master -> "2"
-                R.id.bachelor -> "3"
-                else -> "4"
-            }
-        }
-
-
-        database.userDAO.getInfo().observe(viewLifecycleOwner, Observer {
+        database.userDAO.getInfo().observe(this, Observer {
             it?.let { userInfo ->
                 viewModel.bindInfo(userInfo)
             }
         })
 
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+        viewModel.isLoading.observe(this, Observer {
             it?.let { isLoading ->
                 if (isLoading)
                     binding.submit.startAnimation()
                 else {
                     binding.submit.revertAnimation()
                     binding.submit.background =
-                        ContextCompat.getDrawable(context!!, R.drawable.login_btn)
+                        ContextCompat.getDrawable(this, R.drawable.login_btn)
                 }
 
             }
         })
-        viewModel.updateStatus.observe(viewLifecycleOwner, Observer {
+        viewModel.isImageLoading.observe(this, Observer {
+            it?.let { isLoading ->
+                binding.imageLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
+            }
+        })
+        viewModel.updateStatus.observe(this, Observer {
             it?.let { status ->
-                Utils(context!!).showSnackBar(
-                    color = ContextCompat.getColor(context!!, R.color.black),
+                Utils(this).showSnackBar(
+                    color = ContextCompat.getColor(this, R.color.black),
                     snackView = binding.root,
                     msg = when (status) {
                         0 -> getString(R.string.success)
@@ -113,9 +88,12 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
 
             }
         })
+
+
         binding.back.setOnClickListener {
-            this.findNavController().popBackStack()
+            onBackPressed()
         }
+
         binding.chooseImage.setOnClickListener {
 
             PhotoPickerFragment.newInstance(
@@ -123,7 +101,7 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
                 allowCamera = true,
                 maxSelection = 1,
                 theme = R.style.ChiliPhotoPicker_Dark
-            ).show(childFragmentManager, "choose image")
+            ).show(supportFragmentManager, "choose image")
 
 
         }
@@ -135,8 +113,9 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
 
 
         binding.submit.setOnClickListener {
-            viewModel.uploadImage(imageData)
+            viewModel.updateInfo()
         }
+
 
     }
 
@@ -145,25 +124,37 @@ class EditProfileFragment : Fragment(), PhotoPickerFragment.Callback {
         scope.launch {
             binding.profile.setImageURI(photos.first())
             async(Dispatchers.IO, CoroutineStart.DEFAULT, block = {
-                val compressedImageFile =
-                    Compressor.compress(context!!, File(photos.first().path!!)) {
+                try {
+                    val compressedImageFile = Compressor.compress(
+                        this@EditProfileActivity,
+                        File(this@EditProfileActivity.cacheDir, photos.first().path!!)
+                    ) {
                         resolution(1024, 1024)
                         quality(80)
                         format(Bitmap.CompressFormat.JPEG)
                     }
-                createImageData(Uri.fromFile(compressedImageFile))
+                    createImageData(Uri.fromFile(compressedImageFile))
+                } catch (e: Exception) {
+                    createImageData(photos.first())
+                }
             }).await()
+            viewModel.uploadImage(imageData)
         }
-
     }
 
 
     @Throws(IOException::class)
     private fun createImageData(uri: Uri) {
-        val inputStream = activity?.contentResolver?.openInputStream(uri)
+        val inputStream = contentResolver.openInputStream(uri)
         inputStream?.buffered()?.let {
             imageData = it.readBytes()
         }
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
 }

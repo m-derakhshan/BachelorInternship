@@ -13,7 +13,7 @@
 
     <string name="home">خانه</string>
     <string name="tutorial">آموزش</string>
-    <string name="search">جست و جو نماد</string>
+    <string name="search">جست و جو در سهام</string>
     <string name="news">اخبار</string>
     <string name="profile">پروفایل</string>
     <string name="search_hint">جست و جو</string>
@@ -32,6 +32,7 @@
 
 
     <string name="codal">کدال</string>
+    <string name="stock_market">بورس</string>
     <string name="financial">اقتصادی</string>
     <string name="conclusion">تحلیلی</string>
 
@@ -149,8 +150,13 @@
     <string name="total_tax">جمع کارمزد:</string>
     <string name="buy_tax">کارمزد خرید:</string>
     <string name="sell_tax">کارمزد فروش:</string>
+
+
     <string name="nima">نیما</string>
-    <string name="exchange">صرافی ملی</string>
+    <string name="sana">سنا</string>
+    <string name="exchange">نرخ آزاد</string>
+
+
     <string name="supervisor_message">پیام ناظر</string>
 
 </resources>

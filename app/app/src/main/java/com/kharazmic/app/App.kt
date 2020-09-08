@@ -11,7 +11,7 @@ class App : Application() {
 
         ChiliPhotoPicker.init(
             loader = GlideImageLoader(),
-            authority = "com.kharazmic.app"
+            authority = "com.kharazmic.app.fileprovider"
         )
     }
 }

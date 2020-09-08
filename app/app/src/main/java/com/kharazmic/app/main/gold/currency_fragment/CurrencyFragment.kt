@@ -24,9 +24,13 @@ import com.kharazmic.app.main.gold.GoldRecyclerAdapter
 class CurrencyFragment : Fragment() {
     private val nimaArray = ArrayList<GoldCurrencyModel>()
     private val exchangeArray = ArrayList<GoldCurrencyModel>()
+    private val sanaArray = ArrayList<GoldCurrencyModel>()
+
     private lateinit var binding: FragmentCurrencyBinding
+
     private val exchangeAdapter = GoldRecyclerAdapter()
     private val nimaAdapter = GoldRecyclerAdapter()
+    private val sanaAdapter = GoldRecyclerAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +52,10 @@ class CurrencyFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = nimaAdapter
         }
+        binding.sanaRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = sanaAdapter
+        }
 
 
         binding.moreExchange.setOnClickListener {
@@ -57,7 +65,13 @@ class CurrencyFragment : Fragment() {
             activity?.startActivity(intent)
             activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
-
+        binding.moreSana.setOnClickListener {
+            val intent = Intent(activity, AllCurrencyActivity::class.java)
+            intent.putExtra("info", sanaArray)
+            intent.putExtra("title", getString(R.string.sana))
+            activity?.startActivity(intent)
+            activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
         binding.moreNima.setOnClickListener {
             val intent = Intent(activity, AllCurrencyActivity::class.java)
             intent.putExtra("info", nimaArray)
@@ -83,8 +97,8 @@ class CurrencyFragment : Fragment() {
 
                 for (i in 0 until it.length()) {
                     val obj = it.getJSONObject(i)
-                    if (obj.getString("category") == "nima") {
-                        nimaArray.add(
+                    when {
+                        obj.getString("category") == "nima" -> nimaArray.add(
                             GoldCurrencyModel(
                                 title = obj.getString("title"),
                                 changePercentage = obj.getInt("percentage"),
@@ -92,8 +106,7 @@ class CurrencyFragment : Fragment() {
                                 date = obj.getString("date")
                             )
                         )
-                    } else
-                        exchangeArray.add(
+                        obj.getString("category") == "sana" -> sanaArray.add(
                             GoldCurrencyModel(
                                 title = obj.getString("title"),
                                 changePercentage = obj.getInt("percentage"),
@@ -101,16 +114,39 @@ class CurrencyFragment : Fragment() {
                                 date = obj.getString("date")
                             )
                         )
+                        else -> exchangeArray.add(
+                            GoldCurrencyModel(
+                                title = obj.getString("title"),
+                                changePercentage = obj.getInt("percentage"),
+                                price = obj.getString("price"),
+                                date = obj.getString("date")
+                            )
+                        )
+                    }
 
                 }
 
 
-                nimaAdapter.add(nimaArray.slice(0..4) as ArrayList<GoldCurrencyModel>)
-                exchangeAdapter.add(exchangeArray.slice(0..4) as ArrayList<GoldCurrencyModel>)
+                try {
+                    nimaAdapter.add(nimaArray.slice(0..4) as ArrayList<GoldCurrencyModel>)
+                } catch (e: Exception) {
+                    nimaAdapter.add(nimaArray)
+                }
+
+                try { sanaAdapter.add(sanaArray.slice(0..4) as ArrayList<GoldCurrencyModel>)
+                } catch (e: Exception) { sanaAdapter.add(sanaArray) }
+
+                try {
+                    exchangeAdapter.add(exchangeArray.slice(0..4) as ArrayList<GoldCurrencyModel>)
+                } catch (e: Exception) { exchangeAdapter.add(exchangeArray) }
+
+
+
 
 
                 binding.moreExchange.visibility = View.VISIBLE
                 binding.moreNima.visibility = View.VISIBLE
+                binding.moreSana.visibility = View.VISIBLE
 
             }, Response.ErrorListener {
                 try {

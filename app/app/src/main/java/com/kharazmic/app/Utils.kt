@@ -28,6 +28,13 @@ class Utils(private val context: Context) {
         }
         get() = share.getBoolean("isLoggedIn", false)
 
+    var profileID: String?
+        set(value) {
+            editor.putString("profileID", value)
+            editor.apply()
+        }
+        get() = share.getString("profileID", "")
+
 
     fun showSnackBar(color: Int, msg: String, snackView: View) {
         val font = Typeface.createFromAsset(context.assets, "vazir.ttf")

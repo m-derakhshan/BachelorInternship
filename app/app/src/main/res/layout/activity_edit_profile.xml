@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.kharazmic.app.main.profile.setting.fragments.EditProfileViewModel" />
+            type="com.kharazmic.app.main.profile.setting.activities.EditProfileViewModel" />
 
     </data>
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutDirection="rtl"
-        tools:context=".main.profile.setting.fragments.EditProfileFragment">
+        tools:context=".main.profile.setting.activities.EditProfileActivity">
 
 
         <LinearLayout
@@ -95,6 +95,14 @@
                         android:src="@drawable/ic_add_a_photo_black_24dp" />
 
 
+                    <ProgressBar
+                        android:visibility="gone"
+                        android:id="@+id/image_loading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:indeterminate="true" />
+
                 </RelativeLayout>
 
                 <EditText
@@ -109,7 +117,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:padding="15dp"
-                    android:text="@{viewModel.name}"
+                    android:text="@={viewModel.name}"
                     android:textAppearance="@style/vazir_font"
                     app:layout_constraintTop_toBottomOf="@+id/avatarHolder" />
 
@@ -125,7 +133,7 @@
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:padding="15dp"
-                    android:text="@{viewModel.experience}"
+                    android:text="@={viewModel.experience}"
                     android:textAppearance="@style/vazir_font"
                     app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -178,7 +186,7 @@
                                 android:id="@+id/education_category"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:checkedButton="@{viewModel.education}">
+                                android:checkedButton="@={viewModel.education}">
 
 
                                 <RadioButton
@@ -315,7 +323,7 @@
                                 android:id="@+id/worth_group"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:checkedButton="@{viewModel.worth}">
+                                android:checkedButton="@={viewModel.worth}">
 
 
                                 <RadioButton

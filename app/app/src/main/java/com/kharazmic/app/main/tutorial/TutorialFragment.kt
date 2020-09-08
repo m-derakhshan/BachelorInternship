@@ -57,7 +57,7 @@ class TutorialFragment : Fragment() {
             R.string.technical,
             R.string.money_flow,
             R.string.block_chain,
-            R.string.gold
+            R.string.gold_currency
         )
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = getString(newsCategory[position])

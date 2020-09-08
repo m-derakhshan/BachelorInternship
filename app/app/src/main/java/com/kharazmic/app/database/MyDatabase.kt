@@ -9,7 +9,7 @@ import com.kharazmic.app.database.model.*
 
 @Database(
     entities = [UserInfoModel::class, SignalsModel::class, SearchHistoryModel::class, BestStockModel::class],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 

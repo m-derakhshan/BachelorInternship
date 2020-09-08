@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutDirection="rtl"
-        app:layoutDescription="@xml/profile_motion"
-        tools:context=".main.profile.OldProfileFragment">
+        app:layoutDescription="@xml/profile_motion">
 
 
         <RelativeLayout
@@ -77,18 +76,12 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/profileBanner">
 
-            <fragment
-                android:id="@+id/myNavHostFragment"
-                android:name="androidx.navigation.fragment.NavHostFragment"
+            <androidx.recyclerview.widget.RecyclerView
+                android:overScrollMode="never"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/navigation"
-                tools:context=".main.profile.setting.SettingActivity" />
-
-
+                android:layout_height="match_parent" />
         </LinearLayout>
-
 
 
     </androidx.constraintlayout.motion.widget.MotionLayout>

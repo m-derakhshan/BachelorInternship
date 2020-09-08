@@ -19,7 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".main.gold.currency_fragment.AllCurrencyActivity"></activity>
+        <activity
+            android:name=".main.profile.setting.activities.EditProfileActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".main.gold.currency_fragment.AllCurrencyActivity" />
         <activity android:name=".main.gold.GoldCurrencyActivity" />
         <activity android:name=".main.stock.StockActivity" />
         <activity android:name=".main.profile.signals.SignalDetailActivity" />
@@ -30,8 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.profile.setting.SettingActivity" />
-        <activity android:name=".calculator.CalculatorActivity" />
         <activity android:name=".login.ValidateActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity
@@ -40,7 +41,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.kharazmic.app"
+            android:authorities="com.kharazmic.app.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
