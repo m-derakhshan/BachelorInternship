@@ -126,3 +126,15 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }
+
+
+//----------------------hash tag---------------------------//
+dependencies {
+    implementation "com.github.hendraanggrian:socialview:0.1"
+}
+
+
+//-------------------GSON------------//
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.5'
+}

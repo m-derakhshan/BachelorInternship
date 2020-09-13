@@ -1,12 +1,16 @@
 package com.kharazmic.app.main.news
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethod
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -15,9 +19,9 @@ import com.kharazmic.app.databinding.FragmentNewsBinding
 import com.kharazmic.app.main.MainActivity
 
 
-class NewsFragment : Fragment() {
+class NewsFragment : Fragment(), SearchForHashTag {
 
-    private lateinit var binding: FragmentNewsBinding
+    lateinit var binding: FragmentNewsBinding
 
 
     override fun onCreateView(
@@ -32,14 +36,17 @@ class NewsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
         val adapter = MainActivity.ViewPagerAdapter(activity!!)
         binding.viewPager.adapter = adapter
         binding.viewPager.offscreenPageLimit = 3
 
 
-        val stockFragment = CategoryFragment(parent = "news", category = "stock")
-        val financialFragment = CategoryFragment(parent = "news", category = "financial")
+        val stockFragment = CategoryFragment(parent = "news", category = "stock").apply {
+            searchForHashTag = this@NewsFragment
+        }
+        val financialFragment = CategoryFragment(parent = "news", category = "financial").apply {
+            searchForHashTag = this@NewsFragment
+        }
         val conclusionFragment = AnalysisCategoryFragment()
 
         adapter.add(stockFragment)
@@ -70,7 +77,7 @@ class NewsFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 stockFragment.keyword.value = query
                 financialFragment.keyword.value = query
-               // conclusionFragment.keyword.value = query
+                conclusionFragment.keyword.value = query
 
                 return false
             }
@@ -78,12 +85,19 @@ class NewsFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 stockFragment.keyword.value = newText
                 financialFragment.keyword.value = newText
-                //conclusionFragment.keyword.value = newText
+                conclusionFragment.keyword.value = newText
                 return false
             }
 
         })
+    }
 
+    override fun hashTag(tag: String) {
+        binding.search.setQuery(tag, true)
+        binding.search.isIconified = false
+        val inputManager:InputMethodManager =activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(binding.search.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 
     }
+
 }

@@ -19,7 +19,6 @@ class Address {
     val userInfoAPI = "$base/people/profile"
 
 
-
     val ticketAPI = "https://run.mocky.io/v3/082ecf40-a6f3-44ef-a9f3-1568d2f299a8"
 
     val signalDetailAPI = "https://run.mocky.io/v3/fb70bab7-217b-4e3f-a7b8-8d2955834678"
@@ -30,11 +29,12 @@ class Address {
 
     val currency = "https://run.mocky.io/v3/814683d7-b505-424d-8fb0-682bcca8f7bc"
 
-    fun supervisorMessage(page: Int) = "https://run.mocky.io/v3/fc4c7dfb-756a-4ea2-b900-5fe8193b120c?page=$page"
+    fun supervisorMessage(page: Int) =
+        "https://run.mocky.io/v3/fc4c7dfb-756a-4ea2-b900-5fe8193b120c?page=$page"
 
-    fun newsAPI(keyword: String, category: String, page: Int): String =
-        "$base/news/" +
-                "category/$category/" + "keyword/$keyword/" + "page/$page"
+
+    fun newsAPI(): String = "$base/news"
+
 
     fun tutorialAPI(keyword: String, category: String, page: Int): String =
         "$base/tutorials/" +
@@ -46,6 +46,10 @@ class Address {
 
 
     val updateAvatar = "$base/upload"
+
+
+    fun cashDesk(category: String) =
+        "https://run.mocky.io/v3/252b476d-81c7-4ab3-88aa-bc6eb9324c46?category=$category"
 
 
 }

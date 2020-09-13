@@ -13,7 +13,8 @@
 
     <string name="home">خانه</string>
     <string name="tutorial">آموزش</string>
-    <string name="search">جست و جو در سهام</string>
+    <string name="search">جست و جو</string>
+    <string name="stock_search">جست و جو در سهام</string>
     <string name="news">اخبار</string>
     <string name="profile">پروفایل</string>
     <string name="search_hint">جست و جو</string>
@@ -37,8 +38,8 @@
     <string name="conclusion">تحلیلی</string>
 
 
-    <string name="fundamental">تحلیل بنیادی سهام</string>
-    <string name="technical">تحلیل تکنیکال سهام</string>
+    <string name="fundamental">تحلیل بنیادی</string>
+    <string name="technical">تحلیل تکنیکال</string>
     <string name="money_flow">جریان نقدینگی</string>
     <string name="block_chain">بلاکچین</string>
     <string name="gold_currency"> طلا و ارز</string>
@@ -158,5 +159,19 @@
 
 
     <string name="supervisor_message">پیام ناظر</string>
+    <string name="news_detail">جزئیات خبر</string>
+    <string name="tags">برچسب ها:</string>
+
+
+    <string name="desk_cash_constant_income"> ثابت</string>
+    <string name="desk_cash_blend">مختلط</string>
+    <string name="desk_cash_in_stock">در سهام</string>
+    <string name="desk_cash_special">خاص</string>
+    <string name="desk_cash_etf">ETF</string>
+    <string name="desk_cash_name">نام صندوق</string>
+    <string name="average_profit">میانگین بازدهی</string>
+    <string name="risk_criteria">معیار ریسک</string>
+    <string name="cash_desk_name">نام صندوق:</string>
+    <string name="cash_desk_manager">مدیر صندوق:</string>
 
 </resources>

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".App"
@@ -19,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
+        <activity android:name=".main.desk.constant.detail.ConstantIncomeDetailActivity"></activity>
+        <activity android:name=".main.desk.CashDeskActivity" />
+        <activity android:name=".main.news.NewsDetailActivity" />
         <activity
             android:name=".main.profile.setting.activities.EditProfileActivity"
             android:windowSoftInputMode="adjustPan" />

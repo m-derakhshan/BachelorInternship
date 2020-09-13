@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentHomeBinding
+import com.kharazmic.app.main.desk.CashDeskActivity
 import com.kharazmic.app.main.gold.GoldCurrencyActivity
 import com.kharazmic.app.main.stock.StockActivity
 
@@ -66,7 +67,7 @@ class HomeFragment : Fragment(), HomeOnClickListener {
         activity?.startActivity(
             Intent(
                 activity, when (id) {
-                    0 -> StockActivity::class.java
+                    0 -> CashDeskActivity::class.java
 
                     1 -> GoldCurrencyActivity::class.java
 

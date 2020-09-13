@@ -1,6 +1,7 @@
 package com.kharazmic.app.main.news
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,8 @@ class NewsRecyclerViewAdapter : RecyclerView.Adapter<NewsRecyclerViewAdapter.Vie
 
     private val items = ArrayList<NewsAdapterModel>()
     lateinit var onClick: NewsTutorialClickListener
+    lateinit var hashTagListener: HashTagListener
+
 
     fun add(list: ArrayList<NewsAdapterModel>) {
         items.clear()
@@ -37,6 +40,10 @@ class NewsRecyclerViewAdapter : RecyclerView.Adapter<NewsRecyclerViewAdapter.Vie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding(items[position])
+
+        holder.itemView.tags.setOnClickListener {
+            hashTagListener.onHashTagClicked(items[position].tags?.firstOrNull() ?: "")
+        }
     }
 
     override fun getItemId(position: Int): Long {
@@ -49,8 +56,17 @@ class NewsRecyclerViewAdapter : RecyclerView.Adapter<NewsRecyclerViewAdapter.Vie
         fun binding(model: NewsAdapterModel) {
 
 
+            val tags = if (model.tags?.firstOrNull().isNullOrEmpty()) ""
+            else Arrange().persianConcatenate(first = "#", end = model.tags?.first())
+
+
+            itemView.tags.visibility = if (tags.isNotEmpty()) View.VISIBLE else View.GONE
+            itemView.tags.text = tags
+
+
+
             itemView.setOnClickListener {
-                onClick.onClick(model.id)
+                onClick.onClick(model)
             }
 
 
@@ -67,4 +83,8 @@ class NewsRecyclerViewAdapter : RecyclerView.Adapter<NewsRecyclerViewAdapter.Vie
         }
     }
 
+
+    interface HashTagListener {
+        fun onHashTagClicked(hashTag: String)
+    }
 }
