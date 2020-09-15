@@ -12,11 +12,15 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentAnalysisCategoryBinding
 import com.kharazmic.app.main.MainActivity
+import com.kharazmic.app.main.ViewPagerAdapter
 
 
 class AnalysisCategoryFragment : Fragment(), SearchForHashTag {
 
     private lateinit var binding: FragmentAnalysisCategoryBinding
+    private lateinit var technicalFragment: CategoryFragment
+    private lateinit var fundamentalFragment: CategoryFragment
+
     var keyword = MutableLiveData<String>()
 
     override fun onCreateView(
@@ -32,16 +36,17 @@ class AnalysisCategoryFragment : Fragment(), SearchForHashTag {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val technicalFragment = CategoryFragment(parent = "news", category = "technical").apply {
+        technicalFragment = CategoryFragment(parent = "news", category = "technical").apply {
             this.searchForHashTag = this@AnalysisCategoryFragment
         }
-        val fundamentalFragment = CategoryFragment(parent = "news", category = "fundamental").apply {
+        fundamentalFragment =
+            CategoryFragment(parent = "news", category = "fundamental").apply {
                 this.searchForHashTag = this@AnalysisCategoryFragment
             }
 
-        val adapter = MainActivity.ViewPagerAdapter(requireActivity()).apply {
-            this.add(technicalFragment)
-            this.add(fundamentalFragment)
+        val adapter = ViewPagerAdapter(this).apply {
+            this.addFragment(technicalFragment)
+            this.addFragment(fundamentalFragment)
         }
 
         keyword.observe(viewLifecycleOwner, Observer {
@@ -63,6 +68,12 @@ class AnalysisCategoryFragment : Fragment(), SearchForHashTag {
 
     override fun hashTag(tag: String) {
 
+    }
+
+
+    fun reload() {
+        technicalFragment.reload()
+        fundamentalFragment.reload()
     }
 
 

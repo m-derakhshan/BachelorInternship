@@ -36,13 +36,13 @@ class CategoryFragment(private val parent: String, private val category: String)
     private var loadMore = false
     private lateinit var binding: FragmentCategoryBinding
     private val adapter = NewsRecyclerViewAdapter()
-    private val scope = CoroutineScope(Dispatchers.Main)
     private var canLoadMore = true
     lateinit var searchForHashTag: SearchForHashTag
+    private var oldPage = 0
 
 
     var keyword = MutableLiveData<String>()
-    private var page = 1
+    private var page = 0
 
 
     override fun onCreateView(
@@ -54,9 +54,8 @@ class CategoryFragment(private val parent: String, private val category: String)
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         adapter.onClick = this
         adapter.hashTagListener = this
@@ -75,7 +74,10 @@ class CategoryFragment(private val parent: String, private val category: String)
 
                     if ((visibleItemCount + pastVisibleItems) >= totalItemCount && canLoadMore) {
                         binding.loading.visibility = View.VISIBLE
-                        page += 1
+
+                        oldPage = page
+                        page += 10
+
                         loadMore = true
                         fetchNews()
                     }
@@ -87,12 +89,7 @@ class CategoryFragment(private val parent: String, private val category: String)
 
 
         fetchNews()
-        binding.refresh.setOnRefreshListener {
-            canLoadMore = true
-            fetchNews()
-            binding.refresh.isRefreshing = false
 
-        }
         this.keyword.observe(viewLifecycleOwner, Observer {
             loadMore = false
             page = 0
@@ -101,111 +98,105 @@ class CategoryFragment(private val parent: String, private val category: String)
 
     }
 
+    fun fetchNews() {
+        val info = JSONObject()
+        info.put("keyword", keyword.value)
+        info.put("category", category)
+        info.put("offset", page)
+        info.put("limit", 10)
+        val result = JSONArray()
+        result.put(info)
 
-    private fun fetchNews() {
-        scope.launch {
+        val api = if (parent == "news")
+            Address().newsAPI()
+        else
+            Address().tutorialAPI(
+                keyword = keyword.value ?: "",
+                category = category,
+                page = page
+            )
+        binding.loading.visibility = View.VISIBLE
+        canLoadMore = false
 
-            val info = JSONObject()
-            info.put("keyword", keyword.value)
-            info.put("category", category)
-            info.put("offset", page)
-            info.put("limit", 50)
+        val request = object : JsonArrayRequest(
+            Method.POST,
+            api,
+            result,
+            Response.Listener { response ->
+                response?.let {
+                    val data = ArrayList<NewsAdapterModel>()
+                    canLoadMore = false
+                    for (i in 0 until it.length()) {
+                        val tagsList = ArrayList<String>()
+                        canLoadMore = true
+                        val obj = it.getJSONObject(i)
 
-            val result = JSONArray()
-            result.put(info)
-
-            val api = if (parent == "news")
-                Address().newsAPI()
-            else
-                Address().tutorialAPI(
-                    keyword = keyword.value ?: "",
-                    category = category,
-                    page = page
-                )
-
-            binding.refresh.isEnabled = true
-            binding.loading.visibility = View.VISIBLE
-
-            Log.i("Log"," filters for news are $info")
-
-            withContext(Dispatchers.Default) {
-                val request = object : JsonArrayRequest(
-                    Method.POST,
-                    api,
-                    result,
-                    Response.Listener { response ->
-                        response?.let {
-
-                            Log.i("Log","news are $it")
-                            val data = ArrayList<NewsAdapterModel>()
-                            canLoadMore = false
-                            for (i in 0 until it.length()) {
-                                val tagsList = ArrayList<String>()
-                                canLoadMore = true
-                                val obj = it.getJSONObject(i)
-
-                                obj.optJSONArray("tags")?.let { tags ->
-                                    for (tag in 0 until tags.length())
-                                        tagsList.add(tags.getString(tag))
-                                }
-
-                                data.add(
-                                    NewsAdapterModel(
-                                        id = obj.optString("id"),
-                                        title = obj.optString("title"),
-                                        source = obj.optString("source"),
-                                        description = obj.optString("description"),
-                                        date = obj.optString("date"),
-                                        image = obj.optString("image"),
-                                        tags = tagsList
-                                    )
-                                )
-
-                            }
-
-                            if (loadMore)
-                                adapter.addMore(data)
-                            else
-                                adapter.add(data)
-                            binding.loading.visibility = View.GONE
-                            binding.refresh.isEnabled = false
+                        obj.optJSONArray("tags")?.let { tags ->
+                            for (tag in 0 until tags.length())
+                                tagsList.add(tags.getString(tag))
                         }
-                    },
-                    Response.ErrorListener {
-                        try {
-                            Log.i(
-                                "Log",
-                                "Error in CategoryFragment ${
-                                    String(
-                                        it.networkResponse.data,
-                                        Charsets.UTF_8
-                                    )
-                                }"
+
+                        data.add(
+                            NewsAdapterModel(
+                                id = obj.optString("id"),
+                                title = obj.optString("title"),
+                                source = obj.optString("source"),
+                                description = obj.optString("description"),
+                                date = obj.optString("date"),
+                                image = "http://darakhshan.ir/profile.png",
+                                tags = tagsList
                             )
-                        } catch (e: Exception) {
-                            Log.i("Log", "Error in CategoryFragment $it")
-                        }
-
-                        binding.refresh.isEnabled = true
-                    }) {
-                    @Throws(AuthFailureError::class)
-                    override fun getHeaders(): MutableMap<String, String> {
-                        val params = HashMap<String, String>()
-                        params["Authorization"] = "Bearer ${Utils(context = context!!).token}"
-                        params["Accept"] = "Application/json"
-                        return params
+                        )
                     }
 
+                    if (loadMore)
+                        adapter.addMore(data)
+                    else
+                        adapter.add(data)
+
+
+                    binding.loading.visibility = View.GONE
+                }
+            },
+            Response.ErrorListener {
+                canLoadMore = true
+                page = oldPage
+                try {
+                    Log.i(
+                        "Log",
+                        "Error in CategoryFragment ${
+                            String(
+                                it.networkResponse.data,
+                                Charsets.UTF_8
+                            )
+                        }"
+                    )
+                } catch (e: Exception) {
+                    Log.i("Log", "Error in CategoryFragment $it")
                 }
 
-                Volley.newRequestQueue(context).apply {
-                    add(request)
-                }
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["Authorization"] = "Bearer ${Utils(context = context!!).token}"
+                params["Accept"] = "Application/json"
+                return params
             }
 
         }
+
+        Volley.newRequestQueue(context).apply {
+            add(request)
+        }
+
     }
 
+    fun reload() {
+        loadMore = false
+        page = 0
+        fetchNews()
+    }
 
     override fun onClick(info: NewsAdapterModel) {
         if (parent == "news") {
@@ -218,7 +209,7 @@ class CategoryFragment(private val parent: String, private val category: String)
     }
 
     override fun onHashTagClicked(hashTag: String) {
-        var tag = Arrange().persianConcatenate(first = "#", end = hashTag)
+        val tag = Arrange().persianConcatenate(first = "#", end = hashTag)
         searchForHashTag.hashTag(tag)
     }
 
