@@ -7,12 +7,12 @@
     android:orientation="horizontal">
 
     <TextView
-        android:padding="10dp"
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="0.4"
         android:gravity="start"
+        android:padding="10dp"
         android:textAppearance="@style/vazir_font"
         android:textColor="@color/dark_blue"
         android:textSize="14sp" />
@@ -24,12 +24,13 @@
         android:background="@color/colorAccent" />
 
     <TextView
-        android:padding="10dp"
         android:id="@+id/profit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:gravity="start"
+        android:layout_weight="0.32"
+        android:gravity="center"
+        android:layoutDirection="ltr"
+        android:padding="10dp"
         android:textAppearance="@style/vazir_font"
         android:textColor="@color/dark_blue"
         android:textSize="14sp" />
@@ -40,12 +41,13 @@
         android:background="@color/colorAccent" />
 
     <TextView
-        android:padding="10dp"
         android:id="@+id/risk"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
+        android:layout_weight="0.2"
         android:gravity="center"
+        android:layoutDirection="ltr"
+        android:padding="10dp"
         android:textAppearance="@style/vazir_font"
         android:textColor="@color/dark_blue"
         android:textSize="14sp" />

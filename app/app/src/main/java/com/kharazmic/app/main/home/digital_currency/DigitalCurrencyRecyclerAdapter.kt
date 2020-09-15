@@ -52,13 +52,16 @@ class DigitalCurrencyRecyclerAdapter :
         fun bind(model: DigitalCurrencyModel) {
 
 
-            itemView.name.text = model.name
+            itemView.name.text = Arrange().concatenate(
+                first = model.persian_name,
+                end = Arrange().concatenate(first = "(", middle = model.english_name, end = ")")
+            )
 
             itemView.price_dollar.text = Arrange().numberEnglishArrangement(model.price_dollar)
             itemView.price_dollar_change.text =
                 Arrange().concatenate(
                     first = "(",
-                    middle = model.price_dollar_change_24,
+                    middle = Arrange().concatenate(first = model.price_dollar_change_24.toString(),end = "%"),
                     end = ")"
                 )
 
@@ -68,7 +71,7 @@ class DigitalCurrencyRecyclerAdapter :
             itemView.price_rial_change.text =
                 Arrange().concatenate(
                     first = "(",
-                    middle = model.price_rial_change_24,
+                    middle =  Arrange().concatenate(first = model.price_rial_change_24.toString(),end = "%"),
                     end = ")"
                 )
 
@@ -76,7 +79,7 @@ class DigitalCurrencyRecyclerAdapter :
             itemView.price_rial_change.setTextColor(
                 ContextCompat.getColor(
                     itemView.context,
-                    if (model.price_rial_change_24.toInt() > 0) R.color.dark_green else R.color.red
+                    if (model.price_rial_change_24 > 0) R.color.dark_green else R.color.red
                 )
             )
 
@@ -84,7 +87,7 @@ class DigitalCurrencyRecyclerAdapter :
             itemView.price_dollar_change.setTextColor(
                 ContextCompat.getColor(
                     itemView.context,
-                    if (model.price_dollar_change_24.toInt() > 0) R.color.dark_green else R.color.red
+                    if (model.price_dollar_change_24 > 0) R.color.dark_green else R.color.red
                 )
             )
 

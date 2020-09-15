@@ -76,7 +76,7 @@ class CategoryFragment(private val parent: String, private val category: String)
                         binding.loading.visibility = View.VISIBLE
 
                         oldPage = page
-                        page += 10
+                        page += 20
 
                         loadMore = true
                         fetchNews()
@@ -103,7 +103,7 @@ class CategoryFragment(private val parent: String, private val category: String)
         info.put("keyword", keyword.value)
         info.put("category", category)
         info.put("offset", page)
-        info.put("limit", 10)
+        info.put("limit", 20)
         val result = JSONArray()
         result.put(info)
 

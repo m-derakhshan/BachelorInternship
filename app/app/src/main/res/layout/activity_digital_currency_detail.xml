@@ -10,7 +10,7 @@
         android:orientation="vertical"
         tools:context=".main.home.digital_currency.DigitalCurrencyDetailActivity">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -28,16 +28,16 @@
                 android:src="@drawable/ic_arrow_forward_black_24dp" />
 
             <TextView
+                android:layout_centerVertical="true"
                 android:id="@+id/title"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="0.9"
-                android:gravity="end"
                 android:textAppearance="@style/vazir_font"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,6 +90,7 @@
                     android:id="@+id/change_price_in_3_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layoutDirection="ltr"
                     android:textAppearance="@style/vazir_font"
                     android:textColor="@color/black" />
 
@@ -114,6 +115,7 @@
                     android:id="@+id/change_price_in_24_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layoutDirection="ltr"
                     android:textAppearance="@style/vazir_font"
                     android:textColor="@color/black" />
 
@@ -139,6 +141,7 @@
                     android:id="@+id/change_price_in_7_days"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layoutDirection="ltr"
                     android:textAppearance="@style/vazir_font"
                     android:textColor="@color/black" />
 

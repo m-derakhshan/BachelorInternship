@@ -29,7 +29,7 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
 
     private lateinit var binding: FragmentConstantIncomeBinding
     private val myAdapter = ConstantIncomeRecyclerAdapter()
-    private var riskCriteria: Int = 0
+    private var riskCriteria: Int = 1
     private var averageProfit: Int = 0
 
     override fun onCreateView(
@@ -184,11 +184,27 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
                 else -> 4
             }
 
+            applyFilter()
             filterDialog.hide()
-            Log.i("Log", "filters are risk = $riskCriteria and average = $averageProfit")
 
         }
 
+    }
+
+
+    private fun applyFilter() {
+        binding.riskFilter.text = when (riskCriteria) {
+            0 -> "آلفا صندوق"
+            else -> "بتا صندوق"
+        }
+
+        binding.profitFilter.text = when (averageProfit) {
+            0 -> "بازدهی ماهانه"
+            1 -> "بازدهی سه ماهه"
+            2 -> "بازدهی شش ماهه"
+            3 -> "بازدهی سالانه"
+            else -> "بازدهی از آغاز فعالیت"
+        }
     }
 
 
