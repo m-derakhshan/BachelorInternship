@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/login_card_view"
+    android:clipToPadding="false"
+    android:elevation="5dp"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="میانگین بازدهی:"
+        android:textAppearance="@style/vazir_font"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp">
+
+        <RadioButton
+            android:id="@+id/monthly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بازدهی ماهانه"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/medium_purple" />
+
+        <RadioButton
+            android:id="@+id/three_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بازدهی سه ماهه"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/medium_purple" />
+
+        <RadioButton
+            android:id="@+id/six_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بازدهی شش ماهه"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/medium_purple" />
+
+        <RadioButton
+            android:id="@+id/annual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بازدهی یک ساله"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/medium_purple" />
+
+        <RadioButton
+            android:id="@+id/from_beginning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بازدهی از آغاز فعالیت"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/medium_purple" />
+    </RadioGroup>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text=" معیار ریسک:"
+        android:textAppearance="@style/vazir_font"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/risk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp">
+
+        <RadioButton
+            android:id="@+id/alpha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="آلفا صندوق"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/medium_purple" />
+
+        <RadioButton
+            android:id="@+id/beta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بتا صندوق"
+            android:textAppearance="@style/vazir_font"
+            android:textColor="@color/medium_purple" />
+
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/login_btn"
+        android:text="اعمال تغییرات"
+        android:textAppearance="@style/vazir_font"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

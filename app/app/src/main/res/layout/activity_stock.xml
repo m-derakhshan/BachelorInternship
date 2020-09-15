@@ -11,5 +11,5 @@
     android:layoutDirection="rtl"
     app:defaultNavHost="true"
     app:navGraph="@navigation/stock_navigation"
-    tools:context=".main.stock.StockActivity" />
+    tools:context=".main.home.stock.StockActivity" />
 

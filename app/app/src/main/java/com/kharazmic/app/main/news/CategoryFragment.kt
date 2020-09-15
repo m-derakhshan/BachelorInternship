@@ -1,13 +1,11 @@
 package com.kharazmic.app.main.news
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -19,6 +17,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.kharazmic.app.Address
+import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.databinding.FragmentCategoryBinding
@@ -127,6 +126,8 @@ class CategoryFragment(private val parent: String, private val category: String)
             binding.refresh.isEnabled = true
             binding.loading.visibility = View.VISIBLE
 
+            Log.i("Log"," filters for news are $info")
+
             withContext(Dispatchers.Default) {
                 val request = object : JsonArrayRequest(
                     Method.POST,
@@ -134,6 +135,8 @@ class CategoryFragment(private val parent: String, private val category: String)
                     result,
                     Response.Listener { response ->
                         response?.let {
+
+                            Log.i("Log","news are $it")
                             val data = ArrayList<NewsAdapterModel>()
                             canLoadMore = false
                             for (i in 0 until it.length()) {
@@ -141,7 +144,7 @@ class CategoryFragment(private val parent: String, private val category: String)
                                 canLoadMore = true
                                 val obj = it.getJSONObject(i)
 
-                                obj.optJSONArray("tag")?.let { tags ->
+                                obj.optJSONArray("tags")?.let { tags ->
                                     for (tag in 0 until tags.length())
                                         tagsList.add(tags.getString(tag))
                                 }
@@ -215,7 +218,8 @@ class CategoryFragment(private val parent: String, private val category: String)
     }
 
     override fun onHashTagClicked(hashTag: String) {
-        searchForHashTag.hashTag(hashTag)
+        var tag = Arrange().persianConcatenate(first = "#", end = hashTag)
+        searchForHashTag.hashTag(tag)
     }
 
 

@@ -1,10 +1,8 @@
 package com.kharazmic.app.main.news
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.kharazmic.app.Arrange
@@ -22,8 +20,8 @@ class NewsDetailActivity : AppCompatActivity() {
         val info = intent.getParcelableExtra<NewsAdapterModel>("info")!!
 
         binding.date.text = Arrange().persianConverter(info.date)
-        binding.title.text = info.title
-        binding.description.text = info.description
+        binding.title.text = HtmlCompat.fromHtml(info.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        binding.description.text = HtmlCompat.fromHtml(info.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
         binding.source.text = info.source
         Glide.with(this)
             .load(info.image)

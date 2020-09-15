@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.kharazmic.app.main.stock.stock.StockViewModel" />
+            type="com.kharazmic.app.main.home.stock.stock.StockViewModel" />
 
     </data>
 
@@ -18,7 +18,7 @@
         android:layoutDirection="rtl"
         android:overScrollMode="never"
         android:scrollbarThumbVertical="@null"
-        tools:context=".main.stock.stock.StockFragment">
+        tools:context=".main.home.stock.stock.StockFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

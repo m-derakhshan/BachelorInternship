@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainStockFragment"
-        android:name="com.kharazmic.app.main.stock.main.MainStockFragment"
+        android:name="com.kharazmic.app.main.home.stock.main.MainStockFragment"
         android:label="fragment_main_stock"
         tools:layout="@layout/fragment_main_stock" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/stockSearchFragment"
-        android:name="com.kharazmic.app.main.stock.search.StockSearchFragment"
+        android:name="com.kharazmic.app.main.home.stock.search.StockSearchFragment"
         android:label="fragment_stock_search"
         tools:layout="@layout/fragment_stock_search" >
         <action
@@ -62,12 +62,12 @@
     </fragment>
     <fragment
         android:id="@+id/stockFragment"
-        android:name="com.kharazmic.app.main.stock.stock.StockFragment"
+        android:name="com.kharazmic.app.main.home.stock.stock.StockFragment"
         android:label="fragment_stock"
         tools:layout="@layout/fragment_stock" />
     <fragment
         android:id="@+id/bestStockFragment"
-        android:name="com.kharazmic.app.main.stock.main.BestStockFragment"
+        android:name="com.kharazmic.app.main.home.stock.main.BestStockFragment"
         android:label="BestStockFragment" >
         <action
             android:id="@+id/action_bestStockFragment_to_stockFragment"
@@ -79,10 +79,10 @@
     </fragment>
     <fragment
         android:id="@+id/calculatorFragment"
-        android:name="com.kharazmic.app.main.stock.CalculatorFragment"
+        android:name="com.kharazmic.app.main.home.stock.CalculatorFragment"
         android:label="CalculatorFragment" />
     <fragment
         android:id="@+id/messageFragment"
-        android:name="com.kharazmic.app.main.stock.message.MessageFragment"
+        android:name="com.kharazmic.app.main.home.stock.message.MessageFragment"
         android:label="MessageFragment" />
 </navigation>

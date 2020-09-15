@@ -1,10 +1,10 @@
 package com.kharazmic.app.main.news
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kharazmic.app.Arrange
@@ -70,8 +70,8 @@ class NewsRecyclerViewAdapter : RecyclerView.Adapter<NewsRecyclerViewAdapter.Vie
             }
 
 
-            itemView.title.text = model.title
-            itemView.description.text = model.description
+            itemView.title.text = HtmlCompat.fromHtml(model.title,HtmlCompat.FROM_HTML_MODE_LEGACY)
+            itemView.description.text = HtmlCompat.fromHtml(model.description,HtmlCompat.FROM_HTML_MODE_LEGACY)
             itemView.date.text = Arrange().persianConverter(model.date)
             itemView.source.text = model.source
 

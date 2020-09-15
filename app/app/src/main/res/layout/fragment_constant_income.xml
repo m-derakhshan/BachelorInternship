@@ -9,7 +9,7 @@
         android:clipToPadding="false"
         android:layoutDirection="rtl"
         android:orientation="vertical"
-        tools:context=".main.desk.constant.ConstantIncomeFragment">
+        tools:context=".main.home.desk.constant.ConstantIncomeFragment">
 
 
 

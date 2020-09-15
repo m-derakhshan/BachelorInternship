@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.kharazmic.app.main.stock.search.SearchViewModel" />
+            type="com.kharazmic.app.main.home.stock.search.SearchViewModel" />
 
     </data>
 
@@ -18,7 +18,7 @@
         android:background="@color/white"
         android:layoutDirection="rtl"
         android:orientation="vertical"
-        tools:context=".main.stock.search.StockSearchFragment">
+        tools:context=".main.home.stock.search.StockSearchFragment">
 
 
         <LinearLayout

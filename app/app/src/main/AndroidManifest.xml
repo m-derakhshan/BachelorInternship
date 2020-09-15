@@ -20,15 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".main.desk.constant.detail.ConstantIncomeDetailActivity"></activity>
-        <activity android:name=".main.desk.CashDeskActivity" />
+        <activity android:name=".main.home.digital_currency.DigitalCurrencyDetailActivity"></activity>
+        <activity android:name=".main.home.digital_currency.DigitalCurrencyActivity" />
+        <activity android:name=".main.home.desk.constant.detail.ConstantIncomeDetailActivity" />
+        <activity android:name=".main.home.desk.CashDeskActivity" />
         <activity android:name=".main.news.NewsDetailActivity" />
         <activity
             android:name=".main.profile.setting.activities.EditProfileActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".main.gold.currency_fragment.AllCurrencyActivity" />
-        <activity android:name=".main.gold.GoldCurrencyActivity" />
-        <activity android:name=".main.stock.StockActivity" />
+        <activity android:name=".main.home.gold.currency_fragment.AllCurrencyActivity" />
+        <activity android:name=".main.home.gold.GoldCurrencyActivity" />
+        <activity android:name=".main.home.stock.StockActivity" />
         <activity android:name=".main.profile.signals.SignalDetailActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>

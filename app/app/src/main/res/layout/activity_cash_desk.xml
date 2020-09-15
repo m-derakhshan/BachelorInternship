@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layoutDirection="rtl"
         android:orientation="vertical"
-        tools:context=".main.desk.CashDeskActivity">
+        tools:context=".main.home.desk.CashDeskActivity">
 
         <LinearLayout
             android:id="@+id/toolbar"

@@ -9,7 +9,7 @@
         android:background="@mipmap/calculator_background"
         android:layoutDirection="rtl"
         android:orientation="vertical"
-        tools:context=".main.stock.CalculatorFragment">
+        tools:context=".main.home.stock.CalculatorFragment">
 
         <LinearLayout
             android:id="@+id/toolbar"

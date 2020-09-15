@@ -3,6 +3,7 @@ package com.kharazmic.app
 class Address {
 
     val base = "http://136.243.140.228:1337"
+    val baseScrapper = "http://136.243.140.228:1338"
 
 
     fun loginAPI(phone: String) = "$base/people/genpassword?mobile=$phone"
@@ -25,9 +26,9 @@ class Address {
 
     val bestStockAPI = "https://run.mocky.io/v3/545a2971-38a5-4ea1-bc81-038614a9b096"
 
-    val gold = "https://run.mocky.io/v3/b273e6f1-f6e3-4597-ab2e-ce2a83fdde23"
+    //val gold = "https://run.mocky.io/v3/b273e6f1-f6e3-4597-ab2e-ce2a83fdde23"
 
-    val currency = "https://run.mocky.io/v3/814683d7-b505-424d-8fb0-682bcca8f7bc"
+    fun goldCurrency(category: String) = "$baseScrapper/gold-and-currency?type=$category"
 
     fun supervisorMessage(page: Int) =
         "https://run.mocky.io/v3/fc4c7dfb-756a-4ea2-b900-5fe8193b120c?page=$page"
@@ -50,6 +51,8 @@ class Address {
 
     fun cashDesk(category: String) =
         "https://run.mocky.io/v3/252b476d-81c7-4ab3-88aa-bc6eb9324c46?category=$category"
+
+    val digitalCurrency = "https://run.mocky.io/v3/48e77d9e-099a-4ab7-a8a1-ca15d99e6e59"
 
 
 }

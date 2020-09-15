@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:layoutDirection="rtl"
         android:orientation="vertical"
-        tools:context=".main.stock.main.BestStockFragment">
+        tools:context=".main.home.stock.main.BestStockFragment">
 
         <LinearLayout
             android:id="@+id/toolbar"

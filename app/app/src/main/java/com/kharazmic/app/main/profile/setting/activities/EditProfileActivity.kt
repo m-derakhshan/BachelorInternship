@@ -2,13 +2,10 @@ package com.kharazmic.app.main.profile.setting.activities
 
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.PathUtils
-import androidx.core.net.toFile
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,9 +22,6 @@ import kotlinx.coroutines.*
 import lv.chi.photopicker.PhotoPickerFragment
 import java.io.File
 import java.io.IOException
-import java.net.URI
-import java.nio.file.Files
-import java.nio.file.Path
 
 class EditProfileActivity : AppCompatActivity(), PhotoPickerFragment.Callback {
 

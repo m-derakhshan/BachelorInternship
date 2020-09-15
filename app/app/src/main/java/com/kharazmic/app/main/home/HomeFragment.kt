@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentHomeBinding
-import com.kharazmic.app.main.desk.CashDeskActivity
-import com.kharazmic.app.main.gold.GoldCurrencyActivity
-import com.kharazmic.app.main.stock.StockActivity
+import com.kharazmic.app.main.home.desk.CashDeskActivity
+import com.kharazmic.app.main.home.digital_currency.DigitalCurrencyActivity
+import com.kharazmic.app.main.home.gold.GoldCurrencyActivity
+import com.kharazmic.app.main.home.stock.StockActivity
 
 
 class HomeFragment : Fragment(), HomeOnClickListener {
@@ -42,19 +43,19 @@ class HomeFragment : Fragment(), HomeOnClickListener {
         val nameList = listOf(
             R.string.sandogh, R.string.gold_currency, R.string.saham,
             R.string.energy, R.string.ati, R.string.ekhtyar,
-            R.string.hagh_taghadom, R.string.oragh_moshtaghe, R.string.oragh_bedehi
+            R.string.hagh_taghadom, R.string.digital_currency, R.string.oragh_bedehi
         )
         val iconList = listOf(
             R.drawable.ic_sandogh_icon, R.drawable.ic_arz_icon, R.drawable.ic_saham_icon,
             R.drawable.ic_energy_icon, R.drawable.ic_ati_icon, R.drawable.ic_ekhtiar_icon,
-            R.drawable.ic_taghadom_icon, R.drawable.ic_moshtaghe_icon, R.drawable.ic_debit_icon
+            R.drawable.ic_taghadom_icon, R.drawable.ic_digital_currency, R.drawable.ic_debit_icon
         )
 
         for (i in iconList.indices) {
             data.add(
                 ItemMenuModel(
                     id = i,
-                    icon = ContextCompat.getDrawable(context!!, iconList[i])!!,
+                    icon = ContextCompat.getDrawable(requireContext(), iconList[i])!!,
                     text = getString(nameList[i])
                 )
             )
@@ -81,7 +82,7 @@ class HomeFragment : Fragment(), HomeOnClickListener {
 
                     6 -> StockActivity::class.java
 
-                    7 -> StockActivity::class.java
+                    7 -> DigitalCurrencyActivity::class.java
 
                     else -> StockActivity::class.java
                 }
