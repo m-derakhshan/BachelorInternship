@@ -22,14 +22,12 @@ class ChartMarkView(layout: Int, myContext: Context) : MarkerView(myContext, lay
     }
 
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
-        price.text =
-            Arrange().persianConcatenate(first = "قیمت: ", end = e?.`val`?.toInt().toString())
-        date.text = Arrange().persianConcatenate(first = "تاریخ: ", end = chartDate[e?.xIndex!!])
+//        price.text =
+//            Arrange().persianConcatenate(first = "قیمت: ", end = e?.`val`?.toInt().toString())
+//        date.text = Arrange().persianConcatenate(first = "تاریخ: ", end = chartDate[e?.xIndex!!])
+//
+
     }
-
-    override fun getYOffset(ypos: Float): Int = -(width * 0.65).toInt()
-
-    override fun getXOffset(xpos: Float): Int = -height
 
 
 }

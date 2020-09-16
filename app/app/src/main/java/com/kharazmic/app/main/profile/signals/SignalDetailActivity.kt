@@ -40,7 +40,7 @@ class SignalDetailActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signal_detail)
         database = MyDatabase.getInstance(this)
         fetchDataFromDatabase()
-        fetchDataFromServer()
+        //fetchDataFromServer()
         ExpansionLayoutCollection().apply {
             add(binding.stockLayout)
             add(binding.descriptionLayout)
@@ -50,7 +50,7 @@ class SignalDetailActivity : AppCompatActivity() {
             onBackPressed()
         }
         binding.refresh.setOnRefreshListener {
-            fetchDataFromServer()
+          //  fetchDataFromServer()
         }
         binding.lineChart.xAxis.apply {
             axisLineWidth = 2F
@@ -63,7 +63,7 @@ class SignalDetailActivity : AppCompatActivity() {
             axisLineColor = ContextCompat.getColor(baseContext, R.color.colorAccent)
             gridColor = ContextCompat.getColor(baseContext, R.color.light_gray) }
         binding.lineChart.axisLeft.isEnabled = false
-        binding.lineChart.setDescription("")
+       // binding.lineChart.setDescription("")
         binding.lineChart.legend.isEnabled = false
         markView = ChartMarkView(R.layout.chart_mark_view, this)
         binding.lineChart.markerView = markView
@@ -113,69 +113,69 @@ class SignalDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchDataFromServer() {
-        binding.refresh.isRefreshing = true
-        val info = JSONObject()
-        info.put("id", id)
-        val request = JsonObjectRequest(
-            Request.Method.POST,
-            Address().signalDetailAPI,
-            info,
-            Response.Listener {
-                scope.launch {
-
-                    withContext(Dispatchers.Main, block = {
-                        it?.let { data ->
-
-                            async(Dispatchers.Default, CoroutineStart.DEFAULT, block = {
-                                database.signalDAO.addProfit(
-                                    id = id,
-                                    profit = data.getString("profit")
-                                )
-
-                            }).await()
-
-
-                            val lineEntry = ArrayList<Entry>()
-                            val lineLabels = ArrayList<String>()
-
-                            data.getJSONArray("chart").let { chart ->
-                                for (i in 0 until chart.length()) {
-                                    val point = chart.getJSONObject(i)
-                                    lineEntry.add(Entry(point.getInt("y").toFloat(), i))
-                                    lineLabels.add(Arrange().persianConverter(point.getString("x")))
-                                }
-                                val lineDataSet = LineDataSet(lineEntry, "").apply {
-                                    color = ContextCompat.getColor(baseContext, R.color.colorAccent)
-                                    setDrawCircles(false)
-                                    lineWidth = 2F
-                                    setDrawValues(false)
-                                }
-                                val lineData = LineData(lineLabels, lineDataSet)
-
-                                binding.lineChart.data = lineData
-                                binding.lineChart.animateXY(2000, 2000)
-
-                                markView.addDate(lineLabels)
-                                binding.refresh.isRefreshing = false
-                            }
-                        }
-                    })
-                }
-            },
-            Response.ErrorListener {
-                Utils(this).showSnackBar(
-                    color = ContextCompat.getColor(this, R.color.black),
-                    msg = "بروز رسانی اطلاعات با خطا مواجه شد.",
-                    snackView = binding.root
-                )
-                binding.refresh.isRefreshing = false
-                Log.i("Log", "Error in SignalDetailActivity $it")
-
-            })
-        val queue = Volley.newRequestQueue(this)
-        queue.add(request)
-    }
+//    private fun fetchDataFromServer() {
+//        binding.refresh.isRefreshing = true
+//        val info = JSONObject()
+//        info.put("id", id)
+//        val request = JsonObjectRequest(
+//            Request.Method.POST,
+//            Address().signalDetailAPI,
+//            info,
+//            Response.Listener {
+//                scope.launch {
+//
+//                    withContext(Dispatchers.Main, block = {
+//                        it?.let { data ->
+//
+//                            async(Dispatchers.Default, CoroutineStart.DEFAULT, block = {
+//                                database.signalDAO.addProfit(
+//                                    id = id,
+//                                    profit = data.getString("profit")
+//                                )
+//
+//                            }).await()
+//
+//
+//                            val lineEntry = ArrayList<Entry>()
+//                            val lineLabels = ArrayList<String>()
+//
+//                            data.getJSONArray("chart").let { chart ->
+//                                for (i in 0 until chart.length()) {
+//                                    val point = chart.getJSONObject(i)
+//                                    lineEntry.add(Entry(point.getInt("y").toFloat(), i))
+//                                    lineLabels.add(Arrange().persianConverter(point.getString("x")))
+//                                }
+//                                val lineDataSet = LineDataSet(lineEntry, "").apply {
+//                                    color = ContextCompat.getColor(baseContext, R.color.colorAccent)
+//                                    setDrawCircles(false)
+//                                    lineWidth = 2F
+//                                    setDrawValues(false)
+//                                }
+//                                val lineData = LineData(lineLabels, lineDataSet)
+//
+//                                binding.lineChart.data = lineData
+//                                binding.lineChart.animateXY(2000, 2000)
+//
+//                                markView.addDate(lineLabels)
+//                                binding.refresh.isRefreshing = false
+//                            }
+//                        }
+//                    })
+//                }
+//            },
+//            Response.ErrorListener {
+//                Utils(this).showSnackBar(
+//                    color = ContextCompat.getColor(this, R.color.black),
+//                    msg = "بروز رسانی اطلاعات با خطا مواجه شد.",
+//                    snackView = binding.root
+//                )
+//                binding.refresh.isRefreshing = false
+//                Log.i("Log", "Error in SignalDetailActivity $it")
+//
+//            })
+//        val queue = Volley.newRequestQueue(this)
+//        queue.add(request)
+//    }
 
     override fun onBackPressed() {
         super.onBackPressed()

@@ -64,7 +64,6 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
             }
         }
         binding.recyclerView.addOnScrollListener(scroll)
-
         binding.filter.setOnClickListener {
             dialog()
         }
@@ -135,7 +134,6 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
         activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
-
     private fun dialog() {
         val view =
             LayoutInflater.from(requireContext())
@@ -190,7 +188,6 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
         }
 
     }
-
 
     private fun applyFilter() {
         binding.riskFilter.text = when (riskCriteria) {
