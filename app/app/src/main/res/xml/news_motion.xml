@@ -6,8 +6,7 @@
     <Transition
         android:id="@+id/my_transition"
         app:constraintSetEnd="@+id/ending_set"
-        app:constraintSetStart="@+id/starting_set"
-        app:duration="5000">
+        app:constraintSetStart="@+id/starting_set">
 
         <OnSwipe
             app:dragDirection="dragUp"
@@ -31,7 +30,6 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="1"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -52,7 +50,6 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0"
             app:layout_constraintTop_toTopOf="parent" />
 
     </ConstraintSet>

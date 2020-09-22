@@ -1,13 +1,14 @@
 package com.kharazmic.app.main.news
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kharazmic.app.R
+import android.content.Intent
+import android.util.Log
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,27 +18,18 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.kharazmic.app.Address
-import com.kharazmic.app.Arrange
-import com.kharazmic.app.R
 import com.kharazmic.app.Utils
-import com.kharazmic.app.databinding.FragmentCategoryBinding
+import com.kharazmic.app.databinding.FragmentAnalysisSubCategoryBinding
 import com.kharazmic.app.main.NewsTutorialClickListener
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 
-
-class CategoryFragment(private val parent: String, private val category: String) : Fragment(),
-    NewsTutorialClickListener, NewsRecyclerViewAdapter.HashTagListener {
+class AnalysisSubCategory(private val category: String) : Fragment(), NewsTutorialClickListener {
 
     private var loadMore = false
-    private lateinit var binding: FragmentCategoryBinding
+    private lateinit var binding: FragmentAnalysisSubCategoryBinding
     private val adapter = NewsRecyclerViewAdapter()
     private var canLoadMore = true
-    lateinit var searchForHashTag: SearchForHashTag
     private var oldPage = 0
 
 
@@ -49,7 +41,12 @@ class CategoryFragment(private val parent: String, private val category: String)
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_analysis_sub_category,
+            container,
+            false
+        )
         return binding.root
     }
 
@@ -58,7 +55,6 @@ class CategoryFragment(private val parent: String, private val category: String)
         super.onViewCreated(view, savedInstanceState)
 
         adapter.onClick = this
-        adapter.hashTagListener = this
 
         val manager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = manager
@@ -107,14 +103,8 @@ class CategoryFragment(private val parent: String, private val category: String)
         val result = JSONArray()
         result.put(info)
 
-        val api = if (parent == "news")
-            Address().newsAPI()
-        else
-            Address().tutorialAPI(
-                keyword = keyword.value ?: "",
-                category = category,
-                page = page
-            )
+        val api = Address().newsAPI()
+
         binding.loading.visibility = View.VISIBLE
         canLoadMore = false
 
@@ -135,7 +125,6 @@ class CategoryFragment(private val parent: String, private val category: String)
                             for (tag in 0 until tags.length())
                                 tagsList.add(tags.getString(tag))
                         }
-
                         data.add(
                             NewsAdapterModel(
                                 id = obj.optString("id"),
@@ -199,18 +188,10 @@ class CategoryFragment(private val parent: String, private val category: String)
     }
 
     override fun onClick(info: NewsAdapterModel) {
-        if (parent == "news") {
-            val intent = Intent(activity, NewsDetailActivity::class.java)
-            intent.putExtra("info", info)
-            startActivity(intent)
-            activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        }
-
-    }
-
-    override fun onHashTagClicked(hashTag: String) {
-        val tag = Arrange().persianConcatenate(first = "#", end = hashTag)
-        searchForHashTag.hashTag(tag)
+        val intent = Intent(activity, NewsDetailActivity::class.java)
+        intent.putExtra("info", info)
+        startActivity(intent)
+        activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
 

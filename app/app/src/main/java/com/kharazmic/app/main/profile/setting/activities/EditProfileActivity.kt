@@ -1,6 +1,7 @@
 package com.kharazmic.app.main.profile.setting.activities
 
-import android.graphics.Bitmap
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -9,26 +10,19 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection
 import com.kharazmic.app.R
 import com.kharazmic.app.Utils
 import com.kharazmic.app.database.MyDatabase
 import com.kharazmic.app.databinding.ActivityEditProfileBinding
-import id.zelory.compressor.Compressor
-import id.zelory.compressor.constraint.format
-import id.zelory.compressor.constraint.quality
-import id.zelory.compressor.constraint.resolution
-import kotlinx.coroutines.*
-import lv.chi.photopicker.PhotoPickerFragment
-import java.io.File
 import java.io.IOException
 
-class EditProfileActivity : AppCompatActivity(), PhotoPickerFragment.Callback {
+class EditProfileActivity : AppCompatActivity() {
 
 
     private lateinit var viewModel: EditProfileViewModel
     private lateinit var binding: ActivityEditProfileBinding
-    private val scope = CoroutineScope(Dispatchers.Main)
     private var imageData: ByteArray? = null
 
 
@@ -89,15 +83,11 @@ class EditProfileActivity : AppCompatActivity(), PhotoPickerFragment.Callback {
         }
 
         binding.chooseImage.setOnClickListener {
-
-            PhotoPickerFragment.newInstance(
-                multiple = false,
-                allowCamera = true,
-                maxSelection = 1,
-                theme = R.style.ChiliPhotoPicker_Dark
-            ).show(supportFragmentManager, "choose image")
-
-
+            ImagePicker.with(this)
+                .crop()
+                .compress(1024)
+                .maxResultSize(1080, 1080)
+                .start()
         }
 
         val expandPanel = ExpansionLayoutCollection()
@@ -110,28 +100,14 @@ class EditProfileActivity : AppCompatActivity(), PhotoPickerFragment.Callback {
             viewModel.updateInfo()
         }
 
-
     }
 
 
-    override fun onImagesPicked(photos: ArrayList<Uri>) {
-        scope.launch {
-            binding.profile.setImageURI(photos.first())
-            async(Dispatchers.IO, CoroutineStart.DEFAULT, block = {
-                try {
-                    val compressedImageFile = Compressor.compress(
-                        this@EditProfileActivity,
-                        File(this@EditProfileActivity.cacheDir, photos.first().path!!)
-                    ) {
-                        resolution(1024, 1024)
-                        quality(80)
-                        format(Bitmap.CompressFormat.JPEG)
-                    }
-                    createImageData(Uri.fromFile(compressedImageFile))
-                } catch (e: Exception) {
-                    createImageData(photos.first())
-                }
-            }).await()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            binding.profile.setImageURI(data.data)
+            data.data?.let { createImageData(it) }
             viewModel.uploadImage(imageData)
         }
     }

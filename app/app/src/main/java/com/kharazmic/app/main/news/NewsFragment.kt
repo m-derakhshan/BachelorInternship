@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentNewsBinding
@@ -34,9 +35,13 @@ class NewsFragment : Fragment(), SearchForHashTag {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val stockFragment = CategoryFragment(parent = "news", category = "stock").apply { searchForHashTag = this@NewsFragment }
+        val stockFragment = CategoryFragment(parent = "news", category = "stock").apply {
+            searchForHashTag = this@NewsFragment
+        }
         val conclusionFragment = AnalysisCategoryFragment()
-        val financialFragment = CategoryFragment(parent = "news", category = "financial").apply { searchForHashTag = this@NewsFragment }
+        val financialFragment = CategoryFragment(parent = "news", category = "financial").apply {
+            searchForHashTag = this@NewsFragment
+        }
 
         val adapter = ViewPagerAdapter(this).apply {
             this.addFragment(stockFragment)
@@ -85,13 +90,6 @@ class NewsFragment : Fragment(), SearchForHashTag {
         })
 
 
-        binding.refresh.setOnRefreshListener {
-            binding.refresh.isRefreshing = false
-            stockFragment.reload()
-            financialFragment.reload()
-            conclusionFragment.reload()
-
-        }
     }
 
     override fun hashTag(tag: String) {

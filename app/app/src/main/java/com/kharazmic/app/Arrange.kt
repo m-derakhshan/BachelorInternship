@@ -68,7 +68,7 @@ class Arrange {
         for (i in tmpNumber.indices) {
             if (tmpNumber[i] != ',') {
                 counter += 1
-                if (counter == 3)
+                if (counter == 3 && i != tmpNumber.lastIndex)
                     tmpNumber.add(i + 1, ',').also { counter = 0 }
             }
         }

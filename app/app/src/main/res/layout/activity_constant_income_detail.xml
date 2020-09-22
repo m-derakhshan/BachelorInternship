@@ -200,13 +200,13 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0.6"
-                                    android:text="میزان سرمایه گذاری:"
+                                    android:text="مدیران سرمایه گذاری:"
                                     android:textAppearance="@style/vazir_font"
                                     android:textColor="@color/dark_purple"
                                     android:textSize="14sp" />
 
                                 <TextView
-                                    android:id="@+id/worth_amount"
+                                    android:id="@+id/investment_manager"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="@style/vazir_font"
@@ -437,17 +437,18 @@
                                 android:padding="10dp">
 
                                 <TextView
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.6"
                                     android:text="تعداد سرمایه گذاران حقیقی:"
                                     android:textAppearance="@style/vazir_font"
                                     android:textColor="@color/dark_purple"
                                     android:textSize="14sp" />
 
                                 <TextView
+                                    android:layout_weight="0.6"
                                     android:id="@+id/number_investor1"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
+                                    android:gravity="center"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="@style/vazir_font"
                                     android:textColor="@color/black"
@@ -458,7 +459,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginEnd="10dp"
-                                    android:text="درصد تملک:"
+                                    android:text="تملک:"
                                     android:textAppearance="@style/vazir_font"
                                     android:textColor="@color/dark_purple"
                                     android:textSize="14sp" />
@@ -556,17 +557,18 @@
                                 android:padding="10dp">
 
                                 <TextView
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5"
                                     android:text="تعداد سرمایه گذاران حقوقی:"
                                     android:textAppearance="@style/vazir_font"
                                     android:textColor="@color/dark_purple"
                                     android:textSize="14sp" />
 
                                 <TextView
+                                    android:layout_weight="0.5"
                                     android:id="@+id/number_of_investor2"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
+                                    android:gravity="center"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="@style/vazir_font"
                                     android:textColor="@color/black"
@@ -577,7 +579,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginEnd="10dp"
-                                    android:text="درصد تملک:"
+                                    android:text="تملک:"
                                     android:textAppearance="@style/vazir_font"
                                     android:textColor="@color/dark_purple"
                                     android:textSize="14sp" />

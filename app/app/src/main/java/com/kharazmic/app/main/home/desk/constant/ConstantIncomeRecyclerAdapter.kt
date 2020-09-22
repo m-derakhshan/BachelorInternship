@@ -62,7 +62,7 @@ class ConstantIncomeRecyclerAdapter :
 
             itemView.name.text = model.name
             itemView.profit.text = model.one_month
-            itemView.risk.text = model.riskCriteria
+            itemView.risk.text = model.riskCriteriaBeta
 
         }
     }

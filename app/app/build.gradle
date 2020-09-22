@@ -117,8 +117,7 @@ dependencies {
 
 //-----------------image picker and compressor and zoom-----------------//
 dependencies {
-    implementation 'id.zelory:compressor:3.0.0'
-    implementation "com.github.ChiliLabs:ChiliPhotoPicker:0.3.1"
+    implementation 'com.github.dhaval2404:imagepicker:1.7.5'
 }
 
 //----------------------chart library----------------------//
@@ -135,5 +134,7 @@ dependencies {
 
 //-------------------GSON------------//
 dependencies {
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
 }

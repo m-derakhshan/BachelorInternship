@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentAnalysisCategoryBinding
@@ -18,8 +19,8 @@ import com.kharazmic.app.main.ViewPagerAdapter
 class AnalysisCategoryFragment : Fragment(), SearchForHashTag {
 
     private lateinit var binding: FragmentAnalysisCategoryBinding
-    private lateinit var technicalFragment: CategoryFragment
-    private lateinit var fundamentalFragment: CategoryFragment
+    private lateinit var technicalFragment: AnalysisSubCategory
+    private lateinit var fundamentalFragment: AnalysisSubCategory
 
     var keyword = MutableLiveData<String>()
 
@@ -36,13 +37,8 @@ class AnalysisCategoryFragment : Fragment(), SearchForHashTag {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        technicalFragment = CategoryFragment(parent = "news", category = "technical").apply {
-            this.searchForHashTag = this@AnalysisCategoryFragment
-        }
-        fundamentalFragment =
-            CategoryFragment(parent = "news", category = "fundamental").apply {
-                this.searchForHashTag = this@AnalysisCategoryFragment
-            }
+        technicalFragment = AnalysisSubCategory(category = "technical")
+        fundamentalFragment = AnalysisSubCategory( category = "fundamental")
 
         val adapter = ViewPagerAdapter(this).apply {
             this.addFragment(technicalFragment)
@@ -56,7 +52,11 @@ class AnalysisCategoryFragment : Fragment(), SearchForHashTag {
 
         binding.viewPager.adapter = adapter
         binding.viewPager.offscreenPageLimit = 2
-        binding.viewPager.isUserInputEnabled = true
+
+
+
+
+
 
         val stockCategory = listOf(R.string.technical, R.string.fundamental)
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -68,12 +68,6 @@ class AnalysisCategoryFragment : Fragment(), SearchForHashTag {
 
     override fun hashTag(tag: String) {
 
-    }
-
-
-    fun reload() {
-        technicalFragment.reload()
-        fundamentalFragment.reload()
     }
 
 

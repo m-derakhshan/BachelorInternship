@@ -11,6 +11,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.ActivityConstantIncomeDetailBinding
 import com.kharazmic.app.main.home.desk.constant.ConstantIncomeModel
@@ -28,32 +29,32 @@ class ConstantIncomeDetailActivity : AppCompatActivity() {
 
         binding.title.text = info.name
         binding.name.text = info.name
-        binding.accounting.text = info.accounting
+        binding.accounting.text = Arrange().persianConverter(info.accounting)
         binding.manager.text = info.manager
         binding.guarantor.text = info.guarantor
-        binding.worthAmount.text = info.worth_amount
+        binding.investmentManager.text = info.investment_manager
         binding.supervisor.text = info.supervisor
         binding.type.text = info.type
-        binding.startDate.text = info.start_date
+        binding.startDate.text = Arrange().persianConverter(info.start_date)
         binding.address.text = info.address
-        binding.updateDate.text = info.update_date
-        binding.pricePerUnit.text = info.price_per_unit
-        binding.amountInvestUnit.text = info.amount_invest_unit
-        binding.netWorth.text = info.net_worth
-        binding.cancelPrice.text = info.cancel_price
-        binding.numberOfInvestor2.text = info.number_of_investor2
-        binding.percentageInvestor2.text = info.percentage_investor2
-        binding.statisticPricePerUnit.text = info.statistic_price_per_unit
+        binding.updateDate.text = Arrange().persianConverter(info.update_date)
+        binding.pricePerUnit.text = Arrange().numberPersianArrangement(info.price_per_unit)
+        binding.amountInvestUnit.text = Arrange().numberPersianArrangement(info.amount_invest_unit)
+        binding.netWorth.text = Arrange().numberPersianArrangement(info.net_worth)
+        binding.cancelPrice.text = Arrange().numberPersianArrangement(info.cancel_price)
+        binding.numberOfInvestor2.text = Arrange().persianConverter(info.number_of_investor2)
+        binding.percentageInvestor2.text = Arrange().persianConverter(info.percentage_investor2)
+        binding.statisticPricePerUnit.text = Arrange().numberPersianArrangement(info.statistic_price_per_unit)
         binding.guaranteedProfit.text = info.guaranteed_profit
-        binding.oneMonth.text = info.one_month
-        binding.predicted.text = info.predicted
-        binding.threeMonth.text = info.three_month
-        binding.divide.text = info.divide
-        binding.sixMonth.text = info.six_month
-        binding.annual.text = info.annual
-        binding.totalProfit.text = info.total_profit
-        binding.numberInvestor1.text = info.number_investor1
-        binding.percentageInvestor1.text = info.percentage_investor1
+        binding.oneMonth.text = Arrange().numberPersianArrangement(info.one_month)
+        binding.predicted.text = Arrange().numberPersianArrangement(info.predicted)
+        binding.threeMonth.text = Arrange().numberPersianArrangement(info.three_month)
+        binding.divide.text = Arrange().numberPersianArrangement(info.divide)
+        binding.sixMonth.text = Arrange().numberPersianArrangement(info.six_month)
+        binding.annual.text = Arrange().numberPersianArrangement(info.annual)
+        binding.totalProfit.text = Arrange().numberPersianArrangement(info.total_profit)
+        binding.numberInvestor1.text = Arrange().persianConverter(info.number_investor1)
+        binding.percentageInvestor1.text = Arrange().persianConverter(info.percentage_investor1)
 
 
         ExpansionLayoutCollection().apply {
@@ -70,12 +71,12 @@ class ConstantIncomeDetailActivity : AppCompatActivity() {
 
 
         val values = ArrayList<PieEntry>()
-        values.add(PieEntry(17F, "سهام"))
-        values.add(PieEntry(20F, "سپرده بانکی"))
-        values.add(PieEntry(20F, "وجه نقد"))
-        values.add(PieEntry(10F, "۵ سهم باارزش"))
-        values.add(PieEntry(15F, "اوراق مشارکت"))
-        values.add(PieEntry(15F, "سایر دارایی ها"))
+        values.add(PieEntry(info.stock.toFloat(), "سهام"))
+        values.add(PieEntry(info.bank.toFloat(), "سپرده بانکی"))
+        values.add(PieEntry(info.cash.toFloat(), "وجه نقد"))
+        values.add(PieEntry(info.most_weight.toFloat(), "۵ سهم باارزش"))
+        values.add(PieEntry(info.shared.toFloat(), "اوراق مشارکت"))
+        values.add(PieEntry(info.other.toFloat(), "سایر دارایی ها"))
 
 
 
