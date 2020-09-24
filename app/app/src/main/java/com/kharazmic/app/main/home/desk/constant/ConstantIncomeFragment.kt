@@ -1,6 +1,7 @@
 package com.kharazmic.app.main.home.desk.constant
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +25,7 @@ import com.kharazmic.app.Address
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.FragmentConstantIncomeBinding
 import com.kharazmic.app.main.home.desk.constant.detail.ConstantIncomeDetailActivity
+import kotlinx.android.synthetic.main.activity_constant_income_detail.*
 import kotlinx.android.synthetic.main.cash_desk_filter_dialog.view.*
 
 
@@ -82,7 +85,7 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
                     val info = result.sortedBy { it.risk_criteria_beta.toFloat() }
                     myAdapter.submitList(info)
                 }
-
+                binding.riskIcon.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24)
             } else {
                 if (riskCriteria == 0) {//alpha
                     val info = result.sortedByDescending { it.risk_criteria_alpha.toFloat() }
@@ -92,13 +95,96 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
                     val info = result.sortedByDescending { it.risk_criteria_beta.toFloat() }
                     myAdapter.submitList(info)
                 }
+                binding.riskIcon.setImageResource(R.drawable.ic_baseline_arrow_drop_up_24)
             }
 
             asc = !asc
-            binding.recyclerView.smoothScrollToPosition(0)
         }
-    }
 
+
+        var ascProfit = true
+        binding.profitFilter.setOnClickListener {
+
+            if (ascProfit) {
+                when (averageProfit) {
+                    0 -> {
+                        val info = result.sortedBy { it.one_month.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+                    1 -> {
+                        val info = result.sortedBy { it.three_month.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+                    2 -> {
+                        val info = result.sortedBy { it.six_month.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+                    3 -> {
+                        val info = result.sortedBy { it.annual.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+                    else -> {
+                        val info = result.sortedBy { it.total_profit.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+
+
+                }
+                binding.profitIcon.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24)
+            }
+            else {
+                when (averageProfit) {
+                    0 -> {
+                        val info = result.sortedByDescending { it.one_month.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+                    1 -> {
+                        val info = result.sortedByDescending { it.three_month.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+                    2 -> {
+                        val info = result.sortedByDescending { it.six_month.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+                    3 -> {
+                        val info = result.sortedByDescending { it.annual.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+                    else -> {
+                        val info = result.sortedByDescending { it.total_profit.toFloat() }
+                        myAdapter.submitList(info)
+                    }
+
+
+                }
+                binding.profitIcon.setImageResource(R.drawable.ic_baseline_arrow_drop_up_24)
+            }
+
+            ascProfit = !ascProfit
+
+        }
+        myAdapter.registerAdapterDataObserver(object :RecyclerView.AdapterDataObserver(){
+            override fun onChanged() {
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+            override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+        })
+
+    }
 
     private fun fetchData() {
         binding.loading.visibility = View.VISIBLE
@@ -127,10 +213,7 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
                         )
                     )
                 }
-
-                val data = ArrayList<ConstantIncomeModel>()
-                data.addAll(result.sortedBy { info -> info.one_month })
-                myAdapter.submitList(data)
+                myAdapter.submitList(result.sortedBy { this.riskCriteria })
 
 
             },
@@ -160,7 +243,6 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
         }
         Volley.newRequestQueue(requireContext()).add(request)
     }
-
 
     override fun onClick(model: ConstantIncomeModel) {
         val intent = Intent(activity, ConstantIncomeDetailActivity::class.java)
@@ -227,12 +309,12 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
     private fun applyFilter() {
         when (riskCriteria) {
             0 -> {
-                binding.riskFilter.text = "آلفا صندوق"
+                binding.riskFilterTxt.text = "آلفا صندوق"
                 myAdapter.riskCriteria = "alpha"
                 myAdapter.notifyDataSetChanged()
             }
             else -> {
-                binding.riskFilter.text = "بتا صندوق"
+                binding.riskFilterTxt.text = "بتا صندوق"
                 myAdapter.riskCriteria = "beta"
                 myAdapter.notifyDataSetChanged()
             }
@@ -241,27 +323,27 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
 
         when (averageProfit) {
             0 -> {
-                binding.profitFilter.text = "بازدهی ماهانه"
+                binding.profitFilterTxt.text = "بازدهی ماهانه"
                 myAdapter.profitCriteria = 1
                 myAdapter.notifyDataSetChanged()
             }
             1 -> {
-                binding.profitFilter.text = "بازدهی سه ماهه"
+                binding.profitFilterTxt.text = "بازدهی۳ماهه"
                 myAdapter.profitCriteria = 3
                 myAdapter.notifyDataSetChanged()
             }
             2 -> {
-                binding.profitFilter.text = "بازدهی شش ماهه"
+                binding.profitFilterTxt.text = "بازدهی۶ماهه"
                 myAdapter.profitCriteria = 6
                 myAdapter.notifyDataSetChanged()
             }
             3 -> {
-                binding.profitFilter.text = "بازدهی سالانه"
+                binding.profitFilterTxt.text = "بازدهی سالانه"
                 myAdapter.profitCriteria = 12
                 myAdapter.notifyDataSetChanged()
             }
             else -> {
-                binding.profitFilter.text = "بازدهی از آغاز فعالیت"
+                binding.profitFilterTxt.text = "بازدهی کل"
                 myAdapter.profitCriteria = 0
                 myAdapter.notifyDataSetChanged()
             }
@@ -269,6 +351,5 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
 
         myAdapter.notifyDataSetChanged()
     }
-
 
 }

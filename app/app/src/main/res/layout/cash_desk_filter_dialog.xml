@@ -64,7 +64,7 @@
             android:id="@+id/from_beginning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="بازدهی از آغاز فعالیت"
+            android:text="بازدهی کل"
             android:textAppearance="@style/vazir_font"
             android:textColor="@color/medium_purple" />
     </RadioGroup>

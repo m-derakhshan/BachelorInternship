@@ -7,6 +7,8 @@
     android:orientation="horizontal">
 
     <TextView
+        android:ellipsize="end"
+        android:maxLines="1"
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -27,7 +29,7 @@
         android:id="@+id/profit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.32"
+        android:layout_weight="0.35"
         android:gravity="center"
         android:layoutDirection="ltr"
         android:padding="10dp"
@@ -44,7 +46,7 @@
         android:id="@+id/risk"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
+        android:layout_weight="0.25"
         android:gravity="center"
         android:layoutDirection="ltr"
         android:padding="10dp"

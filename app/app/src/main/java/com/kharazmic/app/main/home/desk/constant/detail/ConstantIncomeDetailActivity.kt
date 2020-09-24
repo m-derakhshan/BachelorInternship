@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.utils.MPPointF
 import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
 import com.kharazmic.app.databinding.ActivityConstantIncomeDetailBinding
@@ -75,13 +77,13 @@ class ConstantIncomeDetailActivity : AppCompatActivity() {
         values.add(PieEntry(info.bank.toFloat(), "سپرده بانکی"))
         values.add(PieEntry(info.cash.toFloat(), "وجه نقد"))
         values.add(PieEntry(info.most_weight.toFloat(), "۵ سهم باارزش"))
-        values.add(PieEntry(info.shared.toFloat(), "اوراق مشارکت"))
-        values.add(PieEntry(info.other.toFloat(), "سایر دارایی ها"))
+        values.add(PieEntry(info.shared.toFloat(), " مشارکت"))
+        values.add(PieEntry(info.other.toFloat(), "سایر "))
 
 
 
         val dataSet = PieDataSet(values, "").apply {
-            this.sliceSpace = 1F
+            this.sliceSpace = 2f
             colors = mutableListOf(
                 ContextCompat.getColor(this@ConstantIncomeDetailActivity, R.color.dark_purple),
                 ContextCompat.getColor(this@ConstantIncomeDetailActivity, R.color.colorAccent),
@@ -94,15 +96,30 @@ class ConstantIncomeDetailActivity : AppCompatActivity() {
                 ContextCompat.getColor(this@ConstantIncomeDetailActivity, R.color.colorPrimaryDark)
 
             )
+            this.xValuePosition=PieDataSet.ValuePosition.INSIDE_SLICE
+            this.yValuePosition=PieDataSet.ValuePosition.OUTSIDE_SLICE
+
+            this.valueLinePart1OffsetPercentage = 50f; /** When valuePosition is OutsideSlice, indicates offset as percentage out of the slice size */
+            this.valueLinePart1Length = 0.6f; /** When valuePosition is OutsideSlice, indicates length of first half of the line */
+            this.valueLinePart2Length = 0.6f; /** When valuePosition is OutsideSlice, indicates length of second half of the line */
         }
 
 
         val data = PieData(dataSet).apply {
-            this.setValueTextColor(Color.WHITE)
+            this.setValueTextColor(Color.BLACK)
             this.setValueTextSize(12f)
         }
+        binding.pieChart.apply{
+            this.setUsePercentValues(true)
+            setDrawEntryLabels(false)
+            //legend.orientation = Legend.LegendOrientation.VERTICAL
+            //legend.isEnabled = false
+        }
+        binding.pieChart.legend.apply {
+            this.textSize = 12F
+        }
 
-        binding.pieChart.legend.isEnabled = false
+
 
 
         binding.pieChart.data = data
