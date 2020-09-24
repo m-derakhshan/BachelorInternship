@@ -50,7 +50,7 @@ class Address {
 
 
     fun cashDesk(category: String) =
-        "https://run.mocky.io/v3/424d58db-da3d-40cb-9430-12dd319ec79b?category=$category"
+        "$base/funds?category=$category"
 
     val digitalCurrency = "https://run.mocky.io/v3/522195d7-d994-4771-a58a-56f2af6a8ee0"
 

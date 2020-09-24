@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,6 +32,7 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
     private val myAdapter = ConstantIncomeRecyclerAdapter()
     private var riskCriteria: Int = 1
     private var averageProfit: Int = 0
+    private var result = ArrayList<ConstantIncomeModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +69,34 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
         binding.filter.setOnClickListener {
             dialog()
         }
+
+
+        var asc = true
+        binding.riskFilter.setOnClickListener {
+            if (asc) {
+                if (riskCriteria == 0) {//alpha
+                    val info = result.sortedBy { it.risk_criteria_alpha.toFloat() }
+                    myAdapter.submitList(info)
+
+                } else {//beta
+                    val info = result.sortedBy { it.risk_criteria_beta.toFloat() }
+                    myAdapter.submitList(info)
+                }
+
+            } else {
+                if (riskCriteria == 0) {//alpha
+                    val info = result.sortedByDescending { it.risk_criteria_alpha.toFloat() }
+                    myAdapter.submitList(info)
+
+                } else {//beta
+                    val info = result.sortedByDescending { it.risk_criteria_beta.toFloat() }
+                    myAdapter.submitList(info)
+                }
+            }
+
+            asc = !asc
+            binding.recyclerView.smoothScrollToPosition(0)
+        }
     }
 
 
@@ -78,16 +108,18 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
 
 
         val request = object : JsonArrayRequest(
-            Method.GET, Address().cashDesk("ConstantIncome"), null,
+            Method.GET, Address().cashDesk("fixedincome"), null,
             Response.Listener
             {
+
                 binding.loading.visibility = View.GONE
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.filter.visibility = View.VISIBLE
                 binding.title.visibility = View.VISIBLE
 
-                val result = ArrayList<ConstantIncomeModel>()
+
                 for (i in 0 until it.length()) {
+                    Log.i("Log", "response is ${it.getJSONObject(i)}")
                     result.add(
                         Gson().fromJson(
                             it.getJSONObject(i).toString(),
@@ -95,7 +127,10 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
                         )
                     )
                 }
-                myAdapter.submitList(result)
+
+                val data = ArrayList<ConstantIncomeModel>()
+                data.addAll(result.sortedBy { info -> info.one_month })
+                myAdapter.submitList(data)
 
 
             },
@@ -190,18 +225,49 @@ class ConstantIncomeFragment : Fragment(), ConstantIncomeRecyclerAdapter.Constan
     }
 
     private fun applyFilter() {
-        binding.riskFilter.text = when (riskCriteria) {
-            0 -> "آلفا صندوق"
-            else -> "بتا صندوق"
+        when (riskCriteria) {
+            0 -> {
+                binding.riskFilter.text = "آلفا صندوق"
+                myAdapter.riskCriteria = "alpha"
+                myAdapter.notifyDataSetChanged()
+            }
+            else -> {
+                binding.riskFilter.text = "بتا صندوق"
+                myAdapter.riskCriteria = "beta"
+                myAdapter.notifyDataSetChanged()
+            }
         }
 
-        binding.profitFilter.text = when (averageProfit) {
-            0 -> "بازدهی ماهانه"
-            1 -> "بازدهی سه ماهه"
-            2 -> "بازدهی شش ماهه"
-            3 -> "بازدهی سالانه"
-            else -> "بازدهی از آغاز فعالیت"
+
+        when (averageProfit) {
+            0 -> {
+                binding.profitFilter.text = "بازدهی ماهانه"
+                myAdapter.profitCriteria = 1
+                myAdapter.notifyDataSetChanged()
+            }
+            1 -> {
+                binding.profitFilter.text = "بازدهی سه ماهه"
+                myAdapter.profitCriteria = 3
+                myAdapter.notifyDataSetChanged()
+            }
+            2 -> {
+                binding.profitFilter.text = "بازدهی شش ماهه"
+                myAdapter.profitCriteria = 6
+                myAdapter.notifyDataSetChanged()
+            }
+            3 -> {
+                binding.profitFilter.text = "بازدهی سالانه"
+                myAdapter.profitCriteria = 12
+                myAdapter.notifyDataSetChanged()
+            }
+            else -> {
+                binding.profitFilter.text = "بازدهی از آغاز فعالیت"
+                myAdapter.profitCriteria = 0
+                myAdapter.notifyDataSetChanged()
+            }
         }
+
+        myAdapter.notifyDataSetChanged()
     }
 
 

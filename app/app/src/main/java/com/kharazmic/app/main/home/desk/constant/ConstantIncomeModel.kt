@@ -8,11 +8,11 @@ import kotlinx.android.parcel.Parcelize
 data class ConstantIncomeModel(
     val id: String = "",// ای دی که شما توی پایگاه داده به هر صندوق اختصاص دادید
     val name: String = "",// نام فارسی هر صندوق
-    val riskCriteriaBeta: String = "",//معیار ریسک بتا
-    val riskCriteriaAlpha: String = "",// معیار ریسک آلفا
+    val risk_criteria_beta: String = "",//معیار ریسک بتا
+    val risk_criteria_alpha: String = "",// معیار ریسک آلفا
     val manager: String = "",// اسم مدیر صندوق
     val guarantor: String = "",// ضامن نقد شوندگی
-    val investment_manager: String = "",//مدیران سرمایه گذاری
+    val worth_amount: String = "",//مدیران سرمایه گذاری
     val supervisor: String = "",//متولی صندوق
     val type: String = "",//نوع و اندازه صندوق
     val start_date: String = "",//تاریخ آغاز فعالیت:

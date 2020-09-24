@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kharazmic.app.Arrange
 import com.kharazmic.app.R
 import kotlinx.android.synthetic.main.constant_income_item_model.view.*
 
@@ -30,6 +31,9 @@ class ConstantIncomeRecyclerAdapter :
         }) {
 
     private val colorGray = 0
+    var riskCriteria: String = "beta"
+    var profitCriteria: Int = 1
+
     lateinit var listener: ConstantIncomeListener
 
 
@@ -61,8 +65,24 @@ class ConstantIncomeRecyclerAdapter :
             )
 
             itemView.name.text = model.name
-            itemView.profit.text = model.one_month
-            itemView.risk.text = model.riskCriteriaBeta
+
+            itemView.profit.text = Arrange().persianConverter(
+                when (profitCriteria) {
+                    1 -> model.one_month
+                    3 -> model.three_month
+                    6 -> model.six_month
+                    12 -> model.annual
+                    else -> model.total_profit
+                }
+            )
+
+
+            itemView.risk.text = Arrange().persianConverter(
+                if (riskCriteria == "beta")
+                    model.risk_criteria_beta
+                else
+                    model.risk_criteria_alpha
+            )
 
         }
     }
